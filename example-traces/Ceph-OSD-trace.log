@@ -1,0 +1,6 @@
+TIME      PID    TID    COMM             OP_TYPE      OFFSET     LENGTH     LAT(us)    RETVAL
+14:23:45  12345  12345  ceph-osd         READ         4194304    131072     125.34     131072
+14:23:45  12345  12346  ceph-osd         WRITE        8388608    262144     340.12     262144
+14:23:45  12345  12345  ceph-osd         DISK_READ    4194304    131072     98.45      0
+14:23:45  12345  12346  ceph-osd         DISK_WRITE   8388608    262144     285.67     0
+14:23:46  12345  12347  ceph-osd         READ         0          4194304    1523.89    4194304

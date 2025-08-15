@@ -1,0 +1,7 @@
+MinIO eBPF Trace - Monitoring S3 operations and disk I/O
+================================================================================
+HTTP | 14:25:12  | PID: 23456  | GET    /mybucket/data/file1.dat                           | Latency: 2.34ms | Status: 200
+I/O  | 14:25:12  | PID: 23456  | OPEN   | File: .minio.sys/buckets/mybucket/  | Size: 3       | Latency: 12.45us
+I/O  | 14:25:12  | PID: 23456  | READ   | File: /data/file1.dat               | Size: 65536   | Latency: 145.67us
+HTTP | 14:25:13  | PID: 23457  | PUT    /mybucket/uploads/newfile.zip                       | Latency: 45.67ms | Status: 200
+I/O  | 14:25:13  | PID: 23457  | WRITE  | File: .minio.sys/tmp/upload-123     | Size: 1048576 | Latency: 2341.23us
