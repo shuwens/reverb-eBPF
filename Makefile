@@ -1,35 +1,57 @@
 # Makefile for eBPF I/O Amplification Tracer
 
-# Tool versions and paths
+# Tool versions and paths - Updated for Ubuntu compatibility
 CLANG ?= clang
 LLC ?= llc
-BPFTOOL ?= bpftool
+BPFTOOL ?= $(shell which bpftool 2>/dev/null || echo "/usr/lib/linux-tools/$(shell uname -r)/bpftool")
 LIBBPF_DIR ?= /usr/include
 ARCH := $(shell uname -m | sed 's/x86_64/x86/' | sed 's/aarch64/arm64/')
+
+# Check if bpftool exists, if not try alternatives
+ifeq ($(shell test -x $(BPFTOOL) && echo yes),yes)
+    BPFTOOL_CMD = $(BPFTOOL)
+else
+    BPFTOOL_CMD = $(shell find /usr -name bpftool 2>/dev/null | head -1)
+endif
+
+# If still no bpftool found, we'll build it
+ifeq ($(BPFTOOL_CMD),)
+    BPFTOOL_CMD = $(BUILD_DIR)/bpftool
+    NEED_BPFTOOL = 1
+endif
 
 # Directories
 BPF_DIR := bpf
 BUILD_DIR := build
 SRC_DIR := src
 
-# Compiler flags
+# Compiler flags - Updated for compatibility
 BPF_CFLAGS := -g -O2 -target bpf -D__TARGET_ARCH_$(ARCH)
-BPF_CFLAGS += -I$(LIBBPF_DIR) -I$(BUILD_DIR)
+BPF_CFLAGS += -I$(BUILD_DIR) -I/usr/local/include
 BPF_CFLAGS += -Wall -Wno-unused-value -Wno-pointer-sign
 BPF_CFLAGS += -Wno-compare-distinct-pointer-types
 BPF_CFLAGS += -Wno-address-of-packed-member
 
-USER_CFLAGS := -g -O2 -Wall -I$(BUILD_DIR) -I$(LIBBPF_DIR)
-USER_LDFLAGS := -lelf -lz -lbpf -largp
+USER_CFLAGS := -g -O2 -Wall -I$(BUILD_DIR)
+USER_LDFLAGS := -lelf -lz
+
+# Try to use pkg-config for libbpf if available
+ifeq ($(shell pkg-config --exists libbpf && echo yes),yes)
+    USER_CFLAGS += $(shell pkg-config --cflags libbpf)
+    USER_LDFLAGS += $(shell pkg-config --libs libbpf)
+else
+    USER_CFLAGS += -I/usr/local/include
+    USER_LDFLAGS += -L/usr/local/lib -lbpf
+endif
 
 # Files
-BPF_SRC := io_tracer.bpf.c
-BPF_OBJ := $(BUILD_DIR)/io_tracer.bpf.o
-BPF_SKEL := $(BUILD_DIR)/io_tracer.skel.h
+BPF_SRC := simple_io_tracer.bpf.c
+BPF_OBJ := $(BUILD_DIR)/simple_io_tracer.bpf.o
+BPF_SKEL := $(BUILD_DIR)/simple_io_tracer.skel.h
 
-USER_SRC := io_tracer.c
-USER_OBJ := $(BUILD_DIR)/io_tracer.o
-TARGET := $(BUILD_DIR)/io_tracer
+USER_SRC := simple_io_tracer.c
+USER_OBJ := $(BUILD_DIR)/simple_io_tracer.o
+TARGET := $(BUILD_DIR)/simple_io_tracer
 
 # VMLinux header (for better BPF type definitions)
 VMLINUX_H := $(BUILD_DIR)/vmlinux.h
@@ -45,7 +67,28 @@ $(BUILD_DIR):
 # Generate vmlinux.h for BPF type definitions
 $(VMLINUX_H): | $(BUILD_DIR)
 	@echo "Generating vmlinux.h..."
-	$(BPFTOOL) btf dump file /sys/kernel/btf/vmlinux format c > $@
+	@if [ -x "$(BPFTOOL_CMD)" ]; then \
+		$(BPFTOOL_CMD) btf dump file /sys/kernel/btf/vmlinux format c > $@ || \
+		(echo "Downloading pre-built vmlinux.h..." && \
+		 curl -s https://raw.githubusercontent.com/libbpf/libbpf/master/src/btf.h > $@); \
+	else \
+		echo "Creating minimal vmlinux.h..."; \
+		echo '#ifndef __VMLINUX_H__' > $@; \
+		echo '#define __VMLINUX_H__' >> $@; \
+		echo '#include <linux/types.h>' >> $@; \
+		echo '#endif' >> $@; \
+	fi
+
+# Build bpftool if needed
+$(BUILD_DIR)/bpftool: | $(BUILD_DIR)
+ifdef NEED_BPFTOOL
+	@echo "Building bpftool from source..."
+	@cd $(BUILD_DIR) && \
+	git clone --depth 1 https://github.com/libbpf/bpftool.git bpftool-src && \
+	cd bpftool-src/src && \
+	make && \
+	cp bpftool ../bpftool
+endif
 
 # Compile BPF program
 $(BPF_OBJ): $(BPF_SRC) $(VMLINUX_H) | $(BUILD_DIR)
@@ -54,9 +97,9 @@ $(BPF_OBJ): $(BPF_SRC) $(VMLINUX_H) | $(BUILD_DIR)
 	@echo "BPF program compiled successfully"
 
 # Generate BPF skeleton
-$(BPF_SKEL): $(BPF_OBJ) | $(BUILD_DIR)
+$(BPF_SKEL): $(BPF_OBJ) $(BPFTOOL_CMD) | $(BUILD_DIR)
 	@echo "Generating BPF skeleton..."
-	$(BPFTOOL) gen skeleton $< > $@
+	$(BPFTOOL_CMD) gen skeleton $< > $@
 	@echo "BPF skeleton generated"
 
 # Compile userspace program
@@ -74,22 +117,33 @@ $(TARGET): $(USER_OBJ)
 setup:
 	@echo "Installing dependencies..."
 	sudo apt-get update
+	@echo "Installing basic build dependencies..."
 	sudo apt-get install -y \
 		clang \
 		llvm \
 		libelf-dev \
-		libz-dev \
-		libbpf-dev \
-		linux-headers-$(shell uname -r) \
-		bpftool \
-		libargp-dev \
-		pkg-config
+		zlib1g-dev \
+		pkg-config \
+		make \
+		gcc \
+		linux-headers-$(shell uname -r)
+	@echo "Installing BPF tools..."
+	sudo apt-get install -y linux-tools-common linux-tools-$(shell uname -r) || \
+		sudo apt-get install -y linux-tools-generic
+	@echo "Checking for libbpf..."
+	@if ! pkg-config --exists libbpf; then \
+		echo "Installing libbpf from source..."; \
+		$(MAKE) install-libbpf; \
+	else \
+		echo "libbpf already available"; \
+		sudo apt-get install -y libbpf-dev || true; \
+	fi
 	@echo "Installing Python dependencies for analysis..."
-	sudo apt-get install -y python3-pip
+	sudo apt-get install -y python3-pip python3-dev
 	pip3 install --user pandas matplotlib seaborn numpy
 	@echo "Dependencies installed successfully!"
-	@echo "Make sure you have appropriate kernel version (>= 5.4) with BTF support"
-	@echo "Check with: ls -la /sys/kernel/btf/vmlinux"
+	@echo "Verifying installation..."
+	@$(MAKE) check-system
 
 # Clean build files
 clean:
@@ -256,7 +310,41 @@ help:
 	@echo "  - Root privileges for eBPF loading"
 	@echo "  - clang, libbpf, bpftool"
 	@echo ""
-	@echo "For more information, see README.md"
+# Install libbpf from source if not available
+install-libbpf:
+	@echo "Building libbpf from source..."
+	@cd /tmp && \
+	git clone https://github.com/libbpf/libbpf.git || (cd libbpf && git pull) && \
+	cd libbpf/src && \
+	make && \
+	sudo make install && \
+	sudo ldconfig
+	@echo "libbpf installed from source"
+
+# Alternative setup for older Ubuntu versions
+setup-manual:
+	@echo "Manual setup for older Ubuntu versions..."
+	sudo apt-get update
+	sudo apt-get install -y \
+		clang \
+		llvm \
+		libelf-dev \
+		zlib1g-dev \
+		pkg-config \
+		make \
+		gcc \
+		git \
+		linux-headers-$(shell uname -r)
+	@echo "Installing bpftool manually..."
+	@if ! command -v bpftool >/dev/null 2>&1; then \
+		cd /tmp && \
+		git clone --recurse-submodules https://github.com/libbpf/bpftool.git && \
+		cd bpftool/src && \
+		make && \
+		sudo make install; \
+	fi
+	$(MAKE) install-libbpf
+	@echo "Manual setup complete"
 
 # Show status
 status: check-system
@@ -303,3 +391,5 @@ dist: clean
 		--exclude='.git*' \
 		.
 	@echo "Distribution package created in dist/"
+
+

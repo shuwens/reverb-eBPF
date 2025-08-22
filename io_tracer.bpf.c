@@ -1,10 +1,7 @@
+#include "vmlinux.h"
+#include <bpf/bpf_core_read.h>
 #include <bpf/bpf_helpers.h>
 #include <bpf/bpf_tracing.h>
-#include <linux/blkdev.h>
-#include <linux/bpf.h>
-#include <linux/fs.h>
-#include <linux/ptrace.h>
-#include <linux/string.h>
 
 #define MAX_COMM_LEN 16
 #define MAX_PATH_LEN 256
