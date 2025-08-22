@@ -1,0 +1,130 @@
+[14:01] zstore1:io-efficiency-eBPF (main *%) | sudo ./build/simple_io_tracer -v -d 15 &
+Simple I/O tracer started! Tracing syscalls for storage systems.
+TIME                    SYSTEM   EVENT_TYPE      PID      TID      COMM            SIZE      LAT(us) RET
+================================================================================
+[14:22] zstore1:io-efficiency-eBPF (main *%) | 16:20:55.882114779 MinIO    VFS_READ        141133   141133   minio_dd        0        0                0.00 0
+16:20:55.882120509 MinIO    SYSCALL_READ    141133   141133   minio_dd        832      0                8.49 832
+16:20:55.882122192 MinIO    VFS_READ        141133   141133   minio_dd        0        0                0.00 0
+16:20:55.882123505 MinIO    VFS_READ        141133   141133   minio_dd        0        0                0.00 0
+16:20:55.882294624 MinIO    VFS_READ        141133   141133   minio_dd        0        0                0.00 0
+16:20:55.882298270 MinIO    SYSCALL_READ    141133   141133   minio_dd        2996     0                3.91 2996
+16:20:55.882302528 MinIO    VFS_READ        141133   141133   minio_dd        0        0                0.00 0
+16:20:55.882302799 MinIO    SYSCALL_READ    141133   141133   minio_dd        0        0                0.37 0
+16:20:55.882370154 MinIO    VFS_READ        141133   141133   minio_dd        0        0                0.00 0
+16:20:55.882572982 MinIO    SYSCALL_READ    141133   141133   minio_dd        1048576  0              203.06 1048576
+16:20:55.882575336 MinIO    VFS_WRITE       141133   141133   minio_dd        0        0                0.00 0
+16:20:55.882829199 MinIO    SYSCALL_WRITE   141133   141133   minio_dd        1048576  0              254.12 1048576
+16:20:55.882831343 MinIO    VFS_READ        141133   141133   minio_dd        0        0                0.00 0
+16:20:55.882872169 MinIO    SYSCALL_READ    141133   141133   minio_dd        1048576  0               41.00 1048576
+16:20:55.882874413 MinIO    VFS_WRITE       141133   141133   minio_dd        0        0                0.00 0
+16:20:55.883192996 MinIO    SYSCALL_WRITE   141133   141133   minio_dd        1048576  0              318.77 1048576
+16:20:55.883195341 MinIO    VFS_READ        141133   141133   minio_dd        0        0                0.00 0
+16:20:55.883237910 MinIO    SYSCALL_READ    141133   141133   minio_dd        1048576  0               42.74 1048576
+16:20:55.883240014 MinIO    VFS_WRITE       141133   141133   minio_dd        0        0                0.00 0
+16:20:55.883426792 MinIO    SYSCALL_WRITE   141133   141133   minio_dd        1048576  0              186.93 1048576
+16:20:55.883428986 MinIO    VFS_READ        141133   141133   minio_dd        0        0                0.00 0
+16:20:55.883479560 MinIO    SYSCALL_READ    141133   141133   minio_dd        1048576  0               50.71 1048576
+16:20:55.883481884 MinIO    VFS_WRITE       141133   141133   minio_dd        0        0                0.00 0
+16:20:55.883672860 MinIO    SYSCALL_WRITE   141133   141133   minio_dd        1048576  0              191.13 1048576
+16:20:55.883675134 MinIO    VFS_READ        141133   141133   minio_dd        0        0                0.00 0
+16:20:55.883684332 MinIO    SYSCALL_READ    141133   141133   minio_dd        1048576  0                9.35 1048576
+16:20:55.883686696 MinIO    VFS_WRITE       141133   141133   minio_dd        0        0                0.00 0
+16:20:55.883919530 MinIO    SYSCALL_WRITE   141133   141133   minio_dd        1048576  0              233.00 1048576
+16:20:55.883921814 MinIO    VFS_READ        141133   141133   minio_dd        0        0                0.00 0
+16:20:55.883930580 MinIO    SYSCALL_READ    141133   141133   minio_dd        1048576  0                8.92 1048576
+16:20:55.883932784 MinIO    VFS_WRITE       141133   141133   minio_dd        0        0                0.00 0
+16:20:55.884174074 MinIO    SYSCALL_WRITE   141133   141133   minio_dd        1048576  0              241.43 1048576
+16:20:55.884176308 MinIO    VFS_READ        141133   141133   minio_dd        0        0                0.00 0
+16:20:55.884185845 MinIO    SYSCALL_READ    141133   141133   minio_dd        1048576  0                9.69 1048576
+16:20:55.884187949 MinIO    VFS_WRITE       141133   141133   minio_dd        0        0                0.00 0
+16:20:55.884373425 MinIO    SYSCALL_WRITE   141133   141133   minio_dd        1048576  0              185.64 1048576
+16:20:55.884375599 MinIO    VFS_READ        141133   141133   minio_dd        0        0                0.00 0
+16:20:55.884384716 MinIO    SYSCALL_READ    141133   141133   minio_dd        1048576  0                9.27 1048576
+16:20:55.884386960 MinIO    VFS_WRITE       141133   141133   minio_dd        0        0                0.00 0
+16:20:55.884703670 MinIO    SYSCALL_WRITE   141133   141133   minio_dd        1048576  0              316.86 1048576
+16:20:55.884706044 MinIO    VFS_READ        141133   141133   minio_dd        0        0                0.00 0
+16:20:55.884715542 MinIO    SYSCALL_READ    141133   141133   minio_dd        1048576  0                9.65 1048576
+16:20:55.884717836 MinIO    VFS_WRITE       141133   141133   minio_dd        0        0                0.00 0
+16:20:55.884900907 MinIO    SYSCALL_WRITE   141133   141133   minio_dd        1048576  0              183.22 1048576
+16:20:55.884903091 MinIO    VFS_READ        141133   141133   minio_dd        0        0                0.00 0
+16:20:55.884912178 MinIO    SYSCALL_READ    141133   141133   minio_dd        1048576  0                9.24 1048576
+16:20:55.884914472 MinIO    VFS_WRITE       141133   141133   minio_dd        0        0                0.00 0
+16:20:55.885114415 MinIO    SYSCALL_WRITE   141133   141133   minio_dd        1048576  0              200.08 1048576
+16:20:55.885116879 MinIO    VFS_READ        141133   141133   minio_dd        0        0                0.00 0
+16:20:55.885126487 MinIO    SYSCALL_READ    141133   141133   minio_dd        1048576  0                9.77 1048576
+16:20:55.885128641 MinIO    VFS_WRITE       141133   141133   minio_dd        0        0                0.00 0
+16:20:55.885315639 MinIO    SYSCALL_WRITE   141133   141133   minio_dd        1048576  0              187.15 1048576
+16:20:55.885318054 MinIO    VFS_READ        141133   141133   minio_dd        0        0                0.00 0
+16:20:55.885325848 MinIO    SYSCALL_READ    141133   141133   minio_dd        1048576  0                7.95 1048576
+16:20:55.885327972 MinIO    VFS_WRITE       141133   141133   minio_dd        0        0                0.00 0
+16:20:55.885554554 MinIO    SYSCALL_WRITE   141133   141133   minio_dd        1048576  0              226.71 1048576
+16:20:55.885556909 MinIO    VFS_READ        141133   141133   minio_dd        0        0                0.00 0
+16:20:55.885564923 MinIO    SYSCALL_READ    141133   141133   minio_dd        1048576  0                8.16 1048576
+16:20:55.885566917 MinIO    VFS_WRITE       141133   141133   minio_dd        0        0                0.00 0
+16:20:55.885815971 MinIO    SYSCALL_WRITE   141133   141133   minio_dd        1048576  0              249.22 1048576
+16:20:55.885818596 MinIO    VFS_READ        141133   141133   minio_dd        0        0                0.00 0
+16:20:55.885826491 MinIO    SYSCALL_READ    141133   141133   minio_dd        1048576  0                8.04 1048576
+16:20:55.885829035 MinIO    VFS_WRITE       141133   141133   minio_dd        0        0                0.00 0
+16:20:55.886013739 MinIO    SYSCALL_WRITE   141133   141133   minio_dd        1048576  0              184.85 1048576
+16:20:55.886015953 MinIO    VFS_READ        141133   141133   minio_dd        0        0                0.00 0
+16:20:55.886024740 MinIO    SYSCALL_READ    141133   141133   minio_dd        1048576  0                8.93 1048576
+16:20:55.886027274 MinIO    VFS_WRITE       141133   141133   minio_dd        0        0                0.00 0
+16:20:55.886323556 MinIO    SYSCALL_WRITE   141133   141133   minio_dd        1048576  0              296.42 1048576
+16:20:55.886325830 MinIO    VFS_READ        141133   141133   minio_dd        0        0                0.00 0
+16:20:55.886335458 MinIO    SYSCALL_READ    141133   141133   minio_dd        1048576  0                9.78 1048576
+16:20:55.886337873 MinIO    VFS_WRITE       141133   141133   minio_dd        0        0                0.00 0
+16:20:55.886520834 MinIO    SYSCALL_WRITE   141133   141133   minio_dd        1048576  0              183.09 1048576
+16:20:55.886523128 MinIO    VFS_READ        141133   141133   minio_dd        0        0                0.00 0
+16:20:55.886532115 MinIO    SYSCALL_READ    141133   141133   minio_dd        1048576  0                9.16 1048576
+16:20:55.886534138 MinIO    VFS_WRITE       141133   141133   minio_dd        0        0                0.00 0
+16:20:55.886723391 MinIO    SYSCALL_WRITE   141133   141133   minio_dd        1048576  0              189.37 1048576
+16:20:55.886725715 MinIO    VFS_READ        141133   141133   minio_dd        0        0                0.00 0
+16:20:55.886734822 MinIO    SYSCALL_READ    141133   141133   minio_dd        1048576  0                9.25 1048576
+16:20:55.886737096 MinIO    VFS_WRITE       141133   141133   minio_dd        0        0                0.00 0
+16:20:55.886920157 MinIO    SYSCALL_WRITE   141133   141133   minio_dd        1048576  0              183.19 1048576
+16:20:55.886922482 MinIO    VFS_READ        141133   141133   minio_dd        0        0                0.00 0
+16:20:55.886930617 MinIO    SYSCALL_READ    141133   141133   minio_dd        1048576  0                8.30 1048576
+16:20:55.886932741 MinIO    VFS_WRITE       141133   141133   minio_dd        0        0                0.00 0
+16:20:55.887135388 MinIO    SYSCALL_WRITE   141133   141133   minio_dd        1048576  0              202.77 1048576
+16:20:55.887137642 MinIO    VFS_READ        141133   141133   minio_dd        0        0                0.00 0
+16:20:55.887145517 MinIO    SYSCALL_READ    141133   141133   minio_dd        1048576  0                8.03 1048576
+16:20:55.887147831 MinIO    VFS_WRITE       141133   141133   minio_dd        0        0                0.00 0
+16:20:55.887363222 MinIO    SYSCALL_WRITE   141133   141133   minio_dd        1048576  0              215.53 1048576
+16:20:55.887490830 MinIO    BLOCK_WRITE     141133   141133   minio_dd        0        0                0.00 0
+16:20:55.887551513 MinIO    BLOCK_WRITE     141133   141133   minio_dd        0        0                0.00 0
+16:20:55.887599693 MinIO    BLOCK_WRITE     141133   141133   minio_dd        0        0                0.00 0
+16:20:55.887640839 MinIO    BLOCK_WRITE     141133   141133   minio_dd        0        0                0.00 0
+16:20:55.887684320 MinIO    BLOCK_WRITE     141133   141133   minio_dd        0        0                0.00 0
+16:20:55.887726128 MinIO    BLOCK_WRITE     141133   141133   minio_dd        0        0                0.00 0
+16:20:55.887767144 MinIO    BLOCK_WRITE     141133   141133   minio_dd        0        0                0.00 0
+16:20:55.887810936 MinIO    BLOCK_WRITE     141133   141133   minio_dd        0        0                0.00 0
+16:20:55.887898118 MinIO    BLOCK_WRITE     141133   141133   minio_dd        0        0                0.00 0
+16:20:55.903943367 MinIO    BLOCK_WRITE     141133   141133   minio_dd        0        0                0.00 0
+16:20:55.904038455 MinIO    BLOCK_WRITE     141133   141133   minio_dd        0        0                0.00 0
+16:20:55.904206037 MinIO    BLOCK_WRITE     141133   141133   minio_dd        0        0                0.00 0
+16:20:55.904357378 MinIO    BLOCK_WRITE     141133   141133   minio_dd        0        0                0.00 0
+16:20:55.904488603 MinIO    BLOCK_WRITE     141133   141133   minio_dd        0        0                0.00 0
+16:20:55.904601773 MinIO    BLOCK_WRITE     141133   141133   minio_dd        0        0                0.00 0
+16:20:55.904693905 MinIO    BLOCK_WRITE     141133   141133   minio_dd        0        0                0.00 0
+16:20:55.904809340 MinIO    BLOCK_WRITE     141133   141133   minio_dd        0        0                0.00 0
+16:20:55.919786991 MinIO    BLOCK_WRITE     141133   141133   minio_dd        0        0                0.00 0
+16:20:55.919953881 MinIO    BLOCK_WRITE     141133   141133   minio_dd        0        0                0.00 0
+16:20:55.929526758 MinIO    VFS_WRITE       141133   141133   minio_dd        0        0                0.00 0
+16:20:55.929530635 MinIO    SYSCALL_WRITE   141133   141133   minio_dd        33       0                4.51 33
+16:20:55.929538580 MinIO    VFS_WRITE       141133   141133   minio_dd        0        0                0.00 0
+16:20:55.929539001 MinIO    SYSCALL_WRITE   141133   141133   minio_dd        60       0                0.55 60
+16:20:55.929539411 MinIO    VFS_WRITE       141133   141133   minio_dd        0        0                0.00 0
+16:20:55.929539612 MinIO    SYSCALL_WRITE   141133   141133   minio_dd        1        0                0.27 1
+Tracing completed after 15 seconds
+
+=== Complete I/O Amplification Analysis ===
+SYSTEM        SYS_R  SYS_W  VFS_R  VFS_W  BLK_R  BLK_W VFS_R_AMP VFS_W_AMP  TOT_R_AMP  TOT_W_AMP
+================================================================================
+MinIO            23     23     25     23      0     19     1.09     1.00       1.09       1.83
+
+Data Transfer Summary:
+MinIO       : Read: 20975348 bytes, Write: 20971614 bytes
+
+fish: Job 1, 'sudo ./build/simple_io_tracer -…' has ended
+[14:22] zstore1:io-efficiency-eBPF (main *%) |
+

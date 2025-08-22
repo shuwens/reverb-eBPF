@@ -19,6 +19,10 @@
 // Event types (must match kernel program)
 #define EVENT_TYPE_SYSCALL_READ 1
 #define EVENT_TYPE_SYSCALL_WRITE 2
+#define EVENT_TYPE_VFS_READ 3
+#define EVENT_TYPE_VFS_WRITE 4
+#define EVENT_TYPE_BLOCK_READ 5
+#define EVENT_TYPE_BLOCK_WRITE 6
 
 // Storage system types
 #define SYSTEM_TYPE_UNKNOWN 0
@@ -35,7 +39,10 @@ struct storage_io_event {
   __u32 event_type;
   __u32 system_type;
   __u64 size;
+  __u64 offset;
   __u64 latency_start;
+  __u32 dev_major;
+  __u32 dev_minor;
   __s32 retval;
   char comm[MAX_COMM_LEN];
 };
@@ -44,6 +51,10 @@ struct storage_io_event {
 struct system_stats {
   __u64 syscall_reads;
   __u64 syscall_writes;
+  __u64 vfs_reads;
+  __u64 vfs_writes;
+  __u64 block_reads;
+  __u64 block_writes;
   __u64 total_read_bytes;
   __u64 total_write_bytes;
   __u64 total_read_latency;
@@ -52,9 +63,12 @@ struct system_stats {
 };
 
 static struct system_stats stats[6] = {
-    {0, 0, 0, 0, 0, 0, "Unknown"},    {0, 0, 0, 0, 0, 0, "MinIO"},
-    {0, 0, 0, 0, 0, 0, "Ceph"},       {0, 0, 0, 0, 0, 0, "etcd"},
-    {0, 0, 0, 0, 0, 0, "PostgreSQL"}, {0, 0, 0, 0, 0, 0, "GlusterFS"}};
+    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "Unknown"},
+    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "MinIO"},
+    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "Ceph"},
+    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "etcd"},
+    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "PostgreSQL"},
+    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "GlusterFS"}};
 
 static struct env {
   bool verbose;
@@ -119,6 +133,14 @@ const char *get_event_type_name(int type) {
     return "SYSCALL_READ";
   case EVENT_TYPE_SYSCALL_WRITE:
     return "SYSCALL_WRITE";
+  case EVENT_TYPE_VFS_READ:
+    return "VFS_READ";
+  case EVENT_TYPE_VFS_WRITE:
+    return "VFS_WRITE";
+  case EVENT_TYPE_BLOCK_READ:
+    return "BLOCK_READ";
+  case EVENT_TYPE_BLOCK_WRITE:
+    return "BLOCK_WRITE";
   default:
     return "UNKNOWN";
   }
@@ -140,6 +162,18 @@ static void update_stats(const struct storage_io_event *e) {
     s->syscall_writes++;
     s->total_write_bytes += e->size;
     s->total_write_latency += e->latency_start;
+    break;
+  case EVENT_TYPE_VFS_READ:
+    s->vfs_reads++;
+    break;
+  case EVENT_TYPE_VFS_WRITE:
+    s->vfs_writes++;
+    break;
+  case EVENT_TYPE_BLOCK_READ:
+    s->block_reads++;
+    break;
+  case EVENT_TYPE_BLOCK_WRITE:
+    s->block_writes++;
     break;
   }
 }
@@ -170,18 +204,22 @@ static int handle_event(void *ctx, void *data, size_t data_sz) {
             "\"system\":\"%s\","
             "\"event_type\":\"%s\","
             "\"size\":%llu,"
+            "\"offset\":%llu,"
+            "\"dev_major\":%u,"
+            "\"dev_minor\":%u,"
             "\"latency_us\":%.2f,"
             "\"retval\":%d}\n",
             ts, e->timestamp % 1000000000, e->pid, e->tid, e->comm,
             stats[e->system_type].name, get_event_type_name(e->event_type),
-            e->size,
+            e->size, e->offset, e->dev_major, e->dev_minor,
             e->latency_start / 1000.0, // Convert to microseconds
             e->retval);
   } else {
-    fprintf(output_fp, "%s.%09llu %-8s %-15s %-8u %-8u %-15s %-8llu %8.2f %d\n",
+    fprintf(output_fp,
+            "%s.%09llu %-8s %-15s %-8u %-8u %-15s %-8llu %-12llu %8.2f %d\n",
             ts, e->timestamp % 1000000000, stats[e->system_type].name,
             get_event_type_name(e->event_type), e->pid, e->tid, e->comm,
-            e->size, e->latency_start / 1000.0, e->retval);
+            e->size, e->offset, e->latency_start / 1000.0, e->retval);
   }
 
   fflush(output_fp);
@@ -208,9 +246,35 @@ static void print_summary() {
       if (s->syscall_reads + s->syscall_writes == 0)
         continue;
 
+      // Calculate complete amplification factors
+      double read_amp_total =
+          s->syscall_reads > 0
+              ? (double)(s->vfs_reads + s->block_reads) / s->syscall_reads
+              : 0;
+      double write_amp_total =
+          s->syscall_writes > 0
+              ? (double)(s->vfs_writes + s->block_writes) / s->syscall_writes
+              : 0;
+      double read_amp_vfs =
+          s->syscall_reads > 0 ? (double)s->vfs_reads / s->syscall_reads : 0;
+      double write_amp_vfs =
+          s->syscall_writes > 0 ? (double)s->vfs_writes / s->syscall_writes : 0;
+
       fprintf(output_fp, "  \"%s\":{\n", s->name);
       fprintf(output_fp, "    \"syscall_reads\":%llu,\n", s->syscall_reads);
       fprintf(output_fp, "    \"syscall_writes\":%llu,\n", s->syscall_writes);
+      fprintf(output_fp, "    \"vfs_reads\":%llu,\n", s->vfs_reads);
+      fprintf(output_fp, "    \"vfs_writes\":%llu,\n", s->vfs_writes);
+      fprintf(output_fp, "    \"block_reads\":%llu,\n", s->block_reads);
+      fprintf(output_fp, "    \"block_writes\":%llu,\n", s->block_writes);
+      fprintf(output_fp, "    \"read_amplification_vfs\":%.2f,\n",
+              read_amp_vfs);
+      fprintf(output_fp, "    \"write_amplification_vfs\":%.2f,\n",
+              write_amp_vfs);
+      fprintf(output_fp, "    \"read_amplification_total\":%.2f,\n",
+              read_amp_total);
+      fprintf(output_fp, "    \"write_amplification_total\":%.2f,\n",
+              write_amp_total);
       fprintf(output_fp, "    \"total_read_bytes\":%llu,\n",
               s->total_read_bytes);
       fprintf(output_fp, "    \"total_write_bytes\":%llu\n",
@@ -219,9 +283,10 @@ static void print_summary() {
     }
     fprintf(output_fp, "}}\n");
   } else {
-    fprintf(output_fp, "\n=== Simple I/O Trace Summary ===\n");
-    fprintf(output_fp, "%-12s %10s %10s %12s %12s\n", "SYSTEM", "READS",
-            "WRITES", "READ_BYTES", "WRITE_BYTES");
+    fprintf(output_fp, "\n=== Complete I/O Amplification Analysis ===\n");
+    fprintf(output_fp, "%-12s %6s %6s %6s %6s %6s %6s %8s %8s %10s %10s\n",
+            "SYSTEM", "SYS_R", "SYS_W", "VFS_R", "VFS_W", "BLK_R", "BLK_W",
+            "VFS_R_AMP", "VFS_W_AMP", "TOT_R_AMP", "TOT_W_AMP");
     fprintf(output_fp, "======================================================="
                        "=========================\n");
 
@@ -230,9 +295,34 @@ static void print_summary() {
       if (s->syscall_reads + s->syscall_writes == 0)
         continue;
 
-      fprintf(output_fp, "%-12s %10llu %10llu %12llu %12llu\n", s->name,
-              s->syscall_reads, s->syscall_writes, s->total_read_bytes,
-              s->total_write_bytes);
+      double read_amp_total =
+          s->syscall_reads > 0
+              ? (double)(s->vfs_reads + s->block_reads) / s->syscall_reads
+              : 0;
+      double write_amp_total =
+          s->syscall_writes > 0
+              ? (double)(s->vfs_writes + s->block_writes) / s->syscall_writes
+              : 0;
+      double read_amp_vfs =
+          s->syscall_reads > 0 ? (double)s->vfs_reads / s->syscall_reads : 0;
+      double write_amp_vfs =
+          s->syscall_writes > 0 ? (double)s->vfs_writes / s->syscall_writes : 0;
+
+      fprintf(output_fp,
+              "%-12s %6llu %6llu %6llu %6llu %6llu %6llu %8.2f %8.2f %10.2f "
+              "%10.2f\n",
+              s->name, s->syscall_reads, s->syscall_writes, s->vfs_reads,
+              s->vfs_writes, s->block_reads, s->block_writes, read_amp_vfs,
+              write_amp_vfs, read_amp_total, write_amp_total);
+    }
+
+    fprintf(output_fp, "\nData Transfer Summary:\n");
+    for (int i = 1; i < 6; i++) {
+      struct system_stats *s = &stats[i];
+      if (s->total_read_bytes + s->total_write_bytes == 0)
+        continue;
+      fprintf(output_fp, "%-12s: Read: %llu bytes, Write: %llu bytes\n",
+              s->name, s->total_read_bytes, s->total_write_bytes);
     }
   }
 }
