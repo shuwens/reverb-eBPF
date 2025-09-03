@@ -79,20 +79,14 @@ make all
 
 ### multi layer tracer usage 
 ```bash
-# Start the tracer
-./working_trace.sh 10 large_file_test.txt &
-sleep 1
+# Start tracer for 15 seconds
+./working_trace.sh 15 complete_test.txt &
+sleep 2
 
-# Command 1: Large file with fdatasync (triggers filesystem sync)
-dd if=/dev/zero of=/tmp/large.dat bs=1M count=10 conv=fdatasync 2>/dev/null
+# Generate exactly 10MB of I/O
+dd if=/dev/zero of=/tmp/test_10mb.dat bs=1M count=10 conv=fdatasync
 
-# Command 2: Random writes with sync flag (forces journal writes)
-for i in {1..10}; do
-    dd if=/dev/zero of=/tmp/random_$i.dat bs=4K count=1 seek=$i conv=notrunc oflag=sync 2>/dev/null
-done
-
-# Cleanup
-rm -f /tmp/large.dat /tmp/random_*.dat
+# Wait for tracer to finish
 wait
 ```
 
@@ -100,24 +94,99 @@ wait
 ### 4. Analyze Results
 
 ```bash
-# Count events per layer
-for layer in APPLICATION OS FILESYSTEM DEVICE; do
-    echo "$layer: $(grep -c $layer large_file_test.txt)"
-done
-
-# Extract dd-specific operations
-grep "APPLICATION.*dd.*WRITE" large_file_test.txt | awk '{sum+=$5} END {print "App bytes:", sum}'
-grep "DEVICE" large_file_test.txt | awk '{sum+=$5} END {print "Device bytes:", sum}'
-
-# Calculate amplification
-app_bytes=1048576  # From trace
-dev_bytes=8716288  # From trace
-echo "scale=2; $dev_bytes / $app_bytes" | bc -l
-# Result: 8.31x amplification
+./analyze_io.sh complete_test.txt
 ```
 
 
 ### Expected Output
+```bash
+shwsun@zstore1:~/dev/io-efficiency-eBPF$ ./analyze_io.sh complete_test.txt
+=== I/O Amplification Analysis ===
+DD write events: 12
+Application bytes: 10485853
+1MB write count: 10
+Device bytes: 10547200
+
+AMPLIFICATION: 1.005x
+  Application: 10485853 bytes (10.00 MB)
+  Device: 10547200 bytes (10.05 MB)
+
+Sample events:
+First dd write:
+10:14:57.487 APPLICATION  APP_WRITE                 1048576 1048576     0.00 dd
+First device write:
+10:14:57.489 DEVICE       DEV_BIO_SUBMIT            8388608 8388608     0.00 dd
+```
+
+## Test without caching
+```bash
+# Test small write (100 bytes -> 512 minimum for O_DIRECT)
+sync; echo 3 | sudo tee /proc/sys/vm/drop_caches > /dev/null
+./working_trace.sh 5 small_direct.txt &
+sleep 1
+./direct_io_test 100
+wait
+echo "=== 100-byte Direct I/O Test ==="
+echo "Application writes:"
+awk '/direct_io_test.APP_WRITE/ {sum+=$5; n++} END {print "  Count:", n, "Total:", sum}' small_direct.txt
+echo "Device writes:"
+awk '/DEVICE.BIO_SUBMIT/ {sum+=$5; n++} END {print "  Count:", n, "Total:", sum}' small_direct.txt
+# Test 4KB write (page-aligned)
+sync; echo 3 | sudo tee /proc/sys/vm/drop_caches > /dev/null
+./working_trace.sh 5 page_direct.txt &
+sleep 1
+./direct_io_test 4096
+wait
+echo -e "\n=== 4KB Direct I/O Test ==="
+echo "Application writes:"
+awk '/direct_io_test.APP_WRITE/ {sum+=$5; n++} END {print "  Count:", n, "Total:", sum}' page_direct.txt
+echo "Device writes:"
+awk '/DEVICE.BIO_SUBMIT/ {sum+=$5; n++} END {print "  Count:", n, "Total:", sum}' page_direct.txt
+# Test 1MB write
+sync; echo 3 | sudo tee /proc/sys/vm/drop_caches > /dev/null
+./working_trace.sh 5 large_direct.txt &
+sleep 1
+./direct_io_test 1048576
+awk '/DEVICE.*BIO_SUBMIT/ {sum+=$5; n++} END {print "  Count:", n, "Total:", sum}' large_direct.txtect.txt
+[1] 59622
+Starting tracer for 5 seconds...
+Requested: 100 bytes, Written: 512 bytes
+./working_trace.sh: line 9: 59624 Killed                  sudo ./build/multilayer_io_tracer -v > $OUTPUT 2>&1
+Tracer stopped.
+[1]+  Done                    ./working_trace.sh 5 small_direct.txt
+=== 100-byte Direct I/O Test ===
+Application writes:
+  Count:  Total:
+Device writes:
+  Count: 459 Total: 1925120
+[1] 59639
+Starting tracer for 5 seconds...
+Requested: 4096 bytes, Written: 4096 bytes
+./working_trace.sh: line 9: 59641 Killed                  sudo ./build/multilayer_io_tracer -v > $OUTPUT 2>&1
+Tracer stopped.
+[1]+  Done                    ./working_trace.sh 5 page_direct.txt
+=== 4KB Direct I/O Test ===
+Application writes:
+  Count:  Total:
+Device writes:
+  Count: 740 Total: 3043328
+[1] 59656
+Starting tracer for 5 seconds...
+Requested: 1048576 bytes, Written: 1048576 bytes
+./working_trace.sh: line 9: 59658 Killed                  sudo ./build/multilayer_io_tracer -v > $OUTPUT 2>&1
+Tracer stopped.
+[1]+  Done                    ./working_trace.sh 5 large_direct.txt
+=== 1MB Direct I/O Test ===
+Application writes:
+  Count:  Total:
+Device writes:
+  Count: 1101 Total: 5607424
+shwsun@zstore1:~/dev/io-efficiency-eBPF$ # Restore default dirty ratios (typical defaults)
+echo 10 | sudo tee /proc/sys/vm/dirty_background_ratio
+echo 20 | sudo tee /proc/sys/vm/dirty_ratio
+10
+20
+```
 
 #### Real-time Output
 ```
