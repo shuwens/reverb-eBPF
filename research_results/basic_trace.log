@@ -1,0 +1,24 @@
+TIME              EVENT_TYPE      CATEGORY   PID      SIZE      LAT(us) PATH_OR_CONTEXT                         
+================================================================================
+20:21:27.231 VFS_WRITE       UNKNOWN    154409   0            0.00 [VFS_WRITE_AMPLIFICATION]
+20:21:27.231 SYSCALL_WRITE   UNKNOWN    154409   44          22.90 [SYSCALL_WITH_PATH]
+
+=== STORAGE I/O AMPLIFICATION ANALYSIS ===
+Events: 2 total (Syscall: 1, VFS: 1, Block: 0)
+
+=== AMPLIFICATION METRICS ===
+🔄 VFS Amplification: 1.00x (1 VFS ops / 1 syscalls)
+💿 Block Amplification: 0.00x (0 block ops / 1 syscalls)
+📊 Total I/O Amplification: 1.00x (complete storage stack)
+
+=== CATEGORIZED OPERATIONS ===
+CATEGORY      SYS_R  SYS_W  VFS_R  VFS_W  BLK_W  R_AMP  W_AMP  READ_MB WRITE_MB      OPS
+================================================================================
+UNKNOWN           0      1      0      1      0   0.00   1.00     0.00     0.00        2
+
+=== KEY INSIGHTS FOR FAST 2026 RESEARCH ===
+• SYSCALL operations: Application-level I/O with file context
+• VFS operations: Kernel VFS layer amplification (expected UNKNOWN)
+• BLOCK operations: Final device I/O amplification (expected UNKNOWN)
+• UNKNOWN category: Mostly amplification layers without file context
+• Total amplification = (VFS + Block) / Syscall operations

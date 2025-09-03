@@ -1,0 +1,20 @@
+🔬 Research-Grade I/O Categorizer started!
+📊 Measuring: Syscall → VFS → Block amplification
+📁 Categories: DATA, METADATA, CONSISTENCY, RELIABILITY, FILESYSTEM, TEMPORARY, ADMIN
+🔍 Investigation mode: Detailed amplification analysis enabled
+
+
+🔍 AMPLIFICATION LAYER #1:
+   Process: test_minio_comp (PID 154409, CPU 11)
+   Layer: VFS_WRITE
+   Context: VFS_WRITE_AMPLIFICATION
+   → This VFS operation was triggered by a recent syscall
+   → Contributes to I/O amplification measurement
+
+
+🔍 AMPLIFICATION LAYER #2:
+   Process: test_minio_comp (PID 154409, CPU 11)
+   Layer: SYSCALL_WRITE
+   Context: SYSCALL_WITH_PATH
+
+Tracing completed after 20 seconds

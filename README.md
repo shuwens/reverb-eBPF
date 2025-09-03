@@ -77,116 +77,45 @@ pip3 install pandas matplotlib seaborn numpy
 make all
 ```
 
-### 3. IO Tracer Usage
-
-```bash
-# Real-time tracing (requires root)
-sudo ./build/io_tracer -v -d 30
-
-# JSON output for analysis
-sudo ./build/io_tracer -j -d 60 -o trace.json
-
-# Quiet mode with summary only
-sudo ./build/io_tracer -q -d 10
-```
-
 ### multi layer tracer usage 
 ```bash
-# Basic tracing with real-time output
-sudo ./multilayer_io_tracer
+# Start the tracer
+./working_trace.sh 10 large_file_test.txt &
+sleep 1
 
-# Trace specific storage system with correlation
-sudo ./multilayer_io_tracer -c -s minio
+# Command 1: Large file with fdatasync (triggers filesystem sync)
+dd if=/dev/zero of=/tmp/large.dat bs=1M count=10 conv=fdatasync 2>/dev/null
 
-# Quiet mode with summary only
-sudo ./multilayer_io_tracer -q -d 60
+# Command 2: Random writes with sync flag (forces journal writes)
+for i in {1..10}; do
+    dd if=/dev/zero of=/tmp/random_$i.dat bs=4K count=1 seek=$i conv=notrunc oflag=sync 2>/dev/null
+done
 
-# JSON output for analysis
-sudo ./multilayer_io_tracer -j -o trace.json
-
-# Verbose mode with correlation
-sudo ./multilayer_io_tracer -v -c
+# Cleanup
+rm -f /tmp/large.dat /tmp/random_*.dat
+wait
 ```
 
 
 ### 4. Analyze Results
 
 ```bash
-# Basic analysis
-python3 analyze_io.py trace.json
-
-# Generate visualizations
-python3 analyze_io.py trace.json -v -o plots/
-
-# Export to CSV
-python3 analyze_io.py trace.json -e results.csv -v
-```
-
-## Detailed Usage
-
-### eBPF Tracer Options
-
-```bash
-./build/io_tracer [OPTIONS]
-
-Options:
-  -v, --verbose     Enable verbose debug output
-  -j, --json        Output events in JSON format
-  -d, --duration N  Trace for N seconds (default: infinite)
-  -o, --output FILE Write output to file instead of stdout
-  -q, --quiet       Disable real-time output, show summary only
-```
-
-### Example Workflows
-
-#### 1. MinIO Analysis
-```bash
-# Start MinIO server
-minio server /data &
-
-# Trace MinIO operations
-sudo ./build/io_tracer -j -d 60 -o minio_trace.json
-
-# In another terminal, run workload
-mc cp largefile.dat minio/bucket/
-
-# Analyze results
-python3 analyze_io.py minio_trace.json -v -e minio_results.csv
-```
-
-#### 2. Ceph Analysis
-```bash
-# Ensure Ceph cluster is running
-sudo systemctl start ceph-mon@$(hostname)
-sudo systemctl start ceph-mgr@$(hostname)
-sudo systemctl start ceph-osd@*
-
-# Trace Ceph operations
-sudo ./build/io_tracer -j -d 120 -o ceph_trace.json
-
-# Run RADOS bench
-rados bench -p mypool 60 write
-
-# Analyze results
-python3 analyze_io.py ceph_trace.json -v
-```
-
-#### 3. etcd Analysis
-```bash
-# Start etcd
-etcd --data-dir=/tmp/etcd-data &
-
-# Trace etcd operations
-sudo ./build/io_tracer -j -d 30 -o etcd_trace.json
-
-# Run etcd workload
-for i in {1..1000}; do
-  etcdctl put key$i value$i
+# Count events per layer
+for layer in APPLICATION OS FILESYSTEM DEVICE; do
+    echo "$layer: $(grep -c $layer large_file_test.txt)"
 done
 
-# Analyze results
-python3 analyze_io.py etcd_trace.json -v -o etcd_plots/
+# Extract dd-specific operations
+grep "APPLICATION.*dd.*WRITE" large_file_test.txt | awk '{sum+=$5} END {print "App bytes:", sum}'
+grep "DEVICE" large_file_test.txt | awk '{sum+=$5} END {print "Device bytes:", sum}'
+
+# Calculate amplification
+app_bytes=1048576  # From trace
+dev_bytes=8716288  # From trace
+echo "scale=2; $dev_bytes / $app_bytes" | bc -l
+# Result: 8.31x amplification
 ```
+
 
 ### Expected Output
 

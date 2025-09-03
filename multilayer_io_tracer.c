@@ -6,9 +6,11 @@
 #include <bpf/libbpf.h>
 #include <errno.h>
 #include <signal.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <strings.h>
 #include <sys/resource.h>
 #include <time.h>
 #include <unistd.h>
@@ -26,14 +28,8 @@
 #define LAYER_FILESYSTEM 4
 #define LAYER_DEVICE 5
 
-// Storage system types
-const char *system_names[] = {"Unknown",    "MinIO",     "Ceph",       "etcd",
-                              "PostgreSQL", "GlusterFS", "Application"};
-
-const char *layer_names[] = {"UNKNOWN", "APPLICATION", "STORAGE_SVC",
-                             "OS",      "FILESYSTEM",  "DEVICE"};
-
-struct io_event {
+// Must match the BPF program's struct exactly
+struct multilayer_io_event {
   __u64 timestamp;
   __u32 pid;
   __u32 tid;
@@ -59,6 +55,13 @@ struct io_event {
   __u8 is_journal;
   __u8 cache_hit;
 };
+
+// Storage system types
+const char *system_names[] = {"Unknown",    "MinIO",     "Ceph",       "etcd",
+                              "PostgreSQL", "GlusterFS", "Application"};
+
+const char *layer_names[] = {"UNKNOWN", "APPLICATION", "STORAGE_SVC",
+                             "OS",      "FILESYSTEM",  "DEVICE"};
 
 // Per-layer statistics
 struct layer_stats {
@@ -155,12 +158,27 @@ static const struct argp argp = {
 static volatile bool exiting = false;
 static FILE *output_fp = NULL;
 
+// Forward declaration
+static void print_amplification_summary(void);
+
 // Request correlation tracking
 #define MAX_REQUESTS 10000
 static struct request_stats requests[MAX_REQUESTS];
 static int request_count = 0;
 
-static void sig_handler(int sig) { exiting = true; }
+// Modified signal handler that prints summary before exiting
+static void sig_handler(int sig) {
+    if (!exiting) {
+        exiting = true;
+
+        // Print summary when interrupted
+        if (output_fp) {
+            fprintf(output_fp, "\n=== Tracer interrupted, generating summary ===\n");
+            print_amplification_summary();
+            fflush(output_fp);
+        }
+    }
+}
 
 const char *get_event_name(__u32 event_type) {
   switch (event_type) {
@@ -235,7 +253,7 @@ const char *get_event_name(__u32 event_type) {
   }
 }
 
-static void update_stats(const struct io_event *e) {
+static void update_stats(const struct multilayer_io_event *e) {
   if (e->layer > 5)
     return;
 
@@ -294,7 +312,7 @@ static void update_stats(const struct io_event *e) {
 }
 
 static int handle_event(void *ctx, void *data, size_t data_sz) {
-  const struct io_event *e = data;
+  const struct multilayer_io_event *e = data;
   struct tm *tm;
   char ts[32];
   time_t t;
@@ -351,6 +369,7 @@ static int handle_event(void *ctx, void *data, size_t data_sz) {
             e->is_journal ? "[JRNL]" : "", e->cache_hit ? "[HIT]" : "");
   }
 
+  fflush(output_fp);
   return 0;
 }
 
@@ -360,19 +379,8 @@ static void print_header() {
 
   fprintf(output_fp, "%-16s %-12s %-25s %7s %7s %8s %-15s %s\n", "TIME",
           "LAYER", "EVENT", "SIZE", "ALIGNED", "LAT(μs)", "COMM", "FLAGS");
-  fprintf(output_fp, "%s\n",
-          "="
-          "="
-          "="
-          "="
-          "="
-          "="
-          "="
-          "="
-          "="
-          "="
-          "="
-          "=");
+  fprintf(output_fp, "========================================================="
+                     "===============\n");
 }
 
 static void print_amplification_summary() {
@@ -498,7 +506,7 @@ static int bump_memlock_rlimit(void) {
 int main(int argc, char **argv) {
   struct ring_buffer *rb = NULL;
   struct multilayer_io_tracer_bpf *skel;
-  int err;
+  int err = 0;
 
   err = argp_parse(&argp, argc, argv, 0, NULL, NULL);
   if (err)
@@ -560,32 +568,41 @@ int main(int argc, char **argv) {
   print_header();
 
   time_t start_time = time(NULL);
-  while (!exiting) {
-    err = ring_buffer__poll(rb, 100);
-    if (err == -EINTR) {
-      err = 0;
-      break;
-    }
-    if (err < 0) {
-      fprintf(stderr, "Error polling ring buffer: %d\n", err);
-      break;
+    while (!exiting) {
+        err = ring_buffer__poll(rb, 100);
+        if (err == -EINTR) {
+            err = 0;
+            break;
+        }
+        if (err < 0) {
+            fprintf(stderr, "Error polling ring buffer: %d\n", err);
+            break;
+        }
+
+        // Check duration limit
+        if (env.duration > 0 && (time(NULL) - start_time) >= env.duration) {
+            if (env.verbose)
+                fprintf(stderr, "Tracing completed after %d seconds\n", env.duration);
+            exiting = true;  // Set flag instead of breaking
+        }
     }
 
-    if (env.duration > 0 && (time(NULL) - start_time) >= env.duration) {
-      if (env.verbose)
-        fprintf(stderr, "Tracing completed after %d seconds\n", env.duration);
-      break;
+ // ALWAYS print summary before cleanup
+    if (!exiting || output_fp) {  // Print if we haven't already in signal handler
+        print_amplification_summary();
     }
-  }
-
-  print_amplification_summary();
 
 cleanup:
-  ring_buffer__free(rb);
-  multilayer_io_tracer_bpf__destroy(skel);
+    if (rb)
+        ring_buffer__free(rb);
+    if (skel)
+        multilayer_io_tracer_bpf__destroy(skel);
+    
+    if (output_fp && output_fp != stdout) {
+        fflush(output_fp);
+        fclose(output_fp);
+    }
+    
+    return err < 0 ? -err : 0;
 
-  if (output_fp != stdout)
-    fclose(output_fp);
-
-  return err < 0 ? -err : 0;
 }
