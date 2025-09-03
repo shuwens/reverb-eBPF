@@ -77,7 +77,7 @@ pip3 install pandas matplotlib seaborn numpy
 make all
 ```
 
-### 3. Basic Usage
+### 3. IO Tracer Usage
 
 ```bash
 # Real-time tracing (requires root)
@@ -89,6 +89,25 @@ sudo ./build/io_tracer -j -d 60 -o trace.json
 # Quiet mode with summary only
 sudo ./build/io_tracer -q -d 10
 ```
+
+### multi layer tracer usage 
+```bash
+# Basic tracing with real-time output
+sudo ./multilayer_io_tracer
+
+# Trace specific storage system with correlation
+sudo ./multilayer_io_tracer -c -s minio
+
+# Quiet mode with summary only
+sudo ./multilayer_io_tracer -q -d 60
+
+# JSON output for analysis
+sudo ./multilayer_io_tracer -j -o trace.json
+
+# Verbose mode with correlation
+sudo ./multilayer_io_tracer -v -c
+```
+
 
 ### 4. Analyze Results
 
