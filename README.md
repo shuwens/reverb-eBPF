@@ -188,6 +188,79 @@ echo 20 | sudo tee /proc/sys/vm/dirty_ratio
 20
 ```
 
+#### Test with dd
+```bash
+# Make sure the tracer is built
+make multi
+
+# Run a simple test with some I/O operations
+./working_trace.sh 10 test_trace.txt &
+sleep 2
+
+# Generate some I/O
+dd if=/dev/zero of=testfile bs=4K count=100 conv=fsync
+echo "test data" > small.txt && sync
+rm testfile small.txt
+
+# Run the analysis
+python3 analyze_trace.py test_trace.txt
+```
+
+You should see output like the following:
+```bash
+shwsun@zstore1:~/dev/io-efficiency-eBPF$ python3 analyze_trace.py test_trace.txt
+==================================================
+    eBPF I/O TRACE ANALYZER
+==================================================
+Reading trace file: test_trace.txt
+
+=== TRACE FORMAT VALIDATION ===
+✓ Found 9598914 events
+✓ 8/10 events have valid timestamp format
+
+=== LAYER ANALYSIS ===
+✓ Found 4 different layers:
+  • APPLICATION     : 9596104 events,  920206014 bytes total,     95.9 avg bytes
+  • DEVICE          :     62 events,   99786752 bytes total, 1609463.7 avg bytes
+  • FILESYSTEM      :      1 events,          0 bytes total,      0.0 avg bytes
+  • OS              :   2721 events,    5597137 bytes total,   2057.0 avg bytes
+
+=== EVENT TYPE ANALYSIS ===
+✓ Found 9 different event types:
+  • APP_WRITE                 : 9595893 occurrences
+  • OS_VFS_WRITE              :   2660 occurrences
+  • APP_READ                  :    211 occurrences
+  • DEV_BIO_SUBMIT            :     62 occurrences
+  • OS_VFS_READ               :     61 occurrences
+  • DEV_BIO_COMPLETE          :     24 occurrences
+  • tracer                    :      1 occurrences
+  • Application,              :      1 occurrences
+  • FS_JOURNAL_WRITE          :      1 occurrences
+
+=== TIMING CONSISTENCY CHECK ===
+✓ Found 98 timestamps
+  First event: 22:49:48.641
+  Last event:  22:49:48.648
+  ✓ Timestamps appear to be in order
+
+=== AMPLIFICATION CHECK ===
+  Calculated amplification: 0.11x
+  App bytes: 920206014, Device bytes: 99786752
+
+=== TRACE SUMMARY ===
+Total events:     9598914
+Metadata ops:     1
+Journal ops:      0
+Cache hits:       0
+Unique processes: 19
+  Processes: kworker/u66:5, working_trace.s, sync, jbd2/sda2-8, dd, Filesystem,, kworker/u66:4, systemd, systemd-network, sudo
+
+==================================================
+✓ ANALYSIS COMPLETE
+==================================================
+```
+
+
 #### Real-time Output
 ```
 TIME                    SYSTEM   EVENT_TYPE   PID      TID      COMM            SIZE     OFFSET       LAT(us) RET
