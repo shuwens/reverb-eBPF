@@ -1,0 +1,71 @@
+========================================
+    I/O AMPLIFICATION ANALYSIS
+========================================
+
+Per-Layer Statistics:
+LAYER               EVENTS      BYTES    ALIGNED     META     JRNL    CACHE AMP_FACTOR
+----------------------------------------------------------------------
+APPLICATION           1906  637932658  637932658        0        0        0       0.00x
+  └─> MinIO:          1906  637932658          -        0        -        -          -
+STORAGE_SVC            114          0          0      114        0        0       0.00x
+  └─> MinIO:           114          0          -      114        -        -          -
+OS                    1906  637932658  640225280        0        0        0       1.00x
+  └─> MinIO:          1906  637932658          -        0        -        -          -
+FILESYSTEM              94          0          0       94        0        0       0.00x
+  └─> MinIO:            94          0          -        0        -        -          -
+DEVICE                 336   44564480   44564480        0        0        0       0.07x
+  └─> MinIO:           168   34865152          -        0        -        -          -
+
+Amplification Breakdown:
+----------------------------------------------------------------------
+Original application I/O:      637932658 bytes
+After OS/page cache alignment: 640225280 bytes (1.00x amplification)
+Final device layer I/O:         44564480 bytes (0.07x amplification)
+
+*** TOTAL AMPLIFICATION: 0.07x ***
+    44564480 bytes written for 637932658 bytes requested
+
+
+Per-Request Amplification (Top 10):
+REQUEST_ID            APP  STORAGE       OS       FS   DEVICE    TOTAL    AMP   MinIO
+-----------------------------------------------------------------------------
+000034176f7684be        8        0     4096        0        0     4096 512.00x     Yes
+000039e06f76e324        8        0     4096        0        0     4096 512.00x     Yes
+000034177025b21a        8        0     4096        0        0     4096 512.00x     Yes
+000039e07025fbe9        8        0     4096        0        0     4096 512.00x     Yes
+000034177047410c        8        0     4096        0        0     4096 512.00x     Yes
+000039e0704777d7        8        0     4096        0        0     4096 512.00x     Yes
+0000341770799eed      505        0     4096        0        0     4096   8.11x     Yes
+000039dc7079d70c      505        0     4096        0        0     4096   8.11x     Yes
+00003417707f0153      628        0     4096        0        0     4096   6.52x     Yes
+00003419707f3dca      628        0     4096        0        0     4096   6.52x     Yes
+
+========================================
+       MinIO-SPECIFIC ANALYSIS
+========================================
+
+MinIO Operation Statistics:
+-------------------------------------------
+Objects Written:                  346
+Objects Read:                    1560
+XL Metadata Operations:           114
+Erasure Blocks Written:             0
+Multipart Uploads:                  0
+
+MinIO Data Breakdown:
+-------------------------------------------
+Data Bytes:                  34213384
+Metadata Bytes:                     0
+Metadata Overhead:              0.00%
+
+MinIO I/O Pattern Analysis:
+-------------------------------------------
+APPLICATION    :     1906 events,  637932658 bytes
+STORAGE_SVC    :      114 events,          0 bytes
+  └─> XL.META operations: 114
+OS             :     1906 events,  637932658 bytes
+FILESYSTEM     :       94 events,          0 bytes
+DEVICE         :      168 events,   34865152 bytes
+
+*** MinIO Total I/O Amplification: 38.31x ***
+

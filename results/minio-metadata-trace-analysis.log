@@ -1,0 +1,16 @@
+shwsun@zstore2:~/dev/reverb-eBPF$ python3 analyze_minio_metadata.py minio_metadata_trace.log
+============================================================
+MinIO METADATA I/O ANALYSIS
+============================================================
+XL.META Operations:      203
+XL.META Total Bytes:     114
+Metadata Reads:          208
+Metadata Writes:         114
+
+Metadata by Layer:
+  STORAGE_SVC    : 114 operations
+  FILESYSTEM     : 94 operations
+
+Average metadata size:   1 bytes
+Metadata ops ratio:      208/114 (R/W)
+

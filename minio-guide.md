@@ -47,6 +47,32 @@ Now you can interact with MinIO using S3 API:
 2025-09-10 17:49:03 public
 ```
 
+## Tracing with MinIO
+### Basic MinIO Tracing
+# Auto-detect and trace all MinIO processes
+sudo ./multilayer_io_tracer -A -v
+
+# Trace specific MinIO PID
+MINIO_PID=$(pgrep minio)
+sudo ./multilayer_io_tracer -p $MINIO_PID -v
 
 
+### Advanced MinIO Analysis
+# Full MinIO analysis with correlation
+sudo ./multilayer_io_tracer -M -c -E -T -v -o minio_analysis.log
 
+# Trace MinIO with real-time output
+sudo ./multilayer_io_tracer -A -E -T
+
+# JSON output for parsing
+sudo ./multilayer_io_tracer -M -j -o minio_trace.json
+
+### MinIO with Specific Features
+# Track erasure coding overhead
+sudo ./multilayer_io_tracer -M -E -c
+
+# Track metadata operations only
+sudo ./multilayer_io_tracer -M -T
+
+# Time-limited tracing (60 seconds)
+sudo ./multilayer_io_tracer -A -d 60 -o minio_60s.log
