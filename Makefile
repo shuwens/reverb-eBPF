@@ -358,4 +358,34 @@ help:
 .PHONY: all simple multi clean install test setup check help debug deps \
         test-multi test-minio-auto test-minio-pid test-minio-full check-system
 
+# Add these lines to your existing Makefile
 
+# MinIO-specific tracer target
+minio: build/minio_tracer
+
+build/minio_tracer: build/minio_tracer.o build/minio_tracer.skel.h
+	@echo "[MINIO] Linking userspace program..."
+	$(CC) $(CFLAGS) $< -lbpf -lelf -lz -o $@
+	@echo "[MINIO] Build complete: $@"
+
+build/minio_tracer.o: minio_tracer.c build/minio_tracer.skel.h
+	@echo "[MINIO] Compiling userspace program..."
+	$(CC) $(CFLAGS) -Ibuild -c $< -o $@
+
+build/minio_tracer.skel.h: build/minio_tracer.bpf.o
+	@echo "[MINIO] Generating BPF skeleton..."
+	bpftool gen skeleton $< > $@
+
+build/minio_tracer.bpf.o: minio_tracer.bpf.c build/vmlinux.h
+	@echo "[MINIO] Compiling BPF program..."
+	clang -g -O2 -target bpf -D__TARGET_ARCH_x86 -Ibuild \
+		-I/usr/include -I/usr/include -I/usr/local/include \
+		-Wall -Wno-unused-value -Wno-pointer-sign \
+		-Wno-compare-distinct-pointer-types -Wno-address-of-packed-member \
+		-D__BPF_TRACING__ -c $< -o $@
+
+# Clean target addition (add to your existing clean target)
+clean-minio:
+	rm -f build/minio_tracer build/minio_tracer.o build/minio_tracer.skel.h build/minio_tracer.bpf.o
+
+.PHONY: minio clean-minio
