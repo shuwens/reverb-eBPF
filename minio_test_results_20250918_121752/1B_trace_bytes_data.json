@@ -1,0 +1,283 @@
+{
+  "summary": {
+    "application_total": 186969,
+    "os_total": 827392,
+    "storage_total": 30150,
+    "filesystem_total": 114688,
+    "device_total": 114688
+  },
+  "details": {
+    "application": {
+      "put_count": 81,
+      "get_count": 121,
+      "put_bytes": 30623,
+      "get_bytes": 156346
+    },
+    "os": {
+      "write_count": 81,
+      "read_count": 121,
+      "write_bytes": 331776,
+      "read_bytes": 495616
+    },
+    "device": {
+      "submit_count": 28,
+      "submit_bytes": 114688
+    }
+  },
+  "amplification": 0.6134065005428707,
+  "request_flows": [
+    {
+      "start_time": "23:10:21.567",
+      "end_time": "23:10:21.580",
+      "layers": {
+        "APPLICATION": 32,
+        "OS": 16384
+      },
+      "total_bytes": 16416
+    },
+    {
+      "start_time": "23:10:23.568",
+      "end_time": "23:10:23.605",
+      "layers": {
+        "APPLICATION": 48,
+        "OS": 24576
+      },
+      "total_bytes": 24624
+    },
+    {
+      "start_time": "23:10:25.568",
+      "end_time": "23:10:25.580",
+      "layers": {
+        "APPLICATION": 32,
+        "OS": 16384
+      },
+      "total_bytes": 16416
+    },
+    {
+      "start_time": "23:10:25.907",
+      "end_time": "23:10:25.907",
+      "layers": {
+        "APPLICATION": 16,
+        "OS": 8192
+      },
+      "total_bytes": 8208
+    },
+    {
+      "start_time": "23:10:27.568",
+      "end_time": "23:10:27.580",
+      "layers": {
+        "APPLICATION": 32,
+        "OS": 16384
+      },
+      "total_bytes": 16416
+    },
+    {
+      "start_time": "23:10:28.606",
+      "end_time": "23:10:28.606",
+      "layers": {
+        "APPLICATION": 16,
+        "OS": 8192
+      },
+      "total_bytes": 8208
+    },
+    {
+      "start_time": "23:10:29.567",
+      "end_time": "23:10:29.580",
+      "layers": {
+        "APPLICATION": 32,
+        "OS": 16384
+      },
+      "total_bytes": 16416
+    },
+    {
+      "start_time": "23:10:31.117",
+      "end_time": "23:10:31.127",
+      "layers": {
+        "APPLICATION": 21987,
+        "OS": 40960,
+        "STORAGE_SVC": 0,
+        "FILESYSTEM": 0,
+        "DEVICE": 8192
+      },
+      "total_bytes": 71139
+    },
+    {
+      "start_time": "23:10:31.567",
+      "end_time": "23:10:31.580",
+      "layers": {
+        "APPLICATION": 32,
+        "OS": 16384
+      },
+      "total_bytes": 16416
+    },
+    {
+      "start_time": "23:10:33.567",
+      "end_time": "23:10:33.606",
+      "layers": {
+        "APPLICATION": 48,
+        "OS": 24576
+      },
+      "total_bytes": 24624
+    },
+    {
+      "start_time": "23:10:34.775",
+      "end_time": "23:10:34.843",
+      "layers": {
+        "APPLICATION": 32,
+        "OS": 16384
+      },
+      "total_bytes": 16416
+    },
+    {
+      "start_time": "23:10:35.566",
+      "end_time": "23:10:35.581",
+      "layers": {
+        "APPLICATION": 32,
+        "OS": 16384
+      },
+      "total_bytes": 16416
+    },
+    {
+      "start_time": "23:10:35.908",
+      "end_time": "23:10:35.908",
+      "layers": {
+        "APPLICATION": 16,
+        "OS": 8192
+      },
+      "total_bytes": 8208
+    },
+    {
+      "start_time": "23:10:37.568",
+      "end_time": "23:10:37.580",
+      "layers": {
+        "APPLICATION": 32,
+        "OS": 16384
+      },
+      "total_bytes": 16416
+    },
+    {
+      "start_time": "23:10:38.607",
+      "end_time": "23:10:38.607",
+      "layers": {
+        "APPLICATION": 16,
+        "OS": 8192
+      },
+      "total_bytes": 8208
+    },
+    {
+      "start_time": "23:10:39.566",
+      "end_time": "23:10:39.580",
+      "layers": {
+        "APPLICATION": 32,
+        "OS": 16384
+      },
+      "total_bytes": 16416
+    },
+    {
+      "start_time": "23:10:40.211",
+      "end_time": "23:10:40.258",
+      "layers": {
+        "APPLICATION": 54690,
+        "OS": 311296,
+        "STORAGE_SVC": 0,
+        "FILESYSTEM": 0,
+        "DEVICE": 98304
+      },
+      "total_bytes": 464290
+    },
+    {
+      "start_time": "23:10:40.525",
+      "end_time": "23:10:40.530",
+      "layers": {
+        "APPLICATION": 27629,
+        "OS": 57344,
+        "STORAGE_SVC": 0
+      },
+      "total_bytes": 84973
+    },
+    {
+      "start_time": "23:10:41.566",
+      "end_time": "23:10:41.566",
+      "layers": {
+        "APPLICATION": 16,
+        "OS": 8192
+      },
+      "total_bytes": 8208
+    },
+    {
+      "start_time": "23:10:43.580",
+      "end_time": "23:10:43.608",
+      "layers": {
+        "APPLICATION": 48,
+        "OS": 24576
+      },
+      "total_bytes": 24624
+    },
+    {
+      "start_time": "23:10:45.908",
+      "end_time": "23:10:45.908",
+      "layers": {
+        "APPLICATION": 16,
+        "OS": 8192
+      },
+      "total_bytes": 8208
+    },
+    {
+      "start_time": "23:10:47.568",
+      "end_time": "23:10:47.580",
+      "layers": {
+        "APPLICATION": 32,
+        "OS": 16384
+      },
+      "total_bytes": 16416
+    },
+    {
+      "start_time": "23:10:47.947",
+      "end_time": "23:10:47.947",
+      "layers": {
+        "APPLICATION": 16,
+        "OS": 8192
+      },
+      "total_bytes": 8208
+    },
+    {
+      "start_time": "23:10:48.654",
+      "end_time": "23:10:48.666",
+      "layers": {
+        "APPLICATION": 8196,
+        "OS": 16384,
+        "FILESYSTEM": 0,
+        "DEVICE": 8192
+      },
+      "total_bytes": 32772
+    },
+    {
+      "start_time": "23:10:49.019",
+      "end_time": "23:10:49.020",
+      "layers": {
+        "STORAGE_SVC": 0,
+        "APPLICATION": 73843,
+        "OS": 81920
+      },
+      "total_bytes": 155763
+    },
+    {
+      "start_time": "23:10:49.566",
+      "end_time": "23:10:49.581",
+      "layers": {
+        "APPLICATION": 32,
+        "OS": 16384
+      },
+      "total_bytes": 16416
+    },
+    {
+      "start_time": "23:10:49.892",
+      "end_time": "23:10:49.892",
+      "layers": {
+        "APPLICATION": 16,
+        "OS": 8192
+      },
+      "total_bytes": 8208
+    }
+  ]
+}

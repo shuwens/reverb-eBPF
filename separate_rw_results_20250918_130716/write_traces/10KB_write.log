@@ -1,0 +1,494 @@
+Multi-layer I/O tracer started!
+Tracing layers: Application, Storage Service, OS, Filesystem, Device
+MinIO-only mode enabled
+Request correlation mode enabled
+MinIO tracing configured:
+  Mode: Name
+  Trace Erasure: Yes
+  Trace Metadata: Yes
+TIME             LAYER        EVENT                        SIZE ALIGNED LAT(μs) COMM            FLAGS
+========================================================================
+>>> TRACING MINIO PROCESSES ONLY <<<
+========================================================================
+00:00:35.580 APPLICATION  MINIO_OBJECT_PUT                8       8     0.00 minio           [MINIO]
+00:00:35.580 OS           OS_VFS_WRITE                    8    4096     0.00 minio           [MINIO]
+00:00:35.580 APPLICATION  MINIO_OBJECT_GET                8       8     0.00 minio           [MINIO]
+00:00:35.580 OS           OS_VFS_READ                     8    4096     0.00 minio           [MINIO]
+00:00:36.066 APPLICATION  MINIO_OBJECT_PUT                8       8     0.00 minio           [MINIO]
+00:00:36.066 OS           OS_VFS_WRITE                    8    4096     0.00 minio           [MINIO]
+00:00:36.066 APPLICATION  MINIO_OBJECT_GET                8       8     0.00 minio           [MINIO]
+00:00:36.066 OS           OS_VFS_READ                     8    4096     0.00 minio           [MINIO]
+00:00:37.568 APPLICATION  MINIO_OBJECT_PUT                8       8     0.00 minio           [MINIO]
+00:00:37.568 OS           OS_VFS_WRITE                    8    4096     0.00 minio           [MINIO]
+00:00:37.568 APPLICATION  MINIO_OBJECT_GET                8       8     0.00 minio           [MINIO]
+00:00:37.568 OS           OS_VFS_READ                     8    4096     0.00 minio           [MINIO]
+00:00:37.580 APPLICATION  MINIO_OBJECT_PUT                8       8     0.00 minio           [MINIO]
+00:00:37.580 OS           OS_VFS_WRITE                    8    4096     0.00 minio           [MINIO]
+00:00:37.580 APPLICATION  MINIO_OBJECT_GET                8       8     0.00 minio           [MINIO]
+00:00:37.580 OS           OS_VFS_READ                     8    4096     0.00 minio           [MINIO]
+00:00:39.567 APPLICATION  MINIO_OBJECT_PUT                8       8     0.00 minio           [MINIO]
+00:00:39.567 OS           OS_VFS_WRITE                    8    4096     0.00 minio           [MINIO]
+00:00:39.567 APPLICATION  MINIO_OBJECT_GET                8       8     0.00 minio           [MINIO]
+00:00:39.567 OS           OS_VFS_READ                     8    4096     0.00 minio           [MINIO]
+00:00:39.580 APPLICATION  MINIO_OBJECT_PUT                8       8     0.00 minio           [MINIO]
+00:00:39.580 OS           OS_VFS_WRITE                    8    4096     0.00 minio           [MINIO]
+00:00:39.580 APPLICATION  MINIO_OBJECT_GET                8       8     0.00 minio           [MINIO]
+00:00:39.580 OS           OS_VFS_READ                     8    4096     0.00 minio           [MINIO]
+00:00:40.236 APPLICATION  MINIO_OBJECT_PUT                8       8     0.00 minio           [MINIO]
+00:00:40.236 OS           OS_VFS_WRITE                    8    4096     0.00 minio           [MINIO]
+00:00:40.236 APPLICATION  MINIO_OBJECT_GET                8       8     0.00 minio           [MINIO]
+00:00:40.236 OS           OS_VFS_READ                     8    4096     0.00 minio           [MINIO]
+00:00:40.238 STORAGE_SVC  MINIO_XL_META                   0       0     0.00 minio           [META][MINIO][XL.META]
+    └─> File: /mnt/minio2/minio/.minio.sys/buckets/.background-heal.json/xl.meta
+00:00:40.238 APPLICATION  MINIO_OBJECT_GET              505     505     0.00 minio           [MINIO]
+00:00:40.238 STORAGE_SVC  MINIO_XL_META                   0       0     0.00 minio           [META][MINIO][XL.META]
+    └─> File: /mnt/minio1/minio/.minio.sys/buckets/.background-heal.json/xl.meta
+00:00:40.238 OS           OS_VFS_READ                   505    4096     0.00 minio           [MINIO]
+00:00:40.238 APPLICATION  MINIO_OBJECT_GET              505     505     0.00 minio           [MINIO]
+00:00:40.238 OS           OS_VFS_READ                   505    4096     0.00 minio           [MINIO]
+00:00:40.238 STORAGE_SVC  MINIO_XL_META                   0       0     0.00 minio           [META][MINIO][XL.META]
+    └─> File: /mnt/minio2/minio
+00:00:40.239 STORAGE_SVC  MINIO_XL_META                   0       0     0.00 minio           [META][MINIO][XL.META]
+    └─> File: /mnt/minio2/minio/.minio.sys/buckets/.usage-cache.bin/xl.meta
+00:00:40.239 APPLICATION  MINIO_OBJECT_GET              629     629     0.00 minio           [MINIO]
+00:00:40.239 OS           OS_VFS_READ                   629    4096     0.00 minio           [MINIO]
+00:00:40.239 STORAGE_SVC  MINIO_XL_META                   0       0     0.00 minio           [META][MINIO][XL.META]
+    └─> File: /mnt/minio1/minio/.minio.sys/buckets/.usage-cache.bin/xl.meta
+00:00:40.239 APPLICATION  MINIO_OBJECT_GET              629     629     0.00 minio           [MINIO]
+00:00:40.239 OS           OS_VFS_READ                   629    4096     0.00 minio           [MINIO]
+00:00:40.239 STORAGE_SVC  MINIO_XL_META                   0       0     0.00 minio           [META][MINIO][XL.META]
+    └─> File: /mnt/minio2/minio/.minio.sys/buckets/public/.usage-cache.bin/xl.meta
+00:00:40.239 STORAGE_SVC  MINIO_XL_META                   0       0     0.00 minio           [META][MINIO][XL.META]
+    └─> File: /mnt/minio1/minio/.minio.sys/buckets/public/.usage-cache.bin/xl.meta
+00:00:40.239 APPLICATION  MINIO_OBJECT_GET             1397    1397     0.00 minio           [MINIO]
+00:00:40.239 OS           OS_VFS_READ                  1397    4096     0.00 minio           [MINIO]
+00:00:40.239 APPLICATION  MINIO_OBJECT_GET             1397    1397     0.00 minio           [MINIO]
+00:00:40.239 OS           OS_VFS_READ                  1397    4096     0.00 minio           [MINIO]
+00:00:40.239 APPLICATION  MINIO_OBJECT_PUT                8       8     0.00 minio           [MINIO]
+00:00:40.239 OS           OS_VFS_WRITE                    8    4096     0.00 minio           [MINIO]
+00:00:40.239 APPLICATION  MINIO_OBJECT_GET                8       8     0.00 minio           [MINIO]
+00:00:40.239 OS           OS_VFS_READ                     8    4096     0.00 minio           [MINIO]
+00:00:40.241 APPLICATION  MINIO_OBJECT_PUT                8       8     0.00 minio           [MINIO]
+00:00:40.241 OS           OS_VFS_WRITE                    8    4096     0.00 minio           [MINIO]
+00:00:40.241 APPLICATION  MINIO_OBJECT_GET                8       8     0.00 minio           [MINIO]
+00:00:40.241 OS           OS_VFS_READ                     8    4096     0.00 minio           [MINIO]
+00:00:40.243 STORAGE_SVC  MINIO_XL_META                   0       0     0.00 minio           [META][MINIO][XL.META]
+    └─> File: /mnt/minio2/minio/public/comprehensive_test_100KB
+00:00:40.243 APPLICATION  MINIO_OBJECT_PUT                8       8     0.00 minio           [MINIO]
+00:00:40.243 OS           OS_VFS_WRITE                    8    4096     0.00 minio           [MINIO]
+00:00:40.243 APPLICATION  MINIO_OBJECT_GET                8       8     0.00 minio           [MINIO]
+00:00:40.243 OS           OS_VFS_READ                     8    4096     0.00 minio           [MINIO]
+00:00:40.246 STORAGE_SVC  MINIO_XL_META                   0       0     0.00 minio           [META][MINIO][XL.META]
+    └─> File: /mnt/minio2/minio/public/comprehensive_test_100KB/test.dat/xl.meta
+00:00:40.246 APPLICATION  MINIO_OBJECT_GET             4096    4096     0.00 minio           [MINIO]
+00:00:40.246 OS           OS_VFS_READ                  4096    4096     0.00 minio           [MINIO]
+00:00:40.246 STORAGE_SVC  MINIO_XL_META                   0       0     0.00 minio           [META][MINIO][XL.META]
+    └─> File: /mnt/minio2/minio/.minio.sys/buckets/public/.usage-cache.bin/xl.meta
+00:00:40.246 STORAGE_SVC  MINIO_XL_META                   0       0     0.00 minio           [META][MINIO][XL.META]
+    └─> File: /mnt/minio1/minio/.minio.sys/buckets/public/.usage-cache.bin/xl.meta
+00:00:40.246 APPLICATION  MINIO_OBJECT_GET             1397    1397     0.00 minio           [MINIO]
+00:00:40.246 OS           OS_VFS_READ                  1397    4096     0.00 minio           [MINIO]
+00:00:40.246 APPLICATION  MINIO_OBJECT_GET             1397    1397     0.00 minio           [MINIO]
+00:00:40.246 OS           OS_VFS_READ                  1397    4096     0.00 minio           [MINIO]
+00:00:40.246 APPLICATION  MINIO_OBJECT_PUT             1420    1420     0.00 minio           [MINIO]
+00:00:40.246 OS           OS_VFS_WRITE                 1420    4096     0.00 minio           [MINIO]
+00:00:40.246 FILESYSTEM   FS_SYNC                         0       0     0.00 minio           [META][MINIO]
+00:00:40.246 APPLICATION  MINIO_OBJECT_PUT             1420    1420     0.00 minio           [MINIO]
+00:00:40.246 OS           OS_VFS_WRITE                 1420    4096     0.00 minio           [MINIO]
+00:00:40.246 FILESYSTEM   FS_SYNC                         0       0     0.00 minio           [META][MINIO]
+00:00:40.246 DEVICE       DEV_BIO_SUBMIT               4096    4096     0.00 minio           [MINIO]
+00:00:40.246 DEVICE       DEV_BIO_SUBMIT               4096    4096     0.00 minio           [MINIO]
+00:00:40.253 DEVICE       DEV_BIO_COMPLETE             4096    4096  6734.06                 
+00:00:40.253 DEVICE       DEV_BIO_COMPLETE             4096    4096  7059.36                 
+00:00:40.254 APPLICATION  MINIO_OBJECT_PUT             1397    1397     0.00 minio           [MINIO]
+00:00:40.254 OS           OS_VFS_WRITE                 1397    4096     0.00 minio           [MINIO]
+00:00:40.254 FILESYSTEM   FS_SYNC                         0       0     0.00 minio           [META][MINIO]
+00:00:40.254 DEVICE       DEV_BIO_SUBMIT               4096    4096     0.00 minio           [MINIO]
+00:00:40.254 DEVICE       DEV_BIO_COMPLETE             4096    4096    18.02                 
+00:00:40.254 APPLICATION  MINIO_OBJECT_PUT             1397    1397     0.00 minio           [MINIO]
+00:00:40.254 OS           OS_VFS_WRITE                 1397    4096     0.00 minio           [MINIO]
+00:00:40.254 FILESYSTEM   FS_SYNC                         0       0     0.00 minio           [META][MINIO]
+00:00:40.254 DEVICE       DEV_BIO_SUBMIT               4096    4096     0.00 minio           [MINIO]
+00:00:40.254 DEVICE       DEV_BIO_COMPLETE             4096    4096    19.36                 
+00:00:40.255 APPLICATION  MINIO_OBJECT_GET             1397    1397     0.00 minio           [MINIO]
+00:00:40.255 OS           OS_VFS_READ                  1397    4096     0.00 minio           [MINIO]
+00:00:40.255 APPLICATION  MINIO_OBJECT_GET             1397    1397     0.00 minio           [MINIO]
+00:00:40.255 OS           OS_VFS_READ                  1397    4096     0.00 minio           [MINIO]
+00:00:40.255 APPLICATION  MINIO_OBJECT_PUT             1420    1420     0.00 minio           [MINIO]
+00:00:40.255 OS           OS_VFS_WRITE                 1420    4096     0.00 minio           [MINIO]
+00:00:40.255 APPLICATION  MINIO_OBJECT_PUT             1420    1420     0.00 minio           [MINIO]
+00:00:40.255 OS           OS_VFS_WRITE                 1420    4096     0.00 minio           [MINIO]
+00:00:40.255 FILESYSTEM   FS_SYNC                         0       0     0.00 minio           [META][MINIO]
+00:00:40.255 FILESYSTEM   FS_SYNC                         0       0     0.00 minio           [META][MINIO]
+00:00:40.255 DEVICE       DEV_BIO_SUBMIT               4096    4096     0.00 minio           [MINIO]
+00:00:40.255 DEVICE       DEV_BIO_SUBMIT               4096    4096     0.00 minio           [MINIO]
+00:00:40.255 DEVICE       DEV_BIO_COMPLETE             4096    4096    11.96                 
+00:00:40.255 DEVICE       DEV_BIO_COMPLETE             4096    4096    15.57                 
+00:00:40.255 APPLICATION  MINIO_OBJECT_PUT             1397    1397     0.00 minio           [MINIO]
+00:00:40.255 APPLICATION  MINIO_OBJECT_PUT             1397    1397     0.00 minio           [MINIO]
+00:00:40.255 OS           OS_VFS_WRITE                 1397    4096     0.00 minio           [MINIO]
+00:00:40.255 OS           OS_VFS_WRITE                 1397    4096     0.00 minio           [MINIO]
+00:00:40.255 FILESYSTEM   FS_SYNC                         0       0     0.00 minio           [META][MINIO]
+00:00:40.255 FILESYSTEM   FS_SYNC                         0       0     0.00 minio           [META][MINIO]
+00:00:40.255 DEVICE       DEV_BIO_SUBMIT               4096    4096     0.00 minio           [MINIO]
+00:00:40.255 DEVICE       DEV_BIO_SUBMIT               4096    4096     0.00 minio           [MINIO]
+00:00:40.255 DEVICE       DEV_BIO_COMPLETE             4096    4096    17.72                 
+00:00:40.255 DEVICE       DEV_BIO_COMPLETE             4096    4096    19.53                 
+00:00:40.256 STORAGE_SVC  MINIO_XL_META                   0       0     0.00 minio           [META][MINIO][XL.META]
+    └─> File: /mnt/minio1/minio/.minio.sys/buckets/.usage-cache.bin/xl.meta
+00:00:40.256 STORAGE_SVC  MINIO_XL_META                   0       0     0.00 minio           [META][MINIO][XL.META]
+    └─> File: /mnt/minio2/minio/.minio.sys/buckets/.usage-cache.bin/xl.meta
+00:00:40.256 APPLICATION  MINIO_OBJECT_GET              629     629     0.00 minio           [MINIO]
+00:00:40.256 APPLICATION  MINIO_OBJECT_GET              629     629     0.00 minio           [MINIO]
+00:00:40.256 OS           OS_VFS_READ                   629    4096     0.00 minio           [MINIO]
+00:00:40.256 OS           OS_VFS_READ                   629    4096     0.00 minio           [MINIO]
+00:00:40.256 APPLICATION  MINIO_OBJECT_PUT              629     629     0.00 minio           [MINIO]
+00:00:40.256 APPLICATION  MINIO_OBJECT_PUT              629     629     0.00 minio           [MINIO]
+00:00:40.256 OS           OS_VFS_WRITE                  629    4096     0.00 minio           [MINIO]
+00:00:40.256 OS           OS_VFS_WRITE                  629    4096     0.00 minio           [MINIO]
+00:00:40.256 FILESYSTEM   FS_SYNC                         0       0     0.00 minio           [META][MINIO]
+00:00:40.256 FILESYSTEM   FS_SYNC                         0       0     0.00 minio           [META][MINIO]
+00:00:40.256 DEVICE       DEV_BIO_SUBMIT               4096    4096     0.00 minio           [MINIO]
+00:00:40.256 DEVICE       DEV_BIO_SUBMIT               4096    4096     0.00 minio           [MINIO]
+00:00:40.256 DEVICE       DEV_BIO_COMPLETE             4096    4096    18.91                 
+00:00:40.256 DEVICE       DEV_BIO_COMPLETE             4096    4096    18.91                 
+00:00:40.257 APPLICATION  MINIO_OBJECT_PUT              629     629     0.00 minio           [MINIO]
+00:00:40.257 APPLICATION  MINIO_OBJECT_PUT              629     629     0.00 minio           [MINIO]
+00:00:40.257 OS           OS_VFS_WRITE                  629    4096     0.00 minio           [MINIO]
+00:00:40.257 OS           OS_VFS_WRITE                  629    4096     0.00 minio           [MINIO]
+00:00:40.257 FILESYSTEM   FS_SYNC                         0       0     0.00 minio           [META][MINIO]
+00:00:40.257 FILESYSTEM   FS_SYNC                         0       0     0.00 minio           [META][MINIO]
+00:00:40.257 DEVICE       DEV_BIO_SUBMIT               4096    4096     0.00 minio           [MINIO]
+00:00:40.257 DEVICE       DEV_BIO_SUBMIT               4096    4096     0.00 minio           [MINIO]
+00:00:40.257 DEVICE       DEV_BIO_COMPLETE             4096    4096    18.30                 
+00:00:40.257 DEVICE       DEV_BIO_COMPLETE             4096    4096    18.34                 
+00:00:40.258 STORAGE_SVC  MINIO_XL_META                   0       0     0.00 minio           [META][MINIO][XL.META]
+    └─> File: /mnt/minio1/minio/.minio.sys/buckets/.usage-cache.bin.bkp/xl.meta
+00:00:40.258 STORAGE_SVC  MINIO_XL_META                   0       0     0.00 minio           [META][MINIO][XL.META]
+    └─> File: /mnt/minio2/minio/.minio.sys/buckets/.usage-cache.bin.bkp/xl.meta
+00:00:40.258 APPLICATION  MINIO_OBJECT_GET              629     629     0.00 minio           [MINIO]
+00:00:40.258 APPLICATION  MINIO_OBJECT_GET              629     629     0.00 minio           [MINIO]
+00:00:40.258 OS           OS_VFS_READ                   629    4096     0.00 minio           [MINIO]
+00:00:40.258 OS           OS_VFS_READ                   629    4096     0.00 minio           [MINIO]
+00:00:40.258 APPLICATION  MINIO_OBJECT_PUT              629     629     0.00 minio           [MINIO]
+00:00:40.258 APPLICATION  MINIO_OBJECT_PUT              629     629     0.00 minio           [MINIO]
+00:00:40.258 OS           OS_VFS_WRITE                  629    4096     0.00 minio           [MINIO]
+00:00:40.258 OS           OS_VFS_WRITE                  629    4096     0.00 minio           [MINIO]
+00:00:40.258 FILESYSTEM   FS_SYNC                         0       0     0.00 minio           [META][MINIO]
+00:00:40.258 FILESYSTEM   FS_SYNC                         0       0     0.00 minio           [META][MINIO]
+00:00:40.258 DEVICE       DEV_BIO_SUBMIT               4096    4096     0.00 minio           [MINIO]
+00:00:40.258 DEVICE       DEV_BIO_SUBMIT               4096    4096     0.00 minio           [MINIO]
+00:00:40.258 DEVICE       DEV_BIO_COMPLETE             4096    4096    18.75                 
+00:00:40.258 DEVICE       DEV_BIO_COMPLETE             4096    4096    18.75                 
+00:00:40.258 APPLICATION  MINIO_OBJECT_PUT              629     629     0.00 minio           [MINIO]
+00:00:40.258 APPLICATION  MINIO_OBJECT_PUT              629     629     0.00 minio           [MINIO]
+00:00:40.258 OS           OS_VFS_WRITE                  629    4096     0.00 minio           [MINIO]
+00:00:40.258 OS           OS_VFS_WRITE                  629    4096     0.00 minio           [MINIO]
+00:00:40.258 FILESYSTEM   FS_SYNC                         0       0     0.00 minio           [META][MINIO]
+00:00:40.258 FILESYSTEM   FS_SYNC                         0       0     0.00 minio           [META][MINIO]
+00:00:40.258 DEVICE       DEV_BIO_SUBMIT               4096    4096     0.00 minio           [MINIO]
+00:00:40.258 DEVICE       DEV_BIO_SUBMIT               4096    4096     0.00 minio           [MINIO]
+00:00:40.258 DEVICE       DEV_BIO_COMPLETE             4096    4096    17.62                 
+00:00:40.258 DEVICE       DEV_BIO_COMPLETE             4096    4096    17.90                 
+00:00:40.259 STORAGE_SVC  MINIO_XL_META                   0       0     0.00 minio           [META][MINIO][XL.META]
+    └─> File: /mnt/minio2/minio/.minio.sys/buckets/.bloomcycle.bin/xl.meta
+00:00:40.259 STORAGE_SVC  MINIO_XL_META                   0       0     0.00 minio           [META][MINIO][XL.META]
+    └─> File: /mnt/minio1/minio/.minio.sys/buckets/.bloomcycle.bin/xl.meta
+00:00:40.259 APPLICATION  MINIO_OBJECT_GET              744     744     0.00 minio           [MINIO]
+00:00:40.259 OS           OS_VFS_READ                   744    4096     0.00 minio           [MINIO]
+00:00:40.259 APPLICATION  MINIO_OBJECT_GET              744     744     0.00 minio           [MINIO]
+00:00:40.259 OS           OS_VFS_READ                   744    4096     0.00 minio           [MINIO]
+00:00:40.259 STORAGE_SVC  MINIO_XL_META                   0       0     0.00 minio           [META][MINIO][XL.META]
+    └─> File: /mnt/minio2/minio/.minio.sys/buckets/.usage.json/xl.meta
+00:00:40.259 APPLICATION  MINIO_OBJECT_GET             1510    1510     0.00 minio           [MINIO]
+00:00:40.259 OS           OS_VFS_READ                  1510    4096     0.00 minio           [MINIO]
+00:00:40.259 STORAGE_SVC  MINIO_XL_META                   0       0     0.00 minio           [META][MINIO][XL.META]
+    └─> File: /mnt/minio1/minio/.minio.sys/buckets/.usage.json/xl.meta
+00:00:40.259 APPLICATION  MINIO_OBJECT_GET             1510    1510     0.00 minio           [MINIO]
+00:00:40.259 OS           OS_VFS_READ                  1510    4096     0.00 minio           [MINIO]
+00:00:40.259 STORAGE_SVC  MINIO_XL_META                   0       0     0.00 minio           [META][MINIO][XL.META]
+    └─> File: /mnt/minio2/minio/.minio.sys/buckets/.bloomcycle.bin/xl.meta
+00:00:40.259 STORAGE_SVC  MINIO_XL_META                   0       0     0.00 minio           [META][MINIO][XL.META]
+    └─> File: /mnt/minio1/minio/.minio.sys/buckets/.bloomcycle.bin/xl.meta
+00:00:40.259 APPLICATION  MINIO_OBJECT_GET              744     744     0.00 minio           [MINIO]
+00:00:40.259 OS           OS_VFS_READ                   744    4096     0.00 minio           [MINIO]
+00:00:40.259 APPLICATION  MINIO_OBJECT_GET              744     744     0.00 minio           [MINIO]
+00:00:40.259 OS           OS_VFS_READ                   744    4096     0.00 minio           [MINIO]
+00:00:40.259 STORAGE_SVC  MINIO_XL_META                   0       0     0.00 minio           [META][MINIO][XL.META]
+    └─> File: /mnt/minio1/minio/.minio.sys/buckets/.usage.json/xl.meta
+00:00:40.259 APPLICATION  MINIO_OBJECT_GET             1510    1510     0.00 minio           [MINIO]
+00:00:40.259 APPLICATION  MINIO_OBJECT_PUT              744     744     0.00 minio           [MINIO]
+00:00:40.259 OS           OS_VFS_READ                  1510    4096     0.00 minio           [MINIO]
+00:00:40.259 OS           OS_VFS_WRITE                  744    4096     0.00 minio           [MINIO]
+00:00:40.259 STORAGE_SVC  MINIO_XL_META                   0       0     0.00 minio           [META][MINIO][XL.META]
+    └─> File: /mnt/minio2/minio/.minio.sys/buckets/.usage.json/xl.meta
+00:00:40.259 FILESYSTEM   FS_SYNC                         0       0     0.00 minio           [META][MINIO]
+00:00:40.259 APPLICATION  MINIO_OBJECT_GET             1510    1510     0.00 minio           [MINIO]
+00:00:40.259 APPLICATION  MINIO_OBJECT_PUT              744     744     0.00 minio           [MINIO]
+00:00:40.259 OS           OS_VFS_READ                  1510    4096     0.00 minio           [MINIO]
+00:00:40.259 OS           OS_VFS_WRITE                  744    4096     0.00 minio           [MINIO]
+00:00:40.259 DEVICE       DEV_BIO_SUBMIT               4096    4096     0.00 minio           [MINIO]
+00:00:40.259 FILESYSTEM   FS_SYNC                         0       0     0.00 minio           [META][MINIO]
+00:00:40.259 DEVICE       DEV_BIO_SUBMIT               4096    4096     0.00 minio           [MINIO]
+00:00:40.259 DEVICE       DEV_BIO_COMPLETE             4096    4096    19.71                 
+00:00:40.259 DEVICE       DEV_BIO_COMPLETE             4096    4096    10.42                 
+00:00:40.259 APPLICATION  MINIO_OBJECT_PUT             1510    1510     0.00 minio           [MINIO]
+00:00:40.259 OS           OS_VFS_WRITE                 1510    4096     0.00 minio           [MINIO]
+00:00:40.259 FILESYSTEM   FS_SYNC                         0       0     0.00 minio           [META][MINIO]
+00:00:40.259 APPLICATION  MINIO_OBJECT_PUT             1510    1510     0.00 minio           [MINIO]
+00:00:40.259 OS           OS_VFS_WRITE                 1510    4096     0.00 minio           [MINIO]
+00:00:40.259 FILESYSTEM   FS_SYNC                         0       0     0.00 minio           [META][MINIO]
+00:00:40.259 DEVICE       DEV_BIO_SUBMIT               4096    4096     0.00 minio           [MINIO]
+00:00:40.259 DEVICE       DEV_BIO_COMPLETE             4096    4096    17.10                 
+00:00:40.259 DEVICE       DEV_BIO_SUBMIT               4096    4096     0.00 minio           [MINIO]
+00:00:40.259 DEVICE       DEV_BIO_COMPLETE             4096    4096    13.91                 
+00:00:40.260 APPLICATION  MINIO_OBJECT_PUT              744     744     0.00 minio           [MINIO]
+00:00:40.260 OS           OS_VFS_WRITE                  744    4096     0.00 minio           [MINIO]
+00:00:40.260 FILESYSTEM   FS_SYNC                         0       0     0.00 minio           [META][MINIO]
+00:00:40.260 DEVICE       DEV_BIO_SUBMIT               4096    4096     0.00 minio           [MINIO]
+00:00:40.260 DEVICE       DEV_BIO_COMPLETE             4096    4096     8.30                 
+00:00:40.260 APPLICATION  MINIO_OBJECT_PUT              744     744     0.00 minio           [MINIO]
+00:00:40.260 OS           OS_VFS_WRITE                  744    4096     0.00 minio           [MINIO]
+00:00:40.260 FILESYSTEM   FS_SYNC                         0       0     0.00 minio           [META][MINIO]
+00:00:40.260 DEVICE       DEV_BIO_SUBMIT               4096    4096     0.00 minio           [MINIO]
+00:00:40.260 DEVICE       DEV_BIO_COMPLETE             4096    4096    25.36                 
+00:00:40.260 APPLICATION  MINIO_OBJECT_PUT             1510    1510     0.00 minio           [MINIO]
+00:00:40.260 OS           OS_VFS_WRITE                 1510    4096     0.00 minio           [MINIO]
+00:00:40.260 FILESYSTEM   FS_SYNC                         0       0     0.00 minio           [META][MINIO]
+00:00:40.260 DEVICE       DEV_BIO_SUBMIT               4096    4096     0.00 minio           [MINIO]
+00:00:40.260 APPLICATION  MINIO_OBJECT_PUT             1510    1510     0.00 minio           [MINIO]
+00:00:40.260 OS           OS_VFS_WRITE                 1510    4096     0.00 minio           [MINIO]
+00:00:40.260 FILESYSTEM   FS_SYNC                         0       0     0.00 minio           [META][MINIO]
+00:00:40.260 DEVICE       DEV_BIO_SUBMIT               4096    4096     0.00 minio           [MINIO]
+00:00:40.260 DEVICE       DEV_BIO_COMPLETE             4096    4096    18.20                 
+00:00:40.260 DEVICE       DEV_BIO_COMPLETE             4096    4096    17.12                 
+00:00:41.567 APPLICATION  MINIO_OBJECT_PUT                8       8     0.00 minio           [MINIO]
+00:00:41.567 OS           OS_VFS_WRITE                    8    4096     0.00 minio           [MINIO]
+00:00:41.567 APPLICATION  MINIO_OBJECT_GET                8       8     0.00 minio           [MINIO]
+00:00:41.567 OS           OS_VFS_READ                     8    4096     0.00 minio           [MINIO]
+00:00:41.580 APPLICATION  MINIO_OBJECT_PUT                8       8     0.00 minio           [MINIO]
+00:00:41.580 OS           OS_VFS_WRITE                    8    4096     0.00 minio           [MINIO]
+00:00:41.580 APPLICATION  MINIO_OBJECT_GET                8       8     0.00 minio           [MINIO]
+00:00:41.580 OS           OS_VFS_READ                     8    4096     0.00 minio           [MINIO]
+00:00:43.213 APPLICATION  MINIO_OBJECT_GET             4096    4096     0.00 minio           [MINIO]
+00:00:43.213 OS           OS_VFS_READ                  4096    4096     0.00 minio           [MINIO]
+00:00:43.213 STORAGE_SVC  MINIO_XL_META                   0       0     0.00 minio           [META][MINIO][XL.META]
+    └─> File: /mnt/minio2/minio/public/rw_test_10KB/test.dat/xl.meta
+00:00:43.213 STORAGE_SVC  MINIO_XL_META                   0       0     0.00 minio           [META][MINIO][XL.META]
+    └─> File: /mnt/minio1/minio/public/rw_test_10KB/test.dat/xl.meta
+00:00:43.213 APPLICATION  MINIO_OBJECT_GET             4096    4096     0.00 minio           [MINIO]
+00:00:43.213 OS           OS_VFS_READ                  4096    4096     0.00 minio           [MINIO]
+00:00:43.213 APPLICATION  MINIO_OBJECT_GET             4096    4096     0.00 minio           [MINIO]
+00:00:43.213 OS           OS_VFS_READ                  4096    4096     0.00 minio           [MINIO]
+00:00:43.214 APPLICATION  MINIO_OBJECT_PUT               25      25     0.00 minio           [MINIO]
+00:00:43.214 OS           OS_VFS_WRITE                   25    4096     0.00 minio           [MINIO]
+00:00:43.214 APPLICATION  MINIO_OBJECT_GET            10240   10240     0.00 minio           [MINIO]
+00:00:43.214 OS           OS_VFS_READ                 10240   12288     0.00 minio           [MINIO]
+00:00:43.214 APPLICATION  MINIO_OBJECT_GET            10240   10240     0.00 minio           [MINIO]
+00:00:43.214 OS           OS_VFS_READ                 10240   12288     0.00 minio           [MINIO]
+00:00:43.214 APPLICATION  MINIO_OBJECT_GET             4096    4096     0.00 minio           [MINIO]
+00:00:43.214 OS           OS_VFS_READ                  4096    4096     0.00 minio           [MINIO]
+00:00:43.214 APPLICATION  MINIO_OBJECT_GET                1       1     0.00 minio           [MINIO]
+00:00:43.214 OS           OS_VFS_READ                     1    4096     0.00 minio           [MINIO]
+00:00:43.214 STORAGE_SVC  MINIO_XL_META                   0       0     0.00 minio           [META][MINIO][XL.META]
+    └─> File: /mnt/minio2/minio/public/rw_test_10KB/test.dat/xl.meta
+00:00:43.214 APPLICATION  MINIO_OBJECT_GET            10705   10705     0.00 minio           [MINIO]
+00:00:43.214 OS           OS_VFS_READ                 10705   12288     0.00 minio           [MINIO]
+00:00:43.214 STORAGE_SVC  MINIO_XL_META                   0       0     0.00 minio           [META][MINIO][XL.META]
+    └─> File: /mnt/minio1/minio/public/rw_test_10KB/test.dat/xl.meta
+00:00:43.214 APPLICATION  MINIO_OBJECT_GET            10705   10705     0.00 minio           [MINIO]
+00:00:43.214 OS           OS_VFS_READ                 10705   12288     0.00 minio           [MINIO]
+00:00:43.214 APPLICATION  MINIO_OBJECT_PUT             8192    8192     0.00 minio           [MINIO]
+00:00:43.214 OS           OS_VFS_WRITE                 8192    8192     0.00 minio           [MINIO]
+00:00:43.214 DEVICE       DEV_BIO_SUBMIT               8192    8192     0.00 minio           [MINIO]
+00:00:43.214 APPLICATION  MINIO_OBJECT_PUT             8192    8192     0.00 minio           [MINIO]
+00:00:43.214 OS           OS_VFS_WRITE                 8192    8192     0.00 minio           [MINIO]
+00:00:43.214 DEVICE       DEV_BIO_SUBMIT               8192    8192     0.00 minio           [MINIO]
+00:00:43.221 DEVICE       DEV_BIO_COMPLETE             8192    8192  6950.12                 
+00:00:43.221 APPLICATION  MINIO_OBJECT_PUT             2513    2513     0.00 minio           [MINIO]
+00:00:43.221 OS           OS_VFS_WRITE                 2513    4096     0.00 minio           [MINIO]
+00:00:43.221 DEVICE       DEV_BIO_SUBMIT               4096    4096     0.00 minio           [MINIO]
+00:00:43.221 DEVICE       DEV_BIO_COMPLETE             4096    4096    27.74                 
+00:00:43.222 DEVICE       DEV_BIO_COMPLETE             8192    8192  7742.43                 
+00:00:43.222 APPLICATION  MINIO_OBJECT_PUT             2513    2513     0.00 minio           [MINIO]
+00:00:43.222 OS           OS_VFS_WRITE                 2513    4096     0.00 minio           [MINIO]
+00:00:43.222 DEVICE       DEV_BIO_SUBMIT               4096    4096     0.00 minio           [MINIO]
+00:00:43.222 DEVICE       DEV_BIO_COMPLETE             4096    4096    13.62                 
+00:00:43.222 APPLICATION  MINIO_OBJECT_PUT             8192    8192     0.00 minio           [MINIO]
+00:00:43.222 OS           OS_VFS_WRITE                 8192    8192     0.00 minio           [MINIO]
+00:00:43.222 DEVICE       DEV_BIO_SUBMIT               8192    8192     0.00 minio           [MINIO]
+00:00:43.222 DEVICE       DEV_BIO_COMPLETE             8192    8192    23.62                 
+00:00:43.222 APPLICATION  MINIO_OBJECT_PUT             2513    2513     0.00 minio           [MINIO]
+00:00:43.222 OS           OS_VFS_WRITE                 2513    4096     0.00 minio           [MINIO]
+00:00:43.222 DEVICE       DEV_BIO_SUBMIT               4096    4096     0.00 minio           [MINIO]
+00:00:43.222 DEVICE       DEV_BIO_COMPLETE             4096    4096    17.25                 
+00:00:43.223 APPLICATION  MINIO_OBJECT_PUT             8192    8192     0.00 minio           [MINIO]
+00:00:43.223 OS           OS_VFS_WRITE                 8192    8192     0.00 minio           [MINIO]
+00:00:43.223 DEVICE       DEV_BIO_SUBMIT               8192    8192     0.00 minio           [MINIO]
+00:00:43.223 DEVICE       DEV_BIO_COMPLETE             8192    8192    14.39                 
+00:00:43.223 APPLICATION  MINIO_OBJECT_PUT             2513    2513     0.00 minio           [MINIO]
+00:00:43.223 OS           OS_VFS_WRITE                 2513    4096     0.00 minio           [MINIO]
+00:00:43.223 DEVICE       DEV_BIO_SUBMIT               4096    4096     0.00 minio           [MINIO]
+00:00:43.223 DEVICE       DEV_BIO_COMPLETE             4096    4096     8.38                 
+00:00:43.223 APPLICATION  MINIO_OBJECT_PUT              563     563     0.00 minio           [MINIO]
+00:00:43.223 OS           OS_VFS_WRITE                  563    4096     0.00 minio           [MINIO]
+00:00:43.223 APPLICATION  MINIO_OBJECT_GET             4096    4096     0.00 minio           [MINIO]
+00:00:43.223 OS           OS_VFS_READ                  4096    4096     0.00 minio           [MINIO]
+00:00:43.224 APPLICATION  MINIO_OBJECT_GET             4096    4096     0.00 minio           [MINIO]
+00:00:43.224 OS           OS_VFS_READ                  4096    4096     0.00 minio           [MINIO]
+00:00:43.567 APPLICATION  MINIO_OBJECT_PUT                8       8     0.00 minio           [MINIO]
+00:00:43.567 OS           OS_VFS_WRITE                    8    4096     0.00 minio           [MINIO]
+00:00:43.567 APPLICATION  MINIO_OBJECT_GET                8       8     0.00 minio           [MINIO]
+00:00:43.567 OS           OS_VFS_READ                     8    4096     0.00 minio           [MINIO]
+00:00:45.567 APPLICATION  MINIO_OBJECT_PUT                8       8     0.00 minio           [MINIO]
+00:00:45.567 OS           OS_VFS_WRITE                    8    4096     0.00 minio           [MINIO]
+00:00:45.567 APPLICATION  MINIO_OBJECT_GET                8       8     0.00 minio           [MINIO]
+00:00:45.567 OS           OS_VFS_READ                     8    4096     0.00 minio           [MINIO]
+00:00:45.581 APPLICATION  MINIO_OBJECT_PUT                8       8     0.00 minio           [MINIO]
+00:00:45.581 OS           OS_VFS_WRITE                    8    4096     0.00 minio           [MINIO]
+00:00:45.581 APPLICATION  MINIO_OBJECT_GET                8       8     0.00 minio           [MINIO]
+00:00:45.581 OS           OS_VFS_READ                     8    4096     0.00 minio           [MINIO]
+
+=== Tracer interrupted, generating summary ===
+
+========================================
+    I/O AMPLIFICATION ANALYSIS
+========================================
+
+Per-Layer Statistics:
+LAYER               EVENTS      BYTES    ALIGNED     META     JRNL    CACHE AMP_FACTOR
+----------------------------------------------------------------------
+APPLICATION             98     161709     161709        0        0        0       0.00x
+  └─> MinIO:            98     161709          -        0        -        -          -
+STORAGE_SVC             27          0          0       27        0        0       0.00x
+  └─> MinIO:            27          0          -       27        -        -          -
+OS                      98     161709     450560        0        0        0       2.79x
+  └─> MinIO:            98     161709          -        0        -        -          -
+FILESYSTEM              24          0          0       24        0        0       0.00x
+  └─> MinIO:            24          0          -        0        -        -          -
+DEVICE                  64     294912     294912        0        0        0       1.82x
+  └─> MinIO:            32     147456          -        0        -        -          -
+
+Amplification Breakdown:
+----------------------------------------------------------------------
+Original application I/O:         161709 bytes
+After OS/page cache alignment:    450560 bytes (2.79x amplification)
+Final device layer I/O:           294912 bytes (1.82x amplification)
+
+*** TOTAL AMPLIFICATION: 1.82x ***
+    294912 bytes written for 161709 bytes requested
+
+
+Per-Request Amplification (Top 10):
+REQUEST_ID            APP  STORAGE       OS       FS   DEVICE    TOTAL    AMP   MinIO
+-----------------------------------------------------------------------------
+0000341fd33a8968        8        0     4096        0        0     4096 512.00x     Yes
+000039e0d33ae47a        8        0     4096        0        0     4096 512.00x     Yes
+0000341ff030e1a2        8        0     4096        0        0     4096 512.00x     Yes
+000039e0f03137ee        8        0     4096        0        0     4096 512.00x     Yes
+000039dc49b5766b        8        0     4096        0        0     4096 512.00x     Yes
+000039e049b5cce8        8        0     4096        0        0     4096 512.00x     Yes
+000039dc4a72c857        8        0     4096        0        0     4096 512.00x     Yes
+000039e04a731bd1        8        0     4096        0        0     4096 512.00x     Yes
+0000341fc0d8d291        8        0     4096        0        0     4096 512.00x     Yes
+000039e0c0d92bc1        8        0     4096        0        0     4096 512.00x     Yes
+
+========================================
+       MinIO-SPECIFIC ANALYSIS
+========================================
+
+MinIO Operation Statistics:
+-------------------------------------------
+Objects Written:                   49
+Objects Read:                      49
+XL Metadata Operations:            27
+Erasure Blocks Written:             0
+Multipart Uploads:                  0
+
+MinIO Data Breakdown:
+-------------------------------------------
+Data Bytes:                     68844
+Metadata Bytes:                     0
+Metadata Overhead:              0.00%
+
+MinIO I/O Pattern Analysis:
+-------------------------------------------
+APPLICATION    :       98 events,     161709 bytes
+STORAGE_SVC    :       27 events,          0 bytes
+  └─> XL.META operations: 27
+OS             :       98 events,     161709 bytes
+FILESYSTEM     :       24 events,          0 bytes
+DEVICE         :       32 events,     147456 bytes
+
+*** MinIO Total I/O Amplification: 6.84x ***
+
+========================================
+    I/O AMPLIFICATION ANALYSIS
+========================================
+
+Per-Layer Statistics:
+LAYER               EVENTS      BYTES    ALIGNED     META     JRNL    CACHE AMP_FACTOR
+----------------------------------------------------------------------
+APPLICATION             98     161709     161709        0        0        0       0.00x
+  └─> MinIO:            98     161709          -        0        -        -          -
+STORAGE_SVC             27          0          0       27        0        0       0.00x
+  └─> MinIO:            27          0          -       27        -        -          -
+OS                      98     161709     450560        0        0        0       2.79x
+  └─> MinIO:            98     161709          -        0        -        -          -
+FILESYSTEM              24          0          0       24        0        0       0.00x
+  └─> MinIO:            24          0          -        0        -        -          -
+DEVICE                  64     294912     294912        0        0        0       1.82x
+  └─> MinIO:            32     147456          -        0        -        -          -
+
+Amplification Breakdown:
+----------------------------------------------------------------------
+Original application I/O:         161709 bytes
+After OS/page cache alignment:    450560 bytes (2.79x amplification)
+Final device layer I/O:           294912 bytes (1.82x amplification)
+
+*** TOTAL AMPLIFICATION: 1.82x ***
+    294912 bytes written for 161709 bytes requested
+
+
+Per-Request Amplification (Top 10):
+REQUEST_ID            APP  STORAGE       OS       FS   DEVICE    TOTAL    AMP   MinIO
+-----------------------------------------------------------------------------
+0000341fd33a8968        8        0     4096        0        0     4096 512.00x     Yes
+000039e0d33ae47a        8        0     4096        0        0     4096 512.00x     Yes
+0000341ff030e1a2        8        0     4096        0        0     4096 512.00x     Yes
+000039e0f03137ee        8        0     4096        0        0     4096 512.00x     Yes
+000039dc49b5766b        8        0     4096        0        0     4096 512.00x     Yes
+000039e049b5cce8        8        0     4096        0        0     4096 512.00x     Yes
+000039dc4a72c857        8        0     4096        0        0     4096 512.00x     Yes
+000039e04a731bd1        8        0     4096        0        0     4096 512.00x     Yes
+0000341fc0d8d291        8        0     4096        0        0     4096 512.00x     Yes
+000039e0c0d92bc1        8        0     4096        0        0     4096 512.00x     Yes
+
+========================================
+       MinIO-SPECIFIC ANALYSIS
+========================================
+
+MinIO Operation Statistics:
+-------------------------------------------
+Objects Written:                   49
+Objects Read:                      49
+XL Metadata Operations:            27
+Erasure Blocks Written:             0
+Multipart Uploads:                  0
+
+MinIO Data Breakdown:
+-------------------------------------------
+Data Bytes:                     68844
+Metadata Bytes:                     0
+Metadata Overhead:              0.00%
+
+MinIO I/O Pattern Analysis:
+-------------------------------------------
+APPLICATION    :       98 events,     161709 bytes
+STORAGE_SVC    :       27 events,          0 bytes
+  └─> XL.META operations: 27
+OS             :       98 events,     161709 bytes
+FILESYSTEM     :       24 events,          0 bytes
+DEVICE         :       32 events,     147456 bytes
+
+*** MinIO Total I/O Amplification: 6.84x ***
