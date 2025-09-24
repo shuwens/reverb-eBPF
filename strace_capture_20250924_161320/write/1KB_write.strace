@@ -1,0 +1,394 @@
+7783  16:13:40.992980 futex(0xc001079160, FUTEX_WAIT_PRIVATE, 0, NULL <unfinished ...>
+7112  16:13:40.993004 futex(0xc003480160, FUTEX_WAIT_PRIVATE, 0, NULL <unfinished ...>
+7111  16:13:40.993008 futex(0xc0012b3160, FUTEX_WAIT_PRIVATE, 0, NULL <unfinished ...>
+7110  16:13:40.993012 futex(0x6e3adb8, FUTEX_WAIT_PRIVATE, 0, NULL <unfinished ...>
+7109  16:13:40.993016 futex(0xc000f7c160, FUTEX_WAIT_PRIVATE, 0, NULL <unfinished ...>
+7108  16:13:40.993019 futex(0x6e3b060, FUTEX_WAIT_PRIVATE, 0, NULL <unfinished ...>
+7107  16:13:40.993023 futex(0xc001200160, FUTEX_WAIT_PRIVATE, 0, NULL <unfinished ...>
+7106  16:13:40.993028 futex(0xc001188160, FUTEX_WAIT_PRIVATE, 0, NULL <unfinished ...>
+7105  16:13:40.993032 epoll_pwait(4,  <unfinished ...>
+7104  16:13:40.993036 futex(0xc000420960, FUTEX_WAIT_PRIVATE, 0, NULL <unfinished ...>
+7103  16:13:40.993040 futex(0xc0000b3960, FUTEX_WAIT_PRIVATE, 0, NULL <unfinished ...>
+7102  16:13:40.993044 futex(0xc000580160, FUTEX_WAIT_PRIVATE, 0, NULL <unfinished ...>
+7101  16:13:40.993047 futex(0xc000500160, FUTEX_WAIT_PRIVATE, 0, NULL <unfinished ...>
+7100  16:13:40.993051 futex(0xc000420160, FUTEX_WAIT_PRIVATE, 0, NULL <unfinished ...>
+7099  16:13:40.993055 futex(0xc0000b3160, FUTEX_WAIT_PRIVATE, 0, NULL <unfinished ...>
+7098  16:13:40.993058 futex(0xc0000b2960, FUTEX_WAIT_PRIVATE, 0, NULL <unfinished ...>
+7097  16:13:40.993062 restart_syscall(<... resuming interrupted read ...> <unfinished ...>
+7096  16:13:40.993066 futex(0x6df42b8, FUTEX_WAIT_PRIVATE, 0, NULL <unfinished ...>
+7095  16:13:40.993069 ppoll([{fd=-1}, {fd=12, events=POLLIN}, {fd=9, events=POLLIN}], 3, NULL, NULL, 8 <unfinished ...>
+7094  16:13:40.993089 ppoll([{fd=11, events=POLLIN}, {fd=3, events=POLLIN}, {fd=9, events=POLLIN}, {fd=8, events=POLLIN}], 4, NULL, NULL, 8 <unfinished ...>
+7105  16:13:40.993096 <... epoll_pwait resumed>[], 128, 0, NULL, 0) = 0 <0.000060>
+7105  16:13:40.993111 epoll_pwait(4, [], 128, 549, NULL, 0) = 0 <0.549638>
+7105  16:13:41.542806 epoll_pwait(4, [], 128, 0, NULL, 0) = 0 <0.000016>
+7097  16:13:41.542849 <... restart_syscall resumed>) = -1 ETIMEDOUT (Connection timed out) <0.549781>
+7105  16:13:41.542930 futex(0xc0000b3960, FUTEX_WAKE_PRIVATE, 1) = 1 <0.000018>
+7097  16:13:41.542958 nanosleep({tv_sec=0, tv_nsec=20000},  <unfinished ...>
+7105  16:13:41.542977 epoll_pwait(4,  <unfinished ...>
+7103  16:13:41.542982 <... futex resumed>) = 0 <0.549938>
+7105  16:13:41.542989 <... epoll_pwait resumed>[], 128, 0, NULL, 0) = 0 <0.000007>
+7105  16:13:41.543006 epoll_pwait(4,  <unfinished ...>
+7103  16:13:41.543012 epoll_pwait(4, [], 128, 0, NULL, 0) = 0 <0.000011>
+7103  16:13:41.543043 write(5, "\1\0\0\0\0\0\0\0", 8 <unfinished ...>
+7105  16:13:41.543063 <... epoll_pwait resumed>[{events=EPOLLIN, data={u32=115574912, u64=115574912}}], 128, 140090, NULL, 0) = 1 <0.000052>
+7103  16:13:41.543072 <... write resumed>) = 8 <0.000022>
+7105  16:13:41.543079 read(5,  <unfinished ...>
+7097  16:13:41.543085 <... nanosleep resumed>NULL) = 0 <0.000111>
+7105  16:13:41.543092 <... read resumed>"\1\0\0\0\0\0\0\0", 8) = 8 <0.000008>
+7103  16:13:41.543099 futex(0xc0000b3960, FUTEX_WAIT_PRIVATE, 0, NULL <unfinished ...>
+7105  16:13:41.543106 epoll_pwait(4,  <unfinished ...>
+7097  16:13:41.543111 futex(0x6e03960, FUTEX_WAIT_PRIVATE, 0, {tv_sec=0, tv_nsec=4303960} <unfinished ...>
+7105  16:13:41.543120 <... epoll_pwait resumed>[], 128, 0, NULL, 0) = 0 <0.000009>
+7105  16:13:41.543134 epoll_pwait(4, [], 128, 4, NULL, 0) = 0 <0.004062>
+7105  16:13:41.547218 epoll_pwait(4, [], 128, 0, NULL, 0) = 0 <0.000011>
+7105  16:13:41.547248 epoll_pwait(4,  <unfinished ...>
+7097  16:13:41.547499 <... futex resumed>) = -1 ETIMEDOUT (Connection timed out) <0.004381>
+7097  16:13:41.547520 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000084>
+7097  16:13:41.547628 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000081>
+7097  16:13:41.547727 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000082>
+7097  16:13:41.547834 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000081>
+7097  16:13:41.547937 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000081>
+7097  16:13:41.548044 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000079>
+7097  16:13:41.548142 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000080>
+7097  16:13:41.548242 nanosleep({tv_sec=0, tv_nsec=20000},  <unfinished ...>
+7105  16:13:41.548314 <... epoll_pwait resumed>[], 128, 1, NULL, 0) = 0 <0.001062>
+7105  16:13:41.548326 epoll_pwait(4,  <unfinished ...>
+7097  16:13:41.548330 <... nanosleep resumed>NULL) = 0 <0.000083>
+7105  16:13:41.548335 <... epoll_pwait resumed>[], 128, 0, NULL, 0) = 0 <0.000005>
+7097  16:13:41.548340 nanosleep({tv_sec=0, tv_nsec=20000},  <unfinished ...>
+7105  16:13:41.548346 futex(0xc0000b3960, FUTEX_WAKE_PRIVATE, 1) = 1 <0.000007>
+7103  16:13:41.548358 <... futex resumed>) = 0 <0.005255>
+7105  16:13:41.548367 epoll_pwait(4,  <unfinished ...>
+7103  16:13:41.548373 epoll_pwait(4,  <unfinished ...>
+7105  16:13:41.548377 <... epoll_pwait resumed>[], 128, 0, NULL, 0) = 0 <0.000007>
+7103  16:13:41.548383 <... epoll_pwait resumed>[], 128, 0, NULL, 0) = 0 <0.000006>
+7105  16:13:41.548388 epoll_pwait(4,  <unfinished ...>
+7103  16:13:41.548396 write(5, "\1\0\0\0\0\0\0\0", 8 <unfinished ...>
+7105  16:13:41.548411 <... epoll_pwait resumed>[{events=EPOLLIN, data={u32=115574912, u64=115574912}}], 128, 1, NULL, 0) = 1 <0.000019>
+7103  16:13:41.548417 <... write resumed>) = 8 <0.000016>
+7105  16:13:41.548422 read(5,  <unfinished ...>
+7097  16:13:41.548426 <... nanosleep resumed>NULL) = 0 <0.000081>
+7105  16:13:41.548431 <... read resumed>"\1\0\0\0\0\0\0\0", 8) = 8 <0.000006>
+7103  16:13:41.548436 futex(0xc0000b3960, FUTEX_WAIT_PRIVATE, 0, NULL <unfinished ...>
+7105  16:13:41.548441 epoll_pwait(4,  <unfinished ...>
+7097  16:13:41.548445 futex(0x6e03960, FUTEX_WAIT_PRIVATE, 0, {tv_sec=0, tv_nsec=683260} <unfinished ...>
+7105  16:13:41.548451 <... epoll_pwait resumed>[], 128, 0, NULL, 0) = 0 <0.000006>
+7105  16:13:41.548461 epoll_pwait(4,  <unfinished ...>
+7097  16:13:41.549192 <... futex resumed>) = -1 ETIMEDOUT (Connection timed out) <0.000742>
+7097  16:13:41.549204 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000079>
+7097  16:13:41.549301 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000079>
+7097  16:13:41.549394 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000079>
+7097  16:13:41.549486 nanosleep({tv_sec=0, tv_nsec=20000},  <unfinished ...>
+7105  16:13:41.549523 <... epoll_pwait resumed>[], 128, 1, NULL, 0) = 0 <0.001059>
+7105  16:13:41.549533 epoll_pwait(4, [], 128, 0, NULL, 0) = 0 <0.000006>
+7105  16:13:41.549552 futex(0xc0000b3960, FUTEX_WAKE_PRIVATE, 1) = 1 <0.000007>
+7103  16:13:41.549565 <... futex resumed>) = 0 <0.001125>
+7097  16:13:41.549570 <... nanosleep resumed>NULL) = 0 <0.000079>
+7105  16:13:41.549575 epoll_pwait(4,  <unfinished ...>
+7103  16:13:41.549578 futex(0xc0000b3160, FUTEX_WAKE_PRIVATE, 1 <unfinished ...>
+7105  16:13:41.549584 <... epoll_pwait resumed>[], 128, 0, NULL, 0) = 0 <0.000005>
+7097  16:13:41.549588 nanosleep({tv_sec=0, tv_nsec=20000},  <unfinished ...>
+7103  16:13:41.549595 <... futex resumed>) = 1 <0.000013>
+7105  16:13:41.549599 epoll_pwait(4,  <unfinished ...>
+7099  16:13:41.549602 <... futex resumed>) = 0 <0.556544>
+7105  16:13:41.549607 <... epoll_pwait resumed>[], 128, 0, NULL, 0) = 0 <0.000005>
+7103  16:13:41.549611 epoll_pwait(4,  <unfinished ...>
+7099  16:13:41.549617 epoll_pwait(4,  <unfinished ...>
+7105  16:13:41.549620 epoll_pwait(4,  <unfinished ...>
+7103  16:13:41.549626 <... epoll_pwait resumed>[], 128, 0, NULL, 0) = 0 <0.000011>
+7099  16:13:41.549629 <... epoll_pwait resumed>[], 128, 0, NULL, 0) = 0 <0.000009>
+7105  16:13:41.549635 <... epoll_pwait resumed>[], 128, 0, NULL, 0) = 0 <0.000011>
+7103  16:13:41.549639 epoll_pwait(4,  <unfinished ...>
+7105  16:13:41.549644 futex(0xc001100160, FUTEX_WAIT_PRIVATE, 0, NULL <unfinished ...>
+7099  16:13:41.549647 futex(0xc0000b3160, FUTEX_WAIT_PRIVATE, 0, NULL <unfinished ...>
+7097  16:13:41.549671 <... nanosleep resumed>NULL) = 0 <0.000079>
+7097  16:13:41.549681 futex(0x6e03960, FUTEX_WAIT_PRIVATE, 0, {tv_sec=0, tv_nsec=939193}) = -1 ETIMEDOUT (Connection timed out) <0.000997>
+7097  16:13:41.550694 nanosleep({tv_sec=0, tv_nsec=20000},  <unfinished ...>
+7103  16:13:41.550702 <... epoll_pwait resumed>[], 128, 1, NULL, 0) = 0 <0.001060>
+7103  16:13:41.550712 epoll_pwait(4, [], 128, 0, NULL, 0) = 0 <0.000006>
+7103  16:13:41.550731 futex(0xc001100160, FUTEX_WAKE_PRIVATE, 1 <unfinished ...>
+7097  16:13:41.550736 <... nanosleep resumed>NULL) = 0 <0.000036>
+7105  16:13:41.550747 <... futex resumed>) = 0 <0.001100>
+7103  16:13:41.550752 <... futex resumed>) = 1 <0.000017>
+7097  16:13:41.550756 nanosleep({tv_sec=0, tv_nsec=20000},  <unfinished ...>
+7105  16:13:41.550762 epoll_pwait(4,  <unfinished ...>
+7103  16:13:41.550766 epoll_pwait(4,  <unfinished ...>
+7105  16:13:41.550771 <... epoll_pwait resumed>[], 128, 0, NULL, 0) = 0 <0.000006>
+7103  16:13:41.550776 <... epoll_pwait resumed>[], 128, 0, NULL, 0) = 0 <0.000006>
+7105  16:13:41.550781 epoll_pwait(4,  <unfinished ...>
+7103  16:13:41.550785 futex(0xc0000b3960, FUTEX_WAIT_PRIVATE, 0, NULL <unfinished ...>
+7097  16:13:41.550840 <... nanosleep resumed>NULL) = 0 <0.000079>
+7097  16:13:41.550850 futex(0x6e03960, FUTEX_WAIT_PRIVATE, 0, {tv_sec=1, tv_nsec=991921436} <unfinished ...>
+7105  16:13:43.338285 <... epoll_pwait resumed>[{events=EPOLLIN, data={u32=2644508675, u64=8587315566537080835}}], 128, 1992, NULL, 0) = 1 <1.787495>
+7105  16:13:43.338341 futex(0x6e03960, FUTEX_WAKE_PRIVATE, 1) = 1 <0.000012>
+7105  16:13:43.338374 accept4(8,  <unfinished ...>
+7097  16:13:43.338381 <... futex resumed>) = 0 <1.787526>
+7105  16:13:43.338401 <... accept4 resumed>{sa_family=AF_INET, sin_port=htons(51284), sin_addr=inet_addr("127.0.0.1")}, [112 => 16], SOCK_CLOEXEC|SOCK_NONBLOCK) = 6 <0.000020>
+7097  16:13:43.338416 nanosleep({tv_sec=0, tv_nsec=20000},  <unfinished ...>
+7105  16:13:43.338445 epoll_ctl(4, EPOLL_CTL_ADD, 6, {events=EPOLLIN|EPOLLOUT|EPOLLRDHUP|EPOLLET, data={u32=2662858958, u64=8587315566555431118}}) = 0 <0.000013>
+7105  16:13:43.338476 getsockname(6, {sa_family=AF_INET, sin_port=htons(9000), sin_addr=inet_addr("127.0.0.1")}, [112 => 16]) = 0 <0.000008>
+7105  16:13:43.338507 setsockopt(6, SOL_TCP, TCP_NODELAY, [1], 4 <unfinished ...>
+7097  16:13:43.338516 <... nanosleep resumed>NULL) = 0 <0.000093>
+7105  16:13:43.338522 <... setsockopt resumed>) = 0 <0.000008>
+7097  16:13:43.338533 nanosleep({tv_sec=0, tv_nsec=20000},  <unfinished ...>
+7105  16:13:43.338539 setsockopt(6, SOL_SOCKET, SO_KEEPALIVE, [1], 4) = 0 <0.000009>
+7105  16:13:43.338564 setsockopt(6, SOL_TCP, TCP_KEEPIDLE, [15], 4) = 0 <0.000008>
+7105  16:13:43.338589 setsockopt(6, SOL_TCP, TCP_KEEPINTVL, [15], 4) = 0 <0.000008>
+7105  16:13:43.338612 setsockopt(6, SOL_TCP, TCP_KEEPCNT, [9], 4 <unfinished ...>
+7097  16:13:43.338619 <... nanosleep resumed>NULL) = 0 <0.000081>
+7105  16:13:43.338625 <... setsockopt resumed>) = 0 <0.000007>
+7097  16:13:43.338631 nanosleep({tv_sec=0, tv_nsec=20000},  <unfinished ...>
+7105  16:13:43.338638 futex(0xc0000b3960, FUTEX_WAKE_PRIVATE, 1) = 1 <0.000009>
+7105  16:13:43.338662 accept4(8,  <unfinished ...>
+7103  16:13:43.338669 <... futex resumed>) = 0 <1.787881>
+7105  16:13:43.338681 <... accept4 resumed>0xc00b834c74, [112], SOCK_CLOEXEC|SOCK_NONBLOCK) = -1 EAGAIN (Resource temporarily unavailable) <0.000013>
+7103  16:13:43.338689 epoll_pwait(4, [{events=EPOLLIN|EPOLLOUT, data={u32=2662858958, u64=8587315566555431118}}], 128, 0, NULL, 0) = 1 <0.000010>
+7103  16:13:43.338717 epoll_pwait(4,  <unfinished ...>
+7097  16:13:43.338722 <... nanosleep resumed>NULL) = 0 <0.000085>
+7097  16:13:43.338741 nanosleep({tv_sec=0, tv_nsec=20000},  <unfinished ...>
+7105  16:13:43.338749 read(6, "PUT /public/strace_test_1KB HTTP/1.1\r\nHost: localhost:9000\r\nAccept-Encoding: identity\r\nx-amz-sdk-checksum-algorithm: CRC64NVME\r\nUser-Agent: aws-cli/2.31.0 md/awscrt#0.27.6 ua/2.1 os/linux#6.8.0-83-generic md/arch#x86_64 lang/python#3.13.7 md/pyimpl#CPython m/N,b,Z,E,W,G cfg/retry-mode#standard md/installer#exe md/distrib#ubuntu.24 md/prompt#off md/command#s3.cp\r\nExpect: 100-continue\r\nx-amz-checksum-crc64nvme: aRuysJvlSYo=\r\nX-Amz-Date: 20250924T161343Z\r\nX-Amz-Content-SHA256: 5f70bf18a086007016e948b04aed3b821"..., 4096) = 841 <0.000012>
+7097  16:13:43.338828 <... nanosleep resumed>NULL) = 0 <0.000080>
+7097  16:13:43.338842 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000081>
+7097  16:13:43.338938 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000080>
+7097  16:13:43.339034 nanosleep({tv_sec=0, tv_nsec=20000},  <unfinished ...>
+7105  16:13:43.339081 futex(0xc0000b3160, FUTEX_WAKE_PRIVATE, 1) = 1 <0.000010>
+7099  16:13:43.339106 <... futex resumed>) = 0 <1.789454>
+7105  16:13:43.339120 getrandom( <unfinished ...>
+7097  16:13:43.339124 <... nanosleep resumed>NULL) = 0 <0.000085>
+7105  16:13:43.339131 <... getrandom resumed>"\x28\xe4\xbc\x4e\x27\xbf\xb0\x25\xf9\x8e\x42\x7f\xdd\xaa\xae\x1e", 16, 0) = 16 <0.000007>
+7099  16:13:43.339138 futex(0xc0000b3160, FUTEX_WAIT_PRIVATE, 0, NULL <unfinished ...>
+7097  16:13:43.339143 nanosleep({tv_sec=0, tv_nsec=20000},  <unfinished ...>
+7105  16:13:43.339176 futex(0xc0000b3160, FUTEX_WAKE_PRIVATE, 1) = 1 <0.000010>
+7099  16:13:43.339192 <... futex resumed>) = 0 <0.000050>
+7099  16:13:43.339208 futex(0xc0000b3160, FUTEX_WAIT_PRIVATE, 0, NULL <unfinished ...>
+7105  16:13:43.339214 newfstatat(AT_FDCWD, "/mnt/minio1/.minio.sys/format.json",  <unfinished ...>
+7097  16:13:43.339229 <... nanosleep resumed>NULL) = 0 <0.000080>
+7105  16:13:43.339235 <... newfstatat resumed>{st_mode=S_IFREG|0644, st_size=232, ...}, AT_SYMLINK_NOFOLLOW) = 0 <0.000012>
+7097  16:13:43.339245 nanosleep({tv_sec=0, tv_nsec=20000},  <unfinished ...>
+7105  16:13:43.339253 futex(0xc0000b3160, FUTEX_WAKE_PRIVATE, 1) = 1 <0.000009>
+7099  16:13:43.339269 <... futex resumed>) = 0 <0.000057>
+7099  16:13:43.339283 futex(0xc0000b3160, FUTEX_WAIT_PRIVATE, 0, NULL <unfinished ...>
+7105  16:13:43.339294 futex(0xc0000b3160, FUTEX_WAKE_PRIVATE, 1 <unfinished ...>
+7099  16:13:43.339299 <... futex resumed>) = -1 EAGAIN (Resource temporarily unavailable) <0.000011>
+7105  16:13:43.339305 <... futex resumed>) = 0 <0.000007>
+7099  16:13:43.339311 nanosleep({tv_sec=0, tv_nsec=3000},  <unfinished ...>
+7105  16:13:43.339328 openat(AT_FDCWD, "/mnt/minio1/public/strace_test_1KB/xl.meta", O_RDONLY|O_NONBLOCK|O_NOATIME|O_CLOEXEC <unfinished ...>
+7097  16:13:43.339337 <... nanosleep resumed>NULL) = 0 <0.000087>
+7097  16:13:43.339350 nanosleep({tv_sec=0, tv_nsec=20000},  <unfinished ...>
+7105  16:13:43.339357 <... openat resumed>) = -1 ENOENT (No such file or directory) <0.000020>
+7105  16:13:43.339372 faccessat(AT_FDCWD, "/mnt/minio1/public", F_OK <unfinished ...>
+7099  16:13:43.339380 <... nanosleep resumed>NULL) = 0 <0.000063>
+7105  16:13:43.339386 <... faccessat resumed>) = 0 <0.000007>
+7099  16:13:43.339392 futex(0xc0000b3160, FUTEX_WAIT_PRIVATE, 0, NULL <unfinished ...>
+7105  16:13:43.339397 futex(0xc0000b3160, FUTEX_WAKE_PRIVATE, 1 <unfinished ...>
+7099  16:13:43.339403 <... futex resumed>) = -1 EAGAIN (Resource temporarily unavailable) <0.000007>
+7105  16:13:43.339409 <... futex resumed>) = 0 <0.000008>
+7099  16:13:43.339414 nanosleep({tv_sec=0, tv_nsec=3000},  <unfinished ...>
+7097  16:13:43.339435 <... nanosleep resumed>NULL) = 0 <0.000080>
+7097  16:13:43.339447 nanosleep({tv_sec=0, tv_nsec=20000},  <unfinished ...>
+7105  16:13:43.339458 statfs("/mnt/minio1", {f_type=EXT2_SUPER_MAGIC, f_bsize=4096, f_blocks=119899312, f_bfree=119830027, f_bavail=113721099, f_files=30531584, f_ffree=30531265, f_fsid={val=[0x7e5f65c1, 0x95d2d67]}, f_namelen=255, f_frsize=4096, f_flags=ST_VALID|ST_RELATIME}) = 0 <0.000010>
+7099  16:13:43.339482 <... nanosleep resumed>NULL) = 0 <0.000062>
+7105  16:13:43.339488 newfstatat(AT_FDCWD, "/mnt/minio1",  <unfinished ...>
+7099  16:13:43.339495 futex(0xc000580160, FUTEX_WAKE_PRIVATE, 1 <unfinished ...>
+7105  16:13:43.339500 <... newfstatat resumed>{st_mode=S_IFDIR|0755, st_size=4096, ...}, 0) = 0 <0.000007>
+7102  16:13:43.339509 <... futex resumed>) = 0 <2.346461>
+7099  16:13:43.339513 <... futex resumed>) = 1 <0.000015>
+7105  16:13:43.339519 openat(AT_FDCWD, "/mnt/minio1/.minio.sys/buckets/.healing.bin", O_RDONLY|O_CLOEXEC <unfinished ...>
+7102  16:13:43.339527 futex(0xc000580160, FUTEX_WAIT_PRIVATE, 0, NULL <unfinished ...>
+7099  16:13:43.339534 futex(0xc0000b3160, FUTEX_WAIT_PRIVATE, 0, NULL <unfinished ...>
+7105  16:13:43.339541 <... openat resumed>) = -1 ENOENT (No such file or directory) <0.000016>
+7097  16:13:43.339546 <... nanosleep resumed>NULL) = 0 <0.000093>
+7105  16:13:43.339552 futex(0xc0000b3160, FUTEX_WAKE_PRIVATE, 1 <unfinished ...>
+7097  16:13:43.339557 nanosleep({tv_sec=0, tv_nsec=20000},  <unfinished ...>
+7105  16:13:43.339565 <... futex resumed>) = 1 <0.000009>
+7099  16:13:43.339569 <... futex resumed>) = 0 <0.000031>
+7105  16:13:43.339583 getrandom( <unfinished ...>
+7099  16:13:43.339587 futex(0xc0000b3160, FUTEX_WAIT_PRIVATE, 0, NULL <unfinished ...>
+7105  16:13:43.339593 <... getrandom resumed>"\x15\xd8\xcf\xd9\x5d\x4f\x7d\xb1\xe4\xc4\xa1\x01\xc8\xbc\xad\xf0", 16, 0) = 16 <0.000006>
+7105  16:13:43.339606 getrandom("\x8c\xeb\x1a\xcd\x11\xab\x3b\xdc\x6b\xc3\xc9\x1e\x7e\x4a\xcd\xca", 16, 0) = 16 <0.000007>
+7105  16:13:43.339642 write(6, "HTTP/1.1 100 Continue\r\n\r\n", 25 <unfinished ...>
+7097  16:13:43.339648 <... nanosleep resumed>NULL) = 0 <0.000085>
+7097  16:13:43.339659 nanosleep({tv_sec=0, tv_nsec=20000},  <unfinished ...>
+7105  16:13:43.339671 <... write resumed>) = 25 <0.000023>
+7105  16:13:43.339684 read(6, 0xc00cd37000, 4096) = -1 EAGAIN (Resource temporarily unavailable) <0.000008>
+7105  16:13:43.339707 futex(0xc001100160, FUTEX_WAIT_PRIVATE, 0, NULL <unfinished ...>
+7097  16:13:43.339743 <... nanosleep resumed>NULL) = 0 <0.000078>
+7097  16:13:43.339757 futex(0x6e03960, FUTEX_WAIT_PRIVATE, 0, {tv_sec=0, tv_nsec=203016178} <unfinished ...>
+7103  16:13:43.339788 <... epoll_pwait resumed>[{events=EPOLLIN|EPOLLOUT, data={u32=2662858958, u64=8587315566555431118}}], 128, 204, NULL, 0) = 1 <0.001066>
+7103  16:13:43.339806 futex(0x6e03960, FUTEX_WAKE_PRIVATE, 1) = 1 <0.000009>
+7097  16:13:43.339822 <... futex resumed>) = 0 <0.000059>
+7103  16:13:43.339827 read(6,  <unfinished ...>
+7097  16:13:43.339833 nanosleep({tv_sec=0, tv_nsec=20000},  <unfinished ...>
+7103  16:13:43.339840 <... read resumed>"\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"..., 4096) = 1024 <0.000009>
+7103  16:13:43.339858 futex(0xc001100160, FUTEX_WAKE_PRIVATE, 1 <unfinished ...>
+7105  16:13:43.339870 <... futex resumed>) = 0 <0.000159>
+7103  16:13:43.339874 <... futex resumed>) = 1 <0.000013>
+7105  16:13:43.339880 epoll_pwait(4, [], 128, 0, NULL, 0) = 0 <0.000007>
+7105  16:13:43.339902 nanosleep({tv_sec=0, tv_nsec=3000},  <unfinished ...>
+7097  16:13:43.339919 <... nanosleep resumed>NULL) = 0 <0.000080>
+7103  16:13:43.339931 getrandom( <unfinished ...>
+7097  16:13:43.339935 nanosleep({tv_sec=0, tv_nsec=20000},  <unfinished ...>
+7103  16:13:43.339942 <... getrandom resumed>"\x54\x6c\x75\x93\xca\xdd\x58\x3c\x8a\x84\xbd\x92\x43\x46\x5e\x5f", 16, 0) = 16 <0.000007>
+7105  16:13:43.339971 <... nanosleep resumed>NULL) = 0 <0.000064>
+7103  16:13:43.339977 getrandom( <unfinished ...>
+7105  16:13:43.339982 futex(0xc0000b3160, FUTEX_WAKE_PRIVATE, 1 <unfinished ...>
+7103  16:13:43.339988 <... getrandom resumed>"\x96\xd9\x04\x8a\xa0\x56\x99\xe1\x15\xcc\x8a\xd3\xa8\xf9\x9f\xcc", 16, 0) = 16 <0.000007>
+7105  16:13:43.339998 <... futex resumed>) = 1 <0.000012>
+7099  16:13:43.340002 <... futex resumed>) = 0 <0.000411>
+7105  16:13:43.340008 read(6,  <unfinished ...>
+7099  16:13:43.340013 epoll_pwait(4,  <unfinished ...>
+7105  16:13:43.340021 <... read resumed>0xc001fb00a1, 1) = -1 EAGAIN (Resource temporarily unavailable) <0.000009>
+7103  16:13:43.340025 faccessat(AT_FDCWD, "/mnt/minio1/public", F_OK <unfinished ...>
+7097  16:13:43.340032 <... nanosleep resumed>NULL) = 0 <0.000091>
+7105  16:13:43.340039 epoll_pwait(4,  <unfinished ...>
+7103  16:13:43.340043 <... faccessat resumed>) = 0 <0.000012>
+7099  16:13:43.340048 <... epoll_pwait resumed>[], 128, 0, NULL, 0) = 0 <0.000030>
+7105  16:13:43.340054 <... epoll_pwait resumed>[], 128, 0, NULL, 0) = 0 <0.000011>
+7097  16:13:43.340059 nanosleep({tv_sec=0, tv_nsec=20000},  <unfinished ...>
+7105  16:13:43.340067 futex(0xc001100160, FUTEX_WAIT_PRIVATE, 0, NULL <unfinished ...>
+7103  16:13:43.340071 openat(AT_FDCWD, "/mnt/minio1/public/strace_test_1KB/xl.meta", O_RDONLY|O_NOATIME|O_CLOEXEC <unfinished ...>
+7099  16:13:43.340077 epoll_pwait(4,  <unfinished ...>
+7103  16:13:43.340087 <... openat resumed>) = -1 ENOENT (No such file or directory) <0.000010>
+7103  16:13:43.340117 mkdirat(AT_FDCWD, "/mnt/minio1/.minio.sys/tmp/8ceb1acd-11ab-4bdc-abc3-c91e7e4acdca", 0777 <unfinished ...>
+7097  16:13:43.340144 <... nanosleep resumed>NULL) = 0 <0.000080>
+7097  16:13:43.340156 nanosleep({tv_sec=0, tv_nsec=20000},  <unfinished ...>
+7103  16:13:43.340175 <... mkdirat resumed>) = 0 <0.000052>
+7103  16:13:43.340188 openat(AT_FDCWD, "/mnt/minio1/.minio.sys/tmp/8ceb1acd-11ab-4bdc-abc3-c91e7e4acdca/xl.meta", O_WRONLY|O_CREAT|O_TRUNC|O_NONBLOCK|O_DSYNC|O_CLOEXEC, 0666 <unfinished ...>
+7097  16:13:43.340241 <... nanosleep resumed>NULL) = 0 <0.000080>
+7097  16:13:43.340253 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000080>
+7097  16:13:43.340352 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000079>
+7097  16:13:43.340444 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000079>
+7097  16:13:43.340536 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000079>
+7097  16:13:43.340628 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000080>
+7097  16:13:43.340727 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000080>
+7097  16:13:43.340828 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000079>
+7097  16:13:43.340927 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000079>
+7097  16:13:43.341019 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000079>
+7097  16:13:43.341110 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000079>
+7097  16:13:43.341202 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000078>
+7097  16:13:43.341293 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000083>
+7097  16:13:43.341395 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000081>
+7097  16:13:43.341495 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000079>
+7097  16:13:43.341593 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000079>
+7097  16:13:43.341685 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000049>
+7097  16:13:43.341748 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000079>
+7097  16:13:43.341840 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000080>
+7097  16:13:43.341932 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000080>
+7097  16:13:43.342026 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000079>
+7097  16:13:43.342118 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000079>
+7097  16:13:43.342210 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000079>
+7097  16:13:43.342302 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000078>
+7097  16:13:43.342399 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000080>
+7097  16:13:43.342499 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000080>
+7097  16:13:43.342592 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000079>
+7097  16:13:43.342684 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000050>
+7097  16:13:43.342749 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000078>
+7097  16:13:43.342844 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000081>
+7097  16:13:43.342942 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000079>
+7097  16:13:43.343038 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000079>
+7097  16:13:43.343137 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000079>
+7097  16:13:43.343230 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000079>
+7097  16:13:43.343323 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000079>
+7097  16:13:43.343415 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000079>
+7097  16:13:43.343507 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000079>
+7097  16:13:43.343599 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000079>
+7097  16:13:43.343692 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000047>
+7097  16:13:43.343753 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000080>
+7097  16:13:43.343845 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000079>
+7097  16:13:43.343944 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000080>
+7097  16:13:43.344037 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000079>
+7097  16:13:43.344128 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000079>
+7097  16:13:43.344220 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000079>
+7097  16:13:43.344312 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000079>
+7097  16:13:43.344410 nanosleep({tv_sec=0, tv_nsec=20000}, NULL) = 0 <0.000078>
+7097  16:13:43.344501 nanosleep({tv_sec=0, tv_nsec=40000}, NULL) = 0 <0.000099>
+7097  16:13:43.344619 nanosleep({tv_sec=0, tv_nsec=80000}, NULL) = 0 <0.000116>
+7097  16:13:43.344750 nanosleep({tv_sec=0, tv_nsec=160000}, NULL) = 0 <0.000220>
+7097  16:13:43.344986 nanosleep({tv_sec=0, tv_nsec=320000}, NULL) = 0 <0.000380>
+7097  16:13:43.345386 nanosleep({tv_sec=0, tv_nsec=640000}, NULL) = 0 <0.000700>
+7097  16:13:43.346106 nanosleep({tv_sec=0, tv_nsec=1280000},  <unfinished ...>
+7103  16:13:43.347321 <... openat resumed>) = 11 <0.007124>
+7103  16:13:43.347339 epoll_ctl(4, EPOLL_CTL_ADD, 11, {events=EPOLLIN|EPOLLOUT|EPOLLRDHUP|EPOLLET, data={u32=2589458480, u64=8587315566482030640}}) = -1 EPERM (Operation not permitted) <0.000010>
+7103  16:13:43.347371 write(11, "XL2 \1\0\3\0\306\0\0\1\224\3\3\1\304&\227\304\20\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\323\30hD\0z\3312 \304\4\5\v;\v\1\6\0\1\305\1f\203\244Type\1\245V2Obj\336\0\21\242ID\304\20\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\244DDir\304\20\25\330\317\331]OM\261\244\304\241\1\310\274\255\360\246EcAlgo\1\243EcM\1\243EcN\0\247EcBSize\322\0\20\0\0\247EcIndex\1\246EcDist\221\1\250CSumAlgo\1\250PartNums\221\1\251PartETags\300\251PartSizes\221\321\4\0\252PartASizes\221\321\4\0\244Size\321\4\0\245MTime\323\30hD\0z\3312 \247MetaSys\202\274x-minio-internal-inline-data\304\4true\264x-minio-internal-crc\304\n\200\2i\33\262\260\233\345I\212\247MetaUsr\202\254content-type\263binary/octet-stream\244etag\331 0f343b0931126a20f133d67c2b018a3b\241v\316h\275\257\25\316\312Lz\326\1\201\244null\305\4 q\274UK\205\177\335\4\3766\333\320\343\17nm\6\2\266\300\250a\220\306\352\265t\22d\326}\372\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"..., 1488 <unfinished ...>
+7097  16:13:43.347451 <... nanosleep resumed>NULL) = 0 <0.001340>
+7097  16:13:43.347462 nanosleep({tv_sec=0, tv_nsec=2560000},  <unfinished ...>
+7103  16:13:43.348261 <... write resumed>) = 1488 <0.000884>
+7103  16:13:43.348284 close(11)         = 0 <0.000011>
+7103  16:13:43.348315 mkdirat(AT_FDCWD, "/mnt/minio1/public/strace_test_1KB", 0777) = 0 <0.000054>
+7103  16:13:43.348387 renameat(AT_FDCWD, "/mnt/minio1/.minio.sys/tmp/8ceb1acd-11ab-4bdc-abc3-c91e7e4acdca/xl.meta", AT_FDCWD, "/mnt/minio1/public/strace_test_1KB/xl.meta") = 0 <0.000019>
+7103  16:13:43.348424 unlinkat(AT_FDCWD, "/mnt/minio1/.minio.sys/tmp/8ceb1acd-11ab-4bdc-abc3-c91e7e4acdca", 0) = -1 EISDIR (Is a directory) <0.000008>
+7103  16:13:43.348446 unlinkat(AT_FDCWD, "/mnt/minio1/.minio.sys/tmp/8ceb1acd-11ab-4bdc-abc3-c91e7e4acdca", AT_REMOVEDIR) = 0 <0.000024>
+7103  16:13:43.348486 futex(0xc001100160, FUTEX_WAKE_PRIVATE, 1) = 1 <0.000007>
+7105  16:13:43.348499 <... futex resumed>) = 0 <0.008428>
+7103  16:13:43.348506 lsetxattr("/mnt/minio1/.minio.sys/format.json", "user.total_writes", "\4\0\0\0\0\0\0", 8, 0 <unfinished ...>
+7105  16:13:43.348516 futex(0xc001100160, FUTEX_WAIT_PRIVATE, 0, NULL <unfinished ...>
+7103  16:13:43.348529 <... lsetxattr resumed>) = 0 <0.000014>
+7103  16:13:43.348540 futex(0xc001100160, FUTEX_WAKE_PRIVATE, 1 <unfinished ...>
+7105  16:13:43.348550 <... futex resumed>) = 0 <0.000031>
+7103  16:13:43.348554 <... futex resumed>) = 1 <0.000011>
+7105  16:13:43.348559 nanosleep({tv_sec=0, tv_nsec=3000},  <unfinished ...>
+7103  16:13:43.348578 getrandom("\x80\xac\xd1\x79\x3b\x8d\x75\x84\xf8\x4f\x3f\xa1\xba\x76\x0b\xf9", 16, 0) = 16 <0.000006>
+7103  16:13:43.348606 mkdirat(AT_FDCWD, "/mnt/minio1/.minio.sys/tmp", 0777) = -1 EEXIST (File exists) <0.000007>
+7105  16:13:43.348626 <... nanosleep resumed>NULL) = 0 <0.000063>
+7103  16:13:43.348630 mkdirat(AT_FDCWD, "/mnt/minio1/.minio.sys/tmp/.trash", 0777 <unfinished ...>
+7105  16:13:43.348636 futex(0xc001100160, FUTEX_WAIT_PRIVATE, 0, NULL <unfinished ...>
+7103  16:13:43.348641 <... mkdirat resumed>) = -1 EEXIST (File exists) <0.000006>
+7103  16:13:43.348651 renameat(AT_FDCWD, "/mnt/minio1/.minio.sys/tmp/8ceb1acd-11ab-4bdc-abc3-c91e7e4acdca", AT_FDCWD, "/mnt/minio1/.minio.sys/tmp/.trash/80acd179-3b8d-4584-b84f-3fa1ba760bf9") = -1 ENOENT (No such file or directory) <0.000008>
+7103  16:13:43.348674 renameat(AT_FDCWD, "/mnt/minio1/.minio.sys/tmp/8ceb1acd-11ab-4bdc-abc3-c91e7e4acdca", AT_FDCWD, "/mnt/minio1/.minio.sys/tmp/.trash/80acd179-3b8d-4584-b84f-3fa1ba760bf9") = -1 ENOENT (No such file or directory) <0.000008>
+7103  16:13:43.348697 futex(0xc001100160, FUTEX_WAKE_PRIVATE, 1 <unfinished ...>
+7105  16:13:43.348708 <... futex resumed>) = 0 <0.000068>
+7103  16:13:43.348711 <... futex resumed>) = 1 <0.000011>
+7105  16:13:43.348716 nanosleep({tv_sec=0, tv_nsec=3000}, NULL) = 0 <0.000019>
+7105  16:13:43.348748 futex(0xc001100160, FUTEX_WAIT_PRIVATE, 0, NULL <unfinished ...>
+7103  16:13:43.348766 write(6, "HTTP/1.1 200 OK\r\nAccept-Ranges: bytes\r\nContent-Length: 0\r\nETag: \"0f343b0931126a20f133d67c2b018a3b\"\r\nServer: MinIO\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains\r\nVary: Origin\r\nVary: Accept-Encoding\r\nX-Amz-Checksum-Crc64nvme: aRuysJvlSYo=\r\nX-Amz-Checksum-Type: FULL_OBJECT\r\nX-Amz-Id-2: dd9025bab4ad464b049177c95eb6ebf374d3b3fd1af9251148b658df7ac2e3e8\r\nX-Amz-Request-Id: 186844007AC9DC3D\r\nX-Content-Type-Options: nosniff\r\nX-Ratelimit-Limit: 8792\r\nX-Ratelimit-Remaining: 8792\r\nX-Xss-Protection: 1; "..., 563) = 563 <0.000016>
+7103  16:13:43.348797 futex(0xc001100160, FUTEX_WAKE_PRIVATE, 1 <unfinished ...>
+7105  16:13:43.348808 <... futex resumed>) = 0 <0.000056>
+7103  16:13:43.348812 <... futex resumed>) = 1 <0.000011>
+7105  16:13:43.348816 nanosleep({tv_sec=0, tv_nsec=3000},  <unfinished ...>
+7103  16:13:43.348826 read(6, 0xc00cd37000, 4096) = -1 EAGAIN (Resource temporarily unavailable) <0.000007>
+7103  16:13:43.348845 futex(0xc0000b3960, FUTEX_WAIT_PRIVATE, 0, NULL <unfinished ...>
+7105  16:13:43.348882 <... nanosleep resumed>NULL) = 0 <0.000061>
+7105  16:13:43.348892 futex(0xc001100160, FUTEX_WAIT_PRIVATE, 0, NULL <unfinished ...>
+7099  16:13:43.349473 <... epoll_pwait resumed>[{events=EPOLLIN|EPOLLOUT|EPOLLRDHUP, data={u32=2662858958, u64=8587315566555431118}}], 128, 202, NULL, 0) = 1 <0.009391>
+7099  16:13:43.349494 read(6, "", 4096) = 0 <0.000009>
+7099  16:13:43.349521 epoll_ctl(4, EPOLL_CTL_DEL, 6, 0xc0020c991c) = 0 <0.000008>
+7099  16:13:43.349543 close(6)          = 0 <0.000024>
+7099  16:13:43.349583 epoll_pwait(4, [], 128, 0, NULL, 0) = 0 <0.000007>
+7099  16:13:43.349604 epoll_pwait(4,  <unfinished ...>
+7097  16:13:43.350090 <... nanosleep resumed>NULL) = 0 <0.002622>
+7097  16:13:43.350108 futex(0x6e03960, FUTEX_WAIT_PRIVATE, 0, {tv_sec=0, tv_nsec=192666192} <unfinished ...>
+7099  16:13:43.543068 <... epoll_pwait resumed>[], 128, 193, NULL, 0) = 0 <0.193451>
+7097  16:13:43.543109 <... futex resumed>) = -1 ETIMEDOUT (Connection timed out) <0.192994>
+7099  16:13:43.543149 futex(0xc001100160, FUTEX_WAKE_PRIVATE, 1 <unfinished ...>
+7097  16:13:43.543172 nanosleep({tv_sec=0, tv_nsec=5120000},  <unfinished ...>
+7105  16:13:43.543192 <... futex resumed>) = 0 <0.194296>
+7099  16:13:43.543198 <... futex resumed>) = 1 <0.000027>
+7105  16:13:43.543209 epoll_pwait(4,  <unfinished ...>
+7099  16:13:43.543216 epoll_pwait(4,  <unfinished ...>
+7105  16:13:43.543231 <... epoll_pwait resumed>[], 128, 0, NULL, 0) = 0 <0.000017>
+7099  16:13:43.543237 <... epoll_pwait resumed>[], 128, 0, NULL, 0) = 0 <0.000016>
+7105  16:13:43.543255 epoll_pwait(4,  <unfinished ...>
+7099  16:13:43.543260 futex(0xc0000b3160, FUTEX_WAIT_PRIVATE, 0, NULL <unfinished ...>
+7097  16:13:43.548475 <... nanosleep resumed>NULL) = 0 <0.005284>
+7097  16:13:43.548595 futex(0x6e03960, FUTEX_WAIT_PRIVATE, 0, {tv_sec=0, tv_nsec=705312} <unfinished ...>
+7105  16:13:43.549334 <... epoll_pwait resumed>[], 128, 6, NULL, 0) = 0 <0.006073>
+7105  16:13:43.549357 epoll_pwait(4, [], 128, 0, NULL, 0) = 0 <0.000010>
+7105  16:13:43.549386 futex(0xc0000b3160, FUTEX_WAKE_PRIVATE, 1 <unfinished ...>
+7097  16:13:43.549390 <... futex resumed>) = -1 ETIMEDOUT (Connection timed out) <0.000780>
+7105  16:13:43.549396 <... futex resumed>) = 1 <0.000006>
+7099  16:13:43.549402 <... futex resumed>) = 0 <0.006138>
+7097  16:13:43.549406 nanosleep({tv_sec=0, tv_nsec=10000000},  <unfinished ...>
+7105  16:13:43.549415 epoll_pwait(4,  <unfinished ...>
+7099  16:13:43.549418 epoll_pwait(4,  <unfinished ...>
+7105  16:13:43.549424 <... epoll_pwait resumed>[], 128, 0, NULL, 0) = 0 <0.000005>
+7099  16:13:43.549429 <... epoll_pwait resumed>[], 128, 0, NULL, 0) = 0 <0.000008>
+7105  16:13:43.549435 epoll_pwait(4,  <unfinished ...>
+7099  16:13:43.549444 futex(0xc0000b3960, FUTEX_WAKE_PRIVATE, 1) = 1 <0.000010>
+7099  16:13:43.549470 futex(0xc0000b3160, FUTEX_WAIT_PRIVATE, 0, NULL <unfinished ...>
+7103  16:13:43.549478 <... futex resumed>) = 0 <0.200627>
+7103  16:13:43.549499 futex(0xc0000b3160, FUTEX_WAKE_PRIVATE, 1) = 1 <0.000010>
+7099  16:13:43.549515 <... futex resumed>) = 0 <0.000041>
+7103  16:13:43.549528 futex(0xc0000b3960, FUTEX_WAIT_PRIVATE, 0, NULL <unfinished ...>
+7099  16:13:43.549532 futex(0xc0000b3160, FUTEX_WAIT_PRIVATE, 0, NULL <unfinished ...>
+7097  16:13:43.559577 <... nanosleep resumed>NULL) = 0 <0.010162>
+7097  16:13:43.559699 futex(0x6e03960, FUTEX_WAIT_PRIVATE, 0, {tv_sec=1, tv_nsec=983093744} <detached ...>

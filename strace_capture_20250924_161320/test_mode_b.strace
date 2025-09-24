@@ -1,0 +1,234 @@
+execve("/usr/bin/bash", ["bash", "-c", "aws s3 ls --profile minio"], 0x7ffc8f516420 /* 12 vars */) = 0
+access("/etc/ld.so.preload", R_OK)      = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libtinfo.so.6", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/dev/tty", O_RDWR|O_NONBLOCK) = 3
+openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache", O_RDONLY|O_CLOEXEC) = 3
+getcwd("/home/shwsun/dev/reverb-eBPF", 4096) = 29
+newfstatat(AT_FDCWD, ".", {st_mode=S_IFDIR|0775, st_size=4096, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/local/sbin/bash", 0x7ffea7cf7cb0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/bin/bash", 0x7ffea7cf7cb0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/sbin/bash", 0x7ffea7cf7cb0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/bin/bash", {st_mode=S_IFREG|0755, st_size=1446024, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/bin/bash", {st_mode=S_IFREG|0755, st_size=1446024, ...}, 0) = 0
+access("/usr/bin/bash", X_OK)           = 0
+newfstatat(AT_FDCWD, "/usr/bin/bash", {st_mode=S_IFREG|0755, st_size=1446024, ...}, 0) = 0
+access("/usr/bin/bash", R_OK)           = 0
+newfstatat(AT_FDCWD, ".", {st_mode=S_IFDIR|0775, st_size=4096, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/local/sbin/aws", 0x7ffea7cf7a60, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/bin/aws", 0x7ffea7cf7a60, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/sbin/aws", 0x7ffea7cf7a60, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/bin/aws", 0x7ffea7cf7a60, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/sbin/aws", 0x7ffea7cf7a60, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/bin/aws", 0x7ffea7cf7a60, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/snap/bin/aws", {st_mode=S_IFREG|0755, st_size=18168696, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/snap/bin/aws", {st_mode=S_IFREG|0755, st_size=18168696, ...}, 0) = 0
+access("/snap/bin/aws", X_OK)           = 0
+newfstatat(AT_FDCWD, "/snap/bin/aws", {st_mode=S_IFREG|0755, st_size=18168696, ...}, 0) = 0
+access("/snap/bin/aws", R_OK)           = 0
+execve("/snap/bin/aws", ["aws", "s3", "ls", "--profile", "minio"], 0x5d92654c0c30 /* 15 vars */) = 0
+access("/etc/ld.so.preload", R_OK)      = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/proc/self/maps", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/sys/kernel/mm/transparent_hugepage/hpage_pmd_size", O_RDONLY) = 3
+--- SIGURG {si_signo=SIGURG, si_code=SI_TKILL, si_pid=7515, si_uid=0} ---
+--- SIGURG {si_signo=SIGURG, si_code=SI_TKILL, si_pid=7515, si_uid=0} ---
+openat(AT_FDCWD, "/etc/os-release", O_RDONLY|O_CLOEXEC) = 3
+newfstatat(AT_FDCWD, "/proc/sys/fs/binfmt_misc/WSLInterop", 0xc0001285e8, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/run/WSL", 0xc0001286b8, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/meta/snap.yaml", 0xc000128928, 0) = -1 ENOENT (No such file or directory)
+statfs("/sys/firmware/efi/efivars", {f_type=EFIVARFS_MAGIC, f_bsize=1, f_blocks=131072, f_bfree=68657, f_bavail=63537, f_files=0, f_ffree=0, f_fsid={val=[0x1a, 0]}, f_namelen=255, f_frsize=1, f_flags=ST_VALID|ST_NOSUID|ST_NODEV|ST_NOEXEC|ST_RELATIME}) = 0
+newfstatat(AT_FDCWD, "/snap/core/current/usr/share/locale-langpack/en_US/LC_MESSAGES/snappy.mo", 0xc000128e08, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/snap/core/current/usr/share/locale/en_US/LC_MESSAGES/snappy.mo", 0xc000128ed8, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/locale-langpack/en_US/LC_MESSAGES/snappy.mo", 0xc000128fa8, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/locale/en_US/LC_MESSAGES/snappy.mo", 0xc000129078, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/snap/core/current/usr/share/locale-langpack/en/LC_MESSAGES/snappy.mo", 0xc000129148, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/snap/core/current/usr/share/locale/en/LC_MESSAGES/snappy.mo", 0xc000129218, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/locale-langpack/en/LC_MESSAGES/snappy.mo", 0xc0001292e8, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/locale/en/LC_MESSAGES/snappy.mo", 0xc0001293b8, 0) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+statfs("/sys/fs/cgroup", {f_type=CGROUP2_SUPER_MAGIC, f_bsize=4096, f_blocks=0, f_bfree=0, f_bavail=0, f_files=0, f_ffree=0, f_fsid={val=[0xd3c53834, 0x9978a895]}, f_namelen=255, f_frsize=4096, f_flags=ST_VALID|ST_NOSUID|ST_NODEV|ST_NOEXEC|ST_RELATIME}) = 0
+newfstatat(AT_FDCWD, "/etc/apparmor.d/cache", 0xc000129558, 0) = -1 ENOENT (No such file or directory)
+readlinkat(AT_FDCWD, "/proc/self/exe", "/usr/bin/snap", 128) = 13
+newfstatat(AT_FDCWD, "/usr/bin/apparmor_parser", 0xc000129628, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/lib/snapd/apparmor_parser", 0xc0001296f8, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/sbin/apparmor_parser", 0xc0001297c8, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/bin/apparmor_parser", 0xc000129898, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/sbin/apparmor_parser", {st_mode=S_IFREG|0755, st_size=1629848, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/etc/apparmor.d/abi/4.0", {st_mode=S_IFREG|0644, st_size=2205, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "/etc/apparmor.d/abi/3.0", {st_mode=S_IFREG|0644, st_size=1925, ...}, AT_SYMLINK_NOFOLLOW) = 0
+openat(AT_FDCWD, "/proc/cgroups", O_RDONLY|O_CLOEXEC) = 7
+newfstatat(AT_FDCWD, "/usr/libexec/polkitd", 0xc00027a928, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/lib/polkit-1/polkitd", {st_mode=S_IFREG|0755, st_size=125536, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/self/mounts", O_RDONLY|O_CLOEXEC) = 7
+newfstatat(AT_FDCWD, "/usr/libexec/polkit-agent-helper-1", {st_mode=S_IFREG|S_ISUID|0755, st_size=18736, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/var/lib/snapd/features/aspects-configuration", 0xc00027ae08, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/var/lib/snapd/features/aspects-configuration", 0xc00027aed8, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/var/lib/snapd/features/aspects-configuration", 0xc00027afa8, 0) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/proc/cmdline", O_RDONLY|O_CLOEXEC) = 7
+readlinkat(AT_FDCWD, "/proc/self/exe", "/usr/bin/snap", 128) = 13
+newfstatat(AT_FDCWD, "/snap/snapd/current/usr/bin/snap", {st_mode=S_IFREG|0755, st_size=22077513, ...}, 0) = 0
+openat(AT_FDCWD, "/snap/snapd/current/usr/lib/snapd/info", O_RDONLY|O_CLOEXEC) = 7
+execve("/snap/snapd/current/usr/bin/snap", ["aws", "s3", "ls", "--profile", "minio"], 0xc000423680 /* 15 vars */) = 0
+access("/etc/ld.so.preload", R_OK)      = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/snap/snapd/current/usr/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/snap/snapd/current/usr/lib/x86_64-linux-gnu/glibc-hwcaps/x86-64-v4/libc.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/snap/snapd/current/usr/lib/x86_64-linux-gnu/glibc-hwcaps/x86-64-v4", 0x7ffe381560e0, 0) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/snap/snapd/current/usr/lib/x86_64-linux-gnu/glibc-hwcaps/x86-64-v3/libc.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/snap/snapd/current/usr/lib/x86_64-linux-gnu/glibc-hwcaps/x86-64-v3", 0x7ffe381560e0, 0) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/snap/snapd/current/usr/lib/x86_64-linux-gnu/glibc-hwcaps/x86-64-v2/libc.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/snap/snapd/current/usr/lib/x86_64-linux-gnu/glibc-hwcaps/x86-64-v2", 0x7ffe381560e0, 0) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/snap/snapd/current/usr/lib/x86_64-linux-gnu/tls/x86_64/x86_64/libc.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/snap/snapd/current/usr/lib/x86_64-linux-gnu/tls/x86_64/x86_64", 0x7ffe381560e0, 0) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/snap/snapd/current/usr/lib/x86_64-linux-gnu/tls/x86_64/libc.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/snap/snapd/current/usr/lib/x86_64-linux-gnu/tls/x86_64", 0x7ffe381560e0, 0) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/snap/snapd/current/usr/lib/x86_64-linux-gnu/tls/x86_64/libc.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/snap/snapd/current/usr/lib/x86_64-linux-gnu/tls/x86_64", 0x7ffe381560e0, 0) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/snap/snapd/current/usr/lib/x86_64-linux-gnu/tls/libc.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/snap/snapd/current/usr/lib/x86_64-linux-gnu/tls", 0x7ffe381560e0, 0) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/snap/snapd/current/usr/lib/x86_64-linux-gnu/x86_64/x86_64/libc.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/snap/snapd/current/usr/lib/x86_64-linux-gnu/x86_64/x86_64", 0x7ffe381560e0, 0) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/snap/snapd/current/usr/lib/x86_64-linux-gnu/x86_64/libc.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/snap/snapd/current/usr/lib/x86_64-linux-gnu/x86_64", 0x7ffe381560e0, 0) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/snap/snapd/current/usr/lib/x86_64-linux-gnu/x86_64/libc.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/snap/snapd/current/usr/lib/x86_64-linux-gnu/x86_64", 0x7ffe381560e0, 0) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/snap/snapd/current/usr/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+newfstatat(3, "", {st_mode=S_IFREG|0755, st_size=2242504, ...}, AT_EMPTY_PATH) = 0
+openat(AT_FDCWD, "/proc/self/maps", O_RDONLY|O_CLOEXEC) = 3
+newfstatat(3, "", {st_mode=S_IFREG|0444, st_size=0, ...}, AT_EMPTY_PATH) = 0
+openat(AT_FDCWD, "/sys/kernel/mm/transparent_hugepage/hpage_pmd_size", O_RDONLY) = 3
+--- SIGURG {si_signo=SIGURG, si_code=SI_TKILL, si_pid=7515, si_uid=0} ---
+openat(AT_FDCWD, "/etc/os-release", O_RDONLY|O_CLOEXEC) = 3
+newfstatat(AT_FDCWD, "/proc/sys/fs/binfmt_misc/WSLInterop", 0xc0000fa5e8, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/run/WSL", 0xc0000fa6b8, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/meta/snap.yaml", 0xc0000fa788, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/snap", {st_mode=S_IFDIR|0755, st_size=4096, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "/usr/lib/snapd", {st_mode=S_IFDIR|0755, st_size=4096, ...}, 0) = 0
+newfstatat(AT_FDCWD, ".", {st_mode=S_IFDIR|0775, st_size=4096, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/shwsun/dev/reverb-eBPF", {st_mode=S_IFDIR|0775, st_size=4096, ...}, 0) = 0
+statfs("/sys/firmware/efi/efivars", {f_type=EFIVARFS_MAGIC, f_bsize=1, f_blocks=131072, f_bfree=68657, f_bavail=63537, f_files=0, f_ffree=0, f_fsid={val=[0x1a, 0]}, f_namelen=255, f_frsize=1, f_flags=ST_VALID|ST_NOSUID|ST_NODEV|ST_NOEXEC|ST_RELATIME}) = 0
+newfstatat(AT_FDCWD, "/snap/core/current/usr/share/locale-langpack/en_US/LC_MESSAGES/snappy.mo", 0xc0000fb218, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/snap/core/current/usr/share/locale/en_US/LC_MESSAGES/snappy.mo", 0xc0000fb2e8, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/locale-langpack/en_US/LC_MESSAGES/snappy.mo", 0xc0000fb3b8, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/locale/en_US/LC_MESSAGES/snappy.mo", 0xc0000fb488, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/snap/core/current/usr/share/locale-langpack/en/LC_MESSAGES/snappy.mo", 0xc0000fb558, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/snap/core/current/usr/share/locale/en/LC_MESSAGES/snappy.mo", 0xc0000fb628, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/locale-langpack/en/LC_MESSAGES/snappy.mo", 0xc0000fb6f8, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/share/locale/en/LC_MESSAGES/snappy.mo", 0xc0000fb7c8, 0) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/etc/apparmor.d/cache", 0xc0000fb968, 0) = -1 ENOENT (No such file or directory)
+readlinkat(AT_FDCWD, "/proc/self/exe", "/snap/snapd/25202/usr/bin/snap", 128) = 30
+newfstatat(AT_FDCWD, "/snap/snapd/25202/usr/lib/snapd/apparmor_parser", {st_mode=S_IFREG|0755, st_size=11776992, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/snap/snapd/25202/usr/lib/snapd/apparmor_parser", {st_mode=S_IFREG|0755, st_size=11776992, ...}, 0) = 0
+openat(AT_FDCWD, "/usr/lib/snapd/info", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/lib/apparmor/functions", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/snap/snapd/25202/usr/lib/snapd/apparmor.d/abi/4.0", {st_mode=S_IFREG|0664, st_size=2205, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "/snap/snapd/25202/usr/lib/snapd/apparmor.d/abi/3.0", {st_mode=S_IFREG|0664, st_size=1925, ...}, AT_SYMLINK_NOFOLLOW) = 0
+--- SIGURG {si_signo=SIGURG, si_code=SI_TKILL, si_pid=7515, si_uid=0} ---
+newfstatat(AT_FDCWD, "/usr/local/sbin/shellcheck", 0xc000198038, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/bin/shellcheck", 0xc000198108, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/sbin/shellcheck", 0xc0001981d8, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/bin/shellcheck", {st_mode=S_IFREG|0755, st_size=19420144, ...}, 0) = 0
+faccessat2(AT_FDCWD, "/usr/bin/shellcheck", X_OK, AT_EACCESS) = 0
+statfs("/sys/fs/cgroup", {f_type=CGROUP2_SUPER_MAGIC, f_bsize=4096, f_blocks=0, f_bfree=0, f_bavail=0, f_files=0, f_ffree=0, f_fsid={val=[0xd3c53834, 0x9978a895]}, f_namelen=255, f_frsize=4096, f_flags=ST_VALID|ST_NOSUID|ST_NODEV|ST_NOEXEC|ST_RELATIME}) = 0
+openat(AT_FDCWD, "/sys/fs/cgroup/cgroup.controllers", O_RDONLY|O_CLOEXEC) = 3
+--- SIGURG {si_signo=SIGURG, si_code=SI_TKILL, si_pid=7515, si_uid=0} ---
+--- SIGURG {si_signo=SIGURG, si_code=SI_TKILL, si_pid=7515, si_uid=0} ---
+--- SIGURG {si_signo=SIGURG, si_code=SI_TKILL, si_pid=7515, si_uid=0} ---
+newfstatat(AT_FDCWD, "/usr/libexec/polkit-agent-helper-1", {st_mode=S_IFREG|S_ISUID|0755, st_size=18736, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/var/lib/snapd/features/confdb", 0xc0000fa928, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/var/lib/snapd/features/confdb", 0xc0000fa9f8, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/var/lib/snapd/features/confdb", 0xc0000faac8, 0) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/proc/cmdline", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/proc/cmdline", O_RDONLY|O_CLOEXEC) = 3
+readlinkat(AT_FDCWD, "/proc/self/exe", "/snap/snapd/25202/usr/bin/snap", 128) = 30
+openat(AT_FDCWD, "/proc/sys/crypto/fips_enabled", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/snap/bin/aws", {st_mode=S_IFLNK|0777, st_size=11, ...}, AT_SYMLINK_NOFOLLOW) = 0
+readlinkat(AT_FDCWD, "/snap/bin/aws", "aws-cli.aws", 128) = 11
+newfstatat(AT_FDCWD, "/var/lib/snapd/features/apparmor-prompting", 0xc0000fb3b8, 0) = -1 ENOENT (No such file or directory)
+readlinkat(AT_FDCWD, "/proc/self/exe", "/snap/snapd/25202/usr/bin/snap", 128) = 30
+newfstatat(AT_FDCWD, "/snap/snapd/25202/usr/lib/snapd/snapd", {st_mode=S_IFREG|0755, st_size=29651017, ...}, 0) = 0
+openat(AT_FDCWD, "/snap/snapd/25202/usr/lib/snapd/snapd", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/snap/snapd/25202/usr/lib/snapd/snapd", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/sys/kernel/security/apparmor/features", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/sys/kernel/security/apparmor/features/caps", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/sys/kernel/security/apparmor/features/dbus", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/sys/kernel/security/apparmor/features/domain", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/sys/kernel/security/apparmor/features/domain/attach_conditions", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/sys/kernel/security/apparmor/features/file", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/sys/kernel/security/apparmor/features/io_uring", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/sys/kernel/security/apparmor/features/ipc", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/sys/kernel/security/apparmor/features/mount", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/sys/kernel/security/apparmor/features/namespaces", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/sys/kernel/security/apparmor/features/network", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/sys/kernel/security/apparmor/features/network_v8", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/sys/kernel/security/apparmor/features/policy", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/sys/kernel/security/apparmor/features/policy/unconfined_restrictions", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/sys/kernel/security/apparmor/features/policy/versions", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/sys/kernel/security/apparmor/features/ptrace", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/sys/kernel/security/apparmor/features/query", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/sys/kernel/security/apparmor/features/query/label", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/sys/kernel/security/apparmor/features/rlimit", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/sys/kernel/security/apparmor/features/signal", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/sys/kernel/security/apparmor/features/policy/permstable32", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/sys/kernel/security/apparmor/features/policy/notify/user", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+readlinkat(AT_FDCWD, "/proc/self/exe", "/snap/snapd/25202/usr/bin/snap", 128) = 30
+newfstatat(AT_FDCWD, "/snap/snapd/25202/usr/lib/snapd/apparmor_parser", {st_mode=S_IFREG|0755, st_size=11776992, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/snap/snapd/25202/usr/lib/snapd/apparmor_parser", {st_mode=S_IFREG|0755, st_size=11776992, ...}, 0) = 0
+openat(AT_FDCWD, "/usr/lib/snapd/info", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/lib/apparmor/functions", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/snap/snapd/25202/usr/lib/snapd/apparmor.d/abi/4.0", {st_mode=S_IFREG|0664, st_size=2205, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "/snap/snapd/25202/usr/lib/snapd/apparmor.d/abi/3.0", {st_mode=S_IFREG|0664, st_size=1925, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "/snap/snapd/25202/usr/lib/snapd/apparmor_parser", {st_mode=S_IFREG|0755, st_size=11776992, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/self/mountinfo", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/etc/fstab", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/proc/self/mountinfo", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/proc/sys/kernel/seccomp/actions_avail", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/dev/null", O_RDONLY|O_CLOEXEC) = 3
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7529, si_uid=0, si_status=0, si_utime=0, si_stime=0} ---
+openat(AT_FDCWD, "/var/lib/snapd/system-key", O_RDONLY|O_CLOEXEC) = 3
+readlinkat(AT_FDCWD, "/proc/self/exe", "/snap/snapd/25202/usr/bin/snap", 128) = 30
+newfstatat(AT_FDCWD, "/sys/kernel/security/apparmor/.notify", {st_mode=S_IFREG|0666, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/sys/kernel/security/apparmor/features/policy/permstable32_version", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/var/lib/snapd/inhibit/aws-cli.lock", O_RDONLY|O_NOFOLLOW|O_CLOEXEC) = 3
+readlinkat(AT_FDCWD, "/snap/aws-cli/current", "1589", 128) = 4
+openat(AT_FDCWD, "/snap/aws-cli/1589/meta/snap.yaml", O_RDONLY|O_CLOEXEC) = 6
+newfstatat(AT_FDCWD, "/snap/aws-cli/1589/meta/hooks", 0xc000199148, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/var/lib/snapd/snaps/aws-cli_1589.snap", {st_mode=S_IFREG|0600, st_size=54595584, ...}, AT_SYMLINK_NOFOLLOW) = 0
+readlinkat(AT_FDCWD, "/proc/self/exe", "/snap/snapd/25202/usr/bin/snap", 128) = 30
+newfstatat(AT_FDCWD, "/snap/snapd/25202/usr/lib/snapd/snap-confine", {st_mode=S_IFREG|0755, st_size=201737, ...}, 0) = 0
+openat(AT_FDCWD, "/var/lib/snapd/sequence/aws-cli.json", O_RDONLY|O_CLOEXEC) = 6
+newfstatat(AT_FDCWD, "/usr/local/sbin/getent", 0xc0001996f8, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/bin/getent", 0xc0001997c8, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/sbin/getent", 0xc000199898, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/bin/getent", {st_mode=S_IFREG|0755, st_size=39648, ...}, 0) = 0
+openat(AT_FDCWD, "/dev/null", O_RDONLY|O_CLOEXEC) = 6
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7535, si_uid=0, si_status=0, si_utime=0, si_stime=0} ---
+newfstatat(AT_FDCWD, "/root/snap", {st_mode=S_IFDIR|0700, st_size=4096, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/root/snap/aws-cli/1589", {st_mode=S_IFDIR|0755, st_size=4096, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/root/snap/aws-cli/common", {st_mode=S_IFDIR|0755, st_size=4096, ...}, 0) = 0
+readlinkat(AT_FDCWD, "/root/snap/aws-cli/current", "1589", 128) = 4
+openat(AT_FDCWD, "/proc/self/mountinfo", O_RDONLY|O_CLOEXEC) = 6
+newfstatat(AT_FDCWD, "/usr/local/sbin/getent", 0xc000199ca8, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/bin/getent", 0xc000199d78, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/sbin/getent", 0xc000199e48, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/bin/getent", {st_mode=S_IFREG|0755, st_size=39648, ...}, 0) = 0
+openat(AT_FDCWD, "/dev/null", O_RDONLY|O_CLOEXEC) = 6
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7536, si_uid=0, si_status=0, si_utime=0, si_stime=0} ---
+newfstatat(AT_FDCWD, "/run/user/0", 0xc0002ee108, 0) = -1 ENOENT (No such file or directory)
+readlinkat(AT_FDCWD, "/proc/self/exe", "/snap/snapd/25202/usr/bin/snap", 128) = 30
+newfstatat(AT_FDCWD, "/var/lib/snapd/save/snap/aws-cli", 0xc0002ee1d8, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/sbin/getent", 0xc0002ee2a8, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/bin/getent", 0xc0002ee378, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/sbin/getent", 0xc0002ee448, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/bin/getent", {st_mode=S_IFREG|0755, st_size=39648, ...}, 0) = 0
+openat(AT_FDCWD, "/dev/null", O_RDONLY|O_CLOEXEC) = 6
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=7537, si_uid=0, si_status=0, si_utime=0, si_stime=0} ---
+newfstatat(AT_FDCWD, "/var/lib/snapd/features/classic-preserves-xdg-runtime-dir", {st_mode=S_IFREG|0644, st_size=0, ...}, 0) = 0
+openat(AT_FDCWD, "/proc/7515/cgroup", O_RDONLY|O_CLOEXEC) = 6
+newfstatat(AT_FDCWD, "/run/user/0/dbus-session", 0xc0002ee6b8, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/run/user/0/bus", 0xc0002ee788, 0) = -1 ENOENT (No such file or directory)
++++ exited with 255 +++
