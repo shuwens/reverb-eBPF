@@ -1,194 +1,335 @@
 #!/usr/bin/env python3
 
 """
-Compare eBPF and strace results to understand I/O amplification
-eBPF shows actual device I/O, strace shows syscall path
+Complete I/O analysis reading from both eBPF and strace result directories
+Shows full I/O path: Application → Syscalls → Filesystem → Device
 """
 
-import re
 import sys
+import re
 from pathlib import Path
+from collections import defaultdict
 
-# Based on your actual experiment results from document
-EBPF_RESULTS = {
-    # From your separate_rw_results_20250924_143255
-    'write': {
-        '1B':    {'app': 40477763, 'os': 700981248, 'device': 8192, 'amplification': 8192.0},
-        '10B':   {'app': 40500295, 'os': 726851584, 'device': 12288, 'amplification': 1228.8},
-        '100B':  {'app': 40447847, 'os': 643002368, 'device': 8192, 'amplification': 81.9},
-        '1KB':   {'app': 41908260, 'os': 578981888, 'device': 57344, 'amplification': 56.0},
-        '10KB':  {'app': 41966209, 'os': 618565632, 'device': 24576, 'amplification': 2.4},
-        '100KB': {'app': 42248632, 'os': 618741760, 'device': 217088, 'amplification': 2.1},
-        '1MB':   {'app': 43876874, 'os': 635760640, 'device': 1060864, 'amplification': 1.0},
-        '10MB':  {'app': 52783342, 'os': 693563392, 'device': 9465856, 'amplification': 0.9},
-        '100MB': {'app': 126606299, 'os': 680534016, 'device': 86089728, 'amplification': 0.8}
-    },
-    'read': {
-        '1B':    {'app': 12747, 'os': 8192, 'device': 12288, 'amplification': 12288.0},
-        '10B':   {'app': 17788, 'os': 8192, 'device': 12288, 'amplification': 1228.8},
-        '100B':  {'app': 5770, 'os': 8192, 'device': 12288, 'amplification': 122.9},
-        '1KB':   {'app': 17873, 'os': 8192, 'device': 12288, 'amplification': 12.0},
-        '10KB':  {'app': 12288, 'os': 4096, 'device': 8192, 'amplification': 0.8},
-        '100KB': {'app': 119257, 'os': 4096, 'device': 86016, 'amplification': 0.8},
-        '1MB':   {'app': 25352, 'os': 16384, 'device': 544768, 'amplification': 0.5},
-        '10MB':  {'app': 4212269, 'os': 8192, 'device': 6094848, 'amplification': 0.6},
-        '100MB': {'app': 32674110, 'os': 10592256, 'device': 62578688, 'amplification': 0.6}
+def parse_ebpf_trace(filepath):
+    """Parse eBPF trace file for metrics"""
+    metrics = {
+        'app_bytes': 0,
+        'os_bytes': 0,
+        'device_bytes': 0,
+        'amplification': 0
     }
-}
+    
+    try:
+        with open(filepath, 'r') as f:
+            content = f.read()
+            
+            # Look for aggregate statistics section
+            if 'AGGREGATE STATISTICS' in content or 'Application layer:' in content:
+                # Extract application bytes
+                app_match = re.search(r'Application layer:\s+(\d+)\s+bytes', content)
+                if app_match:
+                    metrics['app_bytes'] = int(app_match.group(1))
+                
+                # Extract OS bytes
+                os_match = re.search(r'OS layer:\s+(\d+)\s+bytes', content)
+                if os_match:
+                    metrics['os_bytes'] = int(os_match.group(1))
+                
+                # Extract device bytes
+                device_match = re.search(r'Device layer:\s+(\d+)\s+bytes', content)
+                if device_match:
+                    metrics['device_bytes'] = int(device_match.group(1))
+                
+                # Extract amplification
+                amp_match = re.search(r'TOTAL AMPLIFICATION:\s+([\d.]+)x', content)
+                if amp_match:
+                    metrics['amplification'] = float(amp_match.group(1))
+    except Exception as e:
+        print(f"Error parsing eBPF file {filepath}: {e}", file=sys.stderr)
+    
+    return metrics
 
-# From your strace results
-STRACE_RESULTS = {
-    'write': {
-        '1B':    {'xl_meta': 4, 'part_files': 0, 'syscalls': 422},
-        '10B':   {'xl_meta': 29, 'part_files': 0, 'syscalls': 1021},
-        '100B':  {'xl_meta': 4, 'part_files': 0, 'syscalls': 891},
-        '1KB':   {'xl_meta': 4, 'part_files': 0, 'syscalls': 394},
-        '10KB':  {'xl_meta': 4, 'part_files': 0, 'syscalls': 400},
-        '100KB': {'xl_meta': 4, 'part_files': 0, 'syscalls': 352},
-        '1MB':   {'xl_meta': 4, 'part_files': 1, 'syscalls': 550},
-        '10MB':  {'xl_meta': 11, 'part_files': 14, 'syscalls': 1241},
-    },
-    'read': {
-        '1B':    {'xl_meta': 2, 'part_files': 0, 'syscalls': 398},
-        '10B':   {'xl_meta': 2, 'part_files': 0, 'syscalls': 398},
-        '100B':  {'xl_meta': 2, 'part_files': 0, 'syscalls': 417},
-        '1KB':   {'xl_meta': 2, 'part_files': 0, 'syscalls': 378},
-        '10KB':  {'xl_meta': 37, 'part_files': 0, 'syscalls': 1671},
-        '100KB': {'xl_meta': 2, 'part_files': 0, 'syscalls': 413},
-        '1MB':   {'xl_meta': 2, 'part_files': 1, 'syscalls': 487},
-        '10MB':  {'xl_meta': 3, 'part_files': 2, 'syscalls': 1216},
+def parse_strace_file(filepath):
+    """Parse strace file for syscall metrics"""
+    metrics = {
+        'syscall_writes': 0,
+        'syscall_reads': 0,
+        'xl_meta_ops': 0,
+        'part_files': 0,
+        'write_calls': 0,
+        'read_calls': 0,
+        'pwrite_calls': 0,
+        'pread_calls': 0,
+        'files_accessed': set(),
+        'fd_to_file': {}
     }
-}
+    
+    try:
+        with open(filepath, 'r') as f:
+            for line in f:
+                # Track file opens
+                if 'openat(' in line or 'open(' in line:
+                    fd_match = re.search(r'= (\d+)', line)
+                    path_match = re.search(r'"([^"]+)"', line)
+                    
+                    if fd_match and path_match:
+                        fd_val = int(fd_match.group(1))
+                        if fd_val >= 0:
+                            fd = str(fd_val)
+                            path = path_match.group(1)
+                            metrics['fd_to_file'][fd] = path
+                            metrics['files_accessed'].add(path)
+                            
+                            if 'xl.meta' in path:
+                                metrics['xl_meta_ops'] += 1
+                            if '/part.' in path or 'part-' in path:
+                                metrics['part_files'] += 1
+                
+                # Parse write syscalls
+                if 'write(' in line and '= ' in line:
+                    match = re.search(r'write\((\d+),.*?\)\s*=\s*(\d+)', line)
+                    if match:
+                        bytes_written = int(match.group(2))
+                        if bytes_written > 0:
+                            metrics['syscall_writes'] += bytes_written
+                            metrics['write_calls'] += 1
+                
+                # Parse pwrite64 syscalls
+                if 'pwrite64(' in line and '= ' in line:
+                    match = re.search(r'pwrite64\((\d+),.*?\)\s*=\s*(\d+)', line)
+                    if match:
+                        bytes_written = int(match.group(2))
+                        if bytes_written > 0:
+                            metrics['syscall_writes'] += bytes_written
+                            metrics['pwrite_calls'] += 1
+                
+                # Parse read syscalls
+                if 'read(' in line and '= ' in line and 'bread' not in line:
+                    match = re.search(r'read\((\d+),.*?\)\s*=\s*(\d+)', line)
+                    if match:
+                        bytes_read = int(match.group(2))
+                        if bytes_read > 0:
+                            metrics['syscall_reads'] += bytes_read
+                            metrics['read_calls'] += 1
+                
+                # Parse pread64 syscalls
+                if 'pread64(' in line and '= ' in line:
+                    match = re.search(r'pread64\((\d+),.*?\)\s*=\s*(\d+)', line)
+                    if match:
+                        bytes_read = int(match.group(2))
+                        if bytes_read > 0:
+                            metrics['syscall_reads'] += bytes_read
+                            metrics['pread_calls'] += 1
+                            
+    except Exception as e:
+        print(f"Error parsing strace file {filepath}: {e}", file=sys.stderr)
+    
+    return metrics
 
-def analyze_combined_results():
-    """Compare eBPF and strace results"""
-
+def analyze_directories(ebpf_dir, strace_dir):
+    """Analyze both eBPF and strace directories"""
+    
     sizes = {
         '1B': 1, '10B': 10, '100B': 100, '1KB': 1024, '10KB': 10240,
         '100KB': 102400, '1MB': 1048576, '10MB': 10485760, '100MB': 104857600
     }
-
-    print("=" * 100)
-    print("COMBINED EBPF AND STRACE ANALYSIS")
-    print("=" * 100)
+    
+    print("=" * 120)
+    print("COMPLETE I/O ANALYSIS: eBPF + STRACE")
+    print(f"eBPF Directory: {ebpf_dir}")
+    print(f"Strace Directory: {strace_dir}")
+    print("=" * 120)
     print()
-    print("Key Definitions:")
-    print("  • I/O Amplification = Device Layer Bytes (eBPF) / Object Size")
-    print("  • This is the ACTUAL amplification at the block device level")
-    print("  • strace shows the syscall path and metadata operations")
+    print("I/O Path: Application Request → MinIO Syscalls → Filesystem Layer → Block Device")
     print()
-
-    # Summary table
-    print("─" * 100)
-    print(f"{'Size':>6} │ {'Object':>10} │ {'Device I/O':>12} │ {'I/O Amp':>10} │ {'xl.meta':>8} │ {'Syscalls':>8} │ {'Insight':>30}")
-    print("─" * 100)
-
+    
+    # Process each size
     for size_name, size_bytes in sizes.items():
-        if size_name not in EBPF_RESULTS['write']:
-            continue
-
-        w_ebpf = EBPF_RESULTS['write'][size_name]
-        w_strace = STRACE_RESULTS['write'].get(size_name, {})
-
-        # Calculate true I/O amplification
-        true_amp = w_ebpf['device'] / size_bytes
-
-        # Determine insight
-        if w_strace.get('xl_meta', 0) > 4:
-            insight = f"High metadata overhead ({w_strace['xl_meta']} ops)"
-        elif w_strace.get('part_files', 0) > 0:
-            insight = f"Uses erasure coding ({w_strace['part_files']} parts)"
-        elif true_amp > 100:
-            insight = "Extreme amplification from metadata"
-        elif true_amp > 10:
-            insight = "High amplification"
+        print(f"\n{'='*120}")
+        print(f"{size_name} ({size_bytes:,} bytes)")
+        print('='*120)
+        
+        # Find eBPF files
+        ebpf_write = None
+        ebpf_read = None
+        
+        # Try different possible paths for eBPF traces
+        for subdir in ['write_traces', 'write', 'traces']:
+            path = Path(ebpf_dir) / subdir / f'{size_name}_write.log'
+            if not path.exists():
+                path = Path(ebpf_dir) / subdir / f'{size_name}_write.trace'
+            if path.exists():
+                ebpf_write = path
+                break
+        
+        for subdir in ['read_traces', 'read', 'traces']:
+            path = Path(ebpf_dir) / subdir / f'{size_name}_read.log'
+            if not path.exists():
+                path = Path(ebpf_dir) / subdir / f'{size_name}_read.trace'
+            if path.exists():
+                ebpf_read = path
+                break
+        
+        # Find strace files
+        strace_write = Path(strace_dir) / 'write' / f'{size_name}_write.strace'
+        strace_read = Path(strace_dir) / 'read' / f'{size_name}_read.strace'
+        
+        # WRITE OPERATION ANALYSIS
+        print("\n" + "─"*80)
+        print("WRITE OPERATION")
+        print("─"*80)
+        
+        if ebpf_write and ebpf_write.exists() and strace_write.exists():
+            ebpf_metrics = parse_ebpf_trace(ebpf_write)
+            strace_metrics = parse_strace_file(strace_write)
+            
+            print(f"\n1. APPLICATION LAYER (eBPF):")
+            print(f"   Request size:        {size_bytes:,} bytes")
+            print(f"   Application bytes:   {ebpf_metrics['app_bytes']:,} bytes (includes protocol overhead)")
+            
+            print(f"\n2. SYSCALL LAYER (strace):")
+            print(f"   Syscall writes:      {strace_metrics['syscall_writes']:,} bytes")
+            print(f"   Syscall reads:       {strace_metrics['syscall_reads']:,} bytes")
+            print(f"   Total syscall I/O:   {strace_metrics['syscall_writes'] + strace_metrics['syscall_reads']:,} bytes")
+            print(f"   write() calls:       {strace_metrics['write_calls']}")
+            print(f"   pwrite64() calls:    {strace_metrics['pwrite_calls']}")
+            print(f"   xl.meta operations:  {strace_metrics['xl_meta_ops']}")
+            print(f"   Part files:          {strace_metrics['part_files']}")
+            
+            print(f"\n3. OS LAYER (eBPF):")
+            print(f"   OS layer bytes:      {ebpf_metrics['os_bytes']:,} bytes")
+            
+            print(f"\n4. DEVICE LAYER (eBPF):")
+            print(f"   Device I/O:          {ebpf_metrics['device_bytes']:,} bytes")
+            print(f"   Block amplification: {ebpf_metrics['device_bytes']/size_bytes:.2f}x")
+            
+            print(f"\n5. AMPLIFICATION BREAKDOWN:")
+            syscall_amp = (strace_metrics['syscall_writes'] + strace_metrics['syscall_reads']) / size_bytes if size_bytes > 0 else 0
+            device_amp = ebpf_metrics['device_bytes'] / size_bytes if size_bytes > 0 else 0
+            
+            print(f"   Syscall amplification: {syscall_amp:.2f}x (what MinIO requests)")
+            print(f"   Device amplification:  {device_amp:.2f}x (what hits disk)")
+            print(f"   Gap factor:           {device_amp/syscall_amp if syscall_amp > 0 else 0:.2f}x (filesystem overhead)")
+            
+            # Explain the gap
+            if ebpf_metrics['device_bytes'] > (strace_metrics['syscall_writes'] + strace_metrics['syscall_reads']):
+                gap = ebpf_metrics['device_bytes'] - (strace_metrics['syscall_writes'] + strace_metrics['syscall_reads'])
+                print(f"\n   EXPLANATION:")
+                print(f"   - MinIO wrote {strace_metrics['syscall_writes']:,} bytes via syscalls")
+                print(f"   - Filesystem wrote {ebpf_metrics['device_bytes']:,} bytes to disk")
+                print(f"   - Gap of {gap:,} bytes due to:")
+                if size_bytes <= 4096:
+                    print(f"     * Minimum block size (4KB)")
+                    print(f"     * Metadata blocks for xl.meta files")
+                else:
+                    print(f"     * Block alignment and filesystem metadata")
         else:
-            insight = "Normal operation"
-
-        print(f"{size_name:>6} │ {size_bytes:>10,} │ {w_ebpf['device']:>12,} │ {true_amp:>10.1f}x │ "
-              f"{w_strace.get('xl_meta', 0):>8} │ {w_strace.get('syscalls', 0):>8} │ {insight:>30}")
-
-    print("─" * 100)
-
-    # Detailed analysis per size
-    print("\n" + "=" * 100)
-    print("DETAILED ANALYSIS BY SIZE")
-    print("=" * 100)
-
+            print(f"   Missing files - eBPF: {ebpf_write}, strace: {strace_write}")
+        
+        # READ OPERATION ANALYSIS
+        print("\n" + "─"*80)
+        print("READ OPERATION")
+        print("─"*80)
+        
+        if ebpf_read and ebpf_read.exists() and strace_read.exists():
+            ebpf_metrics = parse_ebpf_trace(ebpf_read)
+            strace_metrics = parse_strace_file(strace_read)
+            
+            print(f"\n1. APPLICATION LAYER (eBPF):")
+            print(f"   Request size:        {size_bytes:,} bytes")
+            print(f"   Application bytes:   {ebpf_metrics['app_bytes']:,} bytes")
+            
+            print(f"\n2. SYSCALL LAYER (strace):")
+            print(f"   Syscall reads:       {strace_metrics['syscall_reads']:,} bytes")
+            print(f"   Syscall writes:      {strace_metrics['syscall_writes']:,} bytes")
+            print(f"   Total syscall I/O:   {strace_metrics['syscall_reads'] + strace_metrics['syscall_writes']:,} bytes")
+            print(f"   read() calls:        {strace_metrics['read_calls']}")
+            print(f"   pread64() calls:     {strace_metrics['pread_calls']}")
+            print(f"   xl.meta operations:  {strace_metrics['xl_meta_ops']}")
+            
+            print(f"\n3. OS LAYER (eBPF):")
+            print(f"   OS layer bytes:      {ebpf_metrics['os_bytes']:,} bytes")
+            
+            print(f"\n4. DEVICE LAYER (eBPF):")
+            print(f"   Device I/O:          {ebpf_metrics['device_bytes']:,} bytes")
+            print(f"   Block amplification: {ebpf_metrics['device_bytes']/size_bytes:.2f}x")
+            
+            print(f"\n5. AMPLIFICATION BREAKDOWN:")
+            syscall_amp = (strace_metrics['syscall_reads'] + strace_metrics['syscall_writes']) / size_bytes if size_bytes > 0 else 0
+            device_amp = ebpf_metrics['device_bytes'] / size_bytes if size_bytes > 0 else 0
+            
+            print(f"   Syscall amplification: {syscall_amp:.2f}x")
+            print(f"   Device amplification:  {device_amp:.2f}x")
+            print(f"   Gap factor:           {device_amp/syscall_amp if syscall_amp > 0 else 0:.2f}x")
+    
+    # Summary table
+    print("\n" + "=" * 120)
+    print("SUMMARY TABLE")
+    print("=" * 120)
+    print()
+    print(f"{'Size':>6} | {'──────── WRITE ────────'} | {'──────── READ ────────'}")
+    print(f"{'':>6} | {'Syscalls':>10} {'Device':>10} {'Amp':>8} | {'Syscalls':>10} {'Device':>10} {'Amp':>8}")
+    print("-" * 70)
+    
     for size_name, size_bytes in sizes.items():
-        if size_name not in EBPF_RESULTS['write']:
-            continue
-
-        print(f"\n{size_name} ({size_bytes:,} bytes)")
-        print("─" * 60)
-
-        # Write analysis
-        w_ebpf = EBPF_RESULTS['write'][size_name]
-        w_strace = STRACE_RESULTS['write'].get(size_name, {})
-
-        print("WRITE Operation:")
-        print(f"  eBPF Measurements:")
-        print(f"    Application: {w_ebpf['app']:,} bytes")
-        print(f"    OS Layer:    {w_ebpf['os']:,} bytes")
-        print(f"    Device I/O:  {w_ebpf['device']:,} bytes")
-        print(f"    → True I/O Amplification: {w_ebpf['device']/size_bytes:.1f}x")
-
-        print(f"  strace Analysis:")
-        print(f"    xl.meta operations: {w_strace.get('xl_meta', 0)}")
-        print(f"    Part files:        {w_strace.get('part_files', 0)}")
-        print(f"    Total syscalls:    {w_strace.get('syscalls', 0)}")
-
-        # Metadata overhead estimation
-        if w_strace.get('xl_meta', 0) > 0:
-            estimated_metadata = w_strace['xl_meta'] * 4096  # Assume 4KB per xl.meta
-            print(f"    Estimated metadata overhead: {estimated_metadata:,} bytes")
-
-        # Read analysis
-        if size_name in EBPF_RESULTS['read']:
-            r_ebpf = EBPF_RESULTS['read'][size_name]
-            r_strace = STRACE_RESULTS['read'].get(size_name, {})
-
-            print("\nREAD Operation:")
-            print(f"  eBPF Measurements:")
-            print(f"    Application: {r_ebpf['app']:,} bytes")
-            print(f"    OS Layer:    {r_ebpf['os']:,} bytes")
-            print(f"    Device I/O:  {r_ebpf['device']:,} bytes")
-            print(f"    → True I/O Amplification: {r_ebpf['device']/size_bytes:.1f}x")
-
-            print(f"  strace Analysis:")
-            print(f"    xl.meta operations: {r_strace.get('xl_meta', 0)}")
-            print(f"    Part files:        {r_strace.get('part_files', 0)}")
-            print(f"    Total syscalls:    {r_strace.get('syscalls', 0)}")
-
-    # Key findings
-    print("\n" + "=" * 100)
-    print("KEY FINDINGS")
-    print("=" * 100)
-
-    print("\n1. EXTREME AMPLIFICATION FOR SMALL OBJECTS:")
-    print("   • 1B write: 8,192x amplification (8KB written to device)")
-    print("   • This is due to minimum block size and metadata overhead")
-    print("   • strace shows 4 xl.meta operations, each likely 4KB")
-
-    print("\n2. METADATA OVERHEAD PATTERNS:")
-    print("   • Small objects (≤1KB): Consistent 4 xl.meta operations")
-    print("   • 10B anomaly: 29 xl.meta operations (needs investigation)")
-    print("   • 10KB read anomaly: 37 xl.meta operations (cache miss?)")
-
-    print("\n3. ERASURE CODING THRESHOLD:")
-    print("   • Starts at 1MB: Part files appear")
-    print("   • 10MB: 14 part files with 11 xl.meta operations")
-    print("   • This explains the lower amplification for large objects")
-
-    print("\n4. AMPLIFICATION TRENDS:")
-    print("   • Small objects (≤1KB): 12x-8192x amplification")
-    print("   • Medium objects (10KB-100KB): 2-3x amplification")
-    print("   • Large objects (≥1MB): <1x amplification (compression?)")
-
-    print("\n5. SYSCALL vs DEVICE I/O:")
-    print("   • eBPF app bytes include HTTP/protocol overhead")
-    print("   • Device I/O is the actual disk writes (submit_bio)")
-    print("   • strace helps identify the syscall path between them")
+        # Parse files again for summary
+        ebpf_write = None
+        ebpf_read = None
+        for subdir in ['write_traces', 'write', 'traces']:
+            path = Path(ebpf_dir) / subdir / f'{size_name}_write.log'
+            if not path.exists():
+                path = Path(ebpf_dir) / subdir / f'{size_name}_write.trace'
+            if path.exists():
+                ebpf_write = path
+                break
+        
+        for subdir in ['read_traces', 'read', 'traces']:
+            path = Path(ebpf_dir) / subdir / f'{size_name}_read.log'
+            if not path.exists():
+                path = Path(ebpf_dir) / subdir / f'{size_name}_read.trace'
+            if path.exists():
+                ebpf_read = path
+                break
+        
+        strace_write = Path(strace_dir) / 'write' / f'{size_name}_write.strace'
+        strace_read = Path(strace_dir) / 'read' / f'{size_name}_read.strace'
+        
+        if ebpf_write and ebpf_write.exists() and strace_write.exists() and \
+           ebpf_read and ebpf_read.exists() and strace_read.exists():
+            
+            w_ebpf = parse_ebpf_trace(ebpf_write)
+            w_strace = parse_strace_file(strace_write)
+            r_ebpf = parse_ebpf_trace(ebpf_read)
+            r_strace = parse_strace_file(strace_read)
+            
+            w_syscalls = w_strace['syscall_writes'] + w_strace['syscall_reads']
+            r_syscalls = r_strace['syscall_reads'] + r_strace['syscall_writes']
+            w_amp = w_ebpf['device_bytes'] / size_bytes if size_bytes > 0 else 0
+            r_amp = r_ebpf['device_bytes'] / size_bytes if size_bytes > 0 else 0
+            
+            print(f"{size_name:>6} | {w_syscalls:>10,} {w_ebpf['device_bytes']:>10,} {w_amp:>8.1f}x | "
+                  f"{r_syscalls:>10,} {r_ebpf['device_bytes']:>10,} {r_amp:>8.1f}x")
 
 if __name__ == "__main__":
-    analyze_combined_results()
+    if len(sys.argv) > 2:
+        ebpf_dir = sys.argv[1]
+        strace_dir = sys.argv[2]
+    else:
+        # Try to find directories
+        import glob
+        ebpf_dirs = sorted(glob.glob("*rw_results_*"))
+        strace_dirs = sorted(glob.glob("strace_capture_*"))
+        
+        if ebpf_dirs and strace_dirs:
+            ebpf_dir = ebpf_dirs[-1]
+            strace_dir = strace_dirs[-1]
+            print(f"Using eBPF dir: {ebpf_dir}")
+            print(f"Using strace dir: {strace_dir}")
+        else:
+            print("Usage: python3 complete_io_analysis.py <ebpf_dir> <strace_dir>")
+            print("Example: python3 complete_io_analysis.py separate_rw_results_20250924_143255 strace_capture_20250924_161320")
+            sys.exit(1)
+    
+    analyze_directories(ebpf_dir, strace_dir)
+
+

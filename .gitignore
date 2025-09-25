@@ -2,3 +2,12 @@ build/*
 
 *.txt
 
+accurate_io_*/
+combined_analysis_*/
+filtered_rw_results_*/
+minio_test_results_*/
+separate_rw_results_*/
+strace_capture_*/
+syscall_analysis_*/
+working_analysis_*/
+
